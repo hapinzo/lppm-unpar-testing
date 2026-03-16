@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layanan - LPPM UNPAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-slate-50 text-gray-800 antialiased">
+<div id="header-placeholder"></div>
+    <section class="bg-gradient-to-br from-[#0b3832] to-[#015850] text-white py-16 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 w-full h-full opacity-10" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 32px 32px;"></div>
+        <div class="max-w-[1200px] mx-auto text-center relative z-10">
+            <h1 class="text-4xl md:text-5xl font-black mb-4 tracking-tight">Katalog Layanan LPPM</h1>
+            <p class="text-lg md:text-xl text-green-100 max-w-2xl mx-auto">
+                Pilih layanan spesifik di bawah ini untuk melihat prosedur, panduan, dan format dokumen yang Anda butuhkan.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-20 px-6 bg-slate-50 border-b border-gray-100">
+        <div class="max-w-[1200px] mx-auto">
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <a href="Skema-Penelitian-Internal.html" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 hover:border-[#015850] hover:shadow-xl transition-all group flex flex-col h-full text-center relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-[#015850] scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                    <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-xl mx-auto mb-4 group-hover:bg-[#015850] group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-microscope"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#015850] transition-colors leading-snug">Skema Penelitian Internal</h4>
+                    <p class="text-xs text-gray-500 leading-relaxed mb-4">
+                        Informasi pendanaan, panduan pengajuan, luaran, dan pelaporan hibah penelitian mandiri UNPAR.
+                    </p>
+                    <span class="mt-auto text-[11px] font-bold text-[#015850] uppercase tracking-widest flex items-center justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        Lihat Panduan <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </a>
+
+                <a href="Skema-Pengabdian-Internal.html" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 hover:border-[#015850] hover:shadow-xl transition-all group flex flex-col h-full text-center relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-[#015850] scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                    <div class="w-14 h-14 bg-green-50 text-green-600 rounded-full flex items-center justify-center text-xl mx-auto mb-4 group-hover:bg-[#015850] group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-hands-holding-child"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#015850] transition-colors leading-snug">Skema Pengabdian Internal</h4>
+                    <p class="text-xs text-gray-500 leading-relaxed mb-4">
+                        Prosedur pengajuan program pemberdayaan masyarakat dan aplikasi hilirisasi teknologi.
+                    </p>
+                    <span class="mt-auto text-[11px] font-bold text-[#015850] uppercase tracking-widest flex items-center justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        Lihat Panduan <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </a>
+
+                <a href="Skema-Eksternal-Penelitian-dan-Pengabdian.html" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 hover:border-[#015850] hover:shadow-xl transition-all group flex flex-col h-full text-center relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-[#015850] scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                    <div class="w-14 h-14 bg-cyan-50 text-cyan-600 rounded-full flex items-center justify-center text-xl mx-auto mb-4 group-hover:bg-[#015850] group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#015850] transition-colors leading-snug">Skema Eksternal (Penelitian & Pengabdian)</h4>
+                    <p class="text-xs text-gray-500 leading-relaxed mb-4">
+                        Dukungan administrasi untuk hibah BIMA Kemdikbud, BRIN, dan instansi pendanaan luar lainnya.
+                    </p>
+                    <span class="mt-auto text-[11px] font-bold text-[#015850] uppercase tracking-widest flex items-center justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        Lihat Panduan <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </a>
+
+                <a href="Layanan-Klirens-Etik.html" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 hover:border-[#015850] hover:shadow-xl transition-all group flex flex-col h-full text-center relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-[#015850] scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                    <div class="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center text-xl mx-auto mb-4 group-hover:bg-[#015850] group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-file-shield"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#015850] transition-colors leading-snug">Klirens Etik (Ethical Clearance)</h4>
+                    <p class="text-xs text-gray-500 leading-relaxed mb-4">
+                        Pendaftaran dan penilaian kelayakan etik penelitian yang melibatkan subjek manusia atau hewan.
+                    </p>
+                    <span class="mt-auto text-[11px] font-bold text-[#015850] uppercase tracking-widest flex items-center justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        Ajukan Etik <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </a>
+
+                <a href="Layanan-Penajari.html" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 hover:border-[#015850] hover:shadow-xl transition-all group flex flex-col h-full text-center relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-[#015850] scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                    <div class="w-14 h-14 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center text-xl mx-auto mb-4 group-hover:bg-[#015850] group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#015850] transition-colors leading-snug">PenAJari (Klinik Publikasi)</h4>
+                    <p class="text-xs text-gray-500 leading-relaxed mb-4">
+                        Layanan pendampingan penulisan artikel (proofreading, translation) menuju jurnal bereputasi internasional.
+                    </p>
+                    <span class="mt-auto text-[11px] font-bold text-[#015850] uppercase tracking-widest flex items-center justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        Daftar PenAJari <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </a>
+
+                <a href="Layanan-Pertemuan-Ilmiah.html" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 hover:border-[#015850] hover:shadow-xl transition-all group flex flex-col h-full text-center relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-[#015850] scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                    <div class="w-14 h-14 bg-teal-50 text-teal-600 rounded-full flex items-center justify-center text-xl mx-auto mb-4 group-hover:bg-[#015850] group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-users-rectangle"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#015850] transition-colors leading-snug">Pertemuan Ilmiah</h4>
+                    <p class="text-xs text-gray-500 leading-relaxed mb-4">
+                        Bantuan dana dan fasilitasi keikutsertaan dosen dalam seminar, konferensi, atau simposium.
+                    </p>
+                    <span class="mt-auto text-[11px] font-bold text-[#015850] uppercase tracking-widest flex items-center justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        Lihat Panduan <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </a>
+
+                <a href="Layanan-Hak-Kekayaan-Intelektual.html" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 hover:border-yellow-400 hover:shadow-xl transition-all group flex flex-col h-full text-center relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-yellow-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                    <div class="w-14 h-14 bg-yellow-50 text-yellow-600 rounded-full flex items-center justify-center text-xl mx-auto mb-4 group-hover:bg-yellow-400 group-hover:text-[#015850] transition-colors">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#015850] transition-colors leading-snug">Hak Kekayaan Intelektual</h4>
+                    <p class="text-xs text-gray-500 leading-relaxed mb-4">
+                        Fasilitasi pendaftaran Hak Cipta, Paten, Merek, dan Desain Industri melalui Sentra HKI UNPAR.
+                    </p>
+                    <span class="mt-auto text-[11px] font-bold text-yellow-600 uppercase tracking-widest flex items-center justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        Kunjungi Sentra HKI <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </a>
+
+                <a href="Layanan-Pusat-Studi.html" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 hover:border-[#015850] hover:shadow-xl transition-all group flex flex-col h-full text-center relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-[#015850] scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                    <div class="w-14 h-14 bg-orange-50 text-orange-600 rounded-full flex items-center justify-center text-xl mx-auto mb-4 group-hover:bg-[#015850] group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-diagram-project"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#015850] transition-colors leading-snug">Pusat Studi</h4>
+                    <p class="text-xs text-gray-500 leading-relaxed mb-4">
+                        Informasi pendirian, evaluasi kinerja, dan pengelolaan operasional Pusat Studi di lingkungan UNPAR.
+                    </p>
+                    <span class="mt-auto text-[11px] font-bold text-[#015850] uppercase tracking-widest flex items-center justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        Info Pusat Studi <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-6 bg-white border-b border-gray-100">
+        <div class="max-w-[1200px] mx-auto">
+            
+            <div class="flex flex-col md:flex-row justify-between items-end mb-10 border-b border-gray-200 pb-4">
+                <div>
+                    <h3 class="text-2xl font-black text-gray-900">Sistem Informasi Terintegrasi</h3>
+                    <p class="text-sm text-gray-500 mt-1">Akses cepat ke portal tata kelola penelitian dan pangkalan data.</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <a href="https://penamas.unpar.ac.id" class="flex items-center gap-5 p-5 bg-gradient-to-r from-[#015850] to-[#0b3832] text-white rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all group">
+                    <div class="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center text-2xl shrink-0 border border-white/30 group-hover:bg-yellow-400 group-hover:text-[#015850] group-hover:border-yellow-400 transition-colors">
+                        <i class="fa-solid fa-desktop"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg mb-0.5">Portal PENAMAS</h4>
+                        <p class="text-[11px] text-green-100">Sistem Informasi LPPM UNPAR</p>
+                    </div>
+                </a>
+
+                <a href="https://sinta.kemdiktisaintek.go.id/" class="flex items-center gap-5 p-5 bg-blue-600 text-white rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all group">
+                    <div class="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center text-2xl shrink-0 border border-white/30">
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg mb-0.5">SINTA Kemdiktisaintek</h4>
+                        <p class="text-[11px] text-blue-100">Pembaruan profil pemeringkatan peneliti</p>
+                    </div>
+                </a>
+
+                <a href="https://bima.kemdiktisaintek.go.id/" class="flex items-center gap-5 p-5 bg-slate-800 text-white rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all group">
+                    <div class="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center text-2xl shrink-0 border border-white/30">
+                        <i class="fa-solid fa-magnifying-glass-chart"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg mb-0.5">BIMA Kemdiktisaintek</h4>
+                        <p class="text-[11px] text-slate-300">Pengajuan hibah penelitian eksternal</p>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-20 px-6 bg-slate-50">
+        <div class="max-w-[1000px] mx-auto bg-white border border-gray-200 rounded-3xl p-8 md:p-12 shadow-sm">
+            
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-green-50 text-[#015850] rounded-full text-3xl mb-4 shadow-inner">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <h3 class="text-3xl font-black text-gray-900 mb-3">Butuh Bantuan Langsung?</h3>
+                <p class="text-gray-500 text-sm max-w-lg mx-auto">Tim Tata Usaha LPPM siap membantu menjawab pertanyaan Anda terkait administrasi dan layanan teknis lainnya.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                
+                <a href="mailto:lppm@unpar.ac.id" class="flex flex-col items-center text-center p-6 bg-white border border-gray-200 hover:border-red-400 hover:bg-red-50 rounded-2xl transition-all hover:shadow-md group">
+                    <div class="w-14 h-14 bg-red-50 text-red-500 group-hover:bg-red-100 rounded-full flex items-center justify-center text-2xl mb-4 transition-colors">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-900 mb-1">Email Resmi</h4>
+                    <p class="text-xs text-gray-500 mb-3">Kirimkan persuratan atau pertanyaan resmi.</p>
+                    <span class="text-sm font-bold text-red-600 mt-auto">lppm@unpar.ac.id</span>
+                </a>
+
+                <a href="#" class="flex flex-col items-center text-center p-6 bg-white border border-gray-200 hover:border-green-500 hover:bg-green-50 rounded-2xl transition-all hover:shadow-md group">
+                    <div class="w-14 h-14 bg-green-50 text-green-600 group-hover:bg-green-200 rounded-full flex items-center justify-center text-2xl mb-4 transition-colors">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-900 mb-1">Hotline / Telepon</h4>
+                    <p class="text-xs text-gray-500 mb-3">Layanan respon cepat di jam kerja operasional.</p>
+                    <span class="text-sm font-bold text-green-600 mt-auto">(022) 203 2655</span>
+                </a>
+
+                <a href="https://instagram.com/lppm.unpar" target="_blank" class="flex flex-col items-center text-center p-6 bg-white border border-gray-200 hover:border-pink-400 hover:bg-pink-50 rounded-2xl transition-all hover:shadow-md group">
+                    <div class="w-14 h-14 bg-pink-50 text-pink-500 group-hover:bg-pink-100 rounded-full flex items-center justify-center text-2xl mb-4 transition-colors">
+                        <i class="fa-brands fa-instagram"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-900 mb-1">Instagram LPPM</h4>
+                    <p class="text-xs text-gray-500 mb-3">Informasi kegiatan, pengumuman hibah & tips.</p>
+                    <span class="text-sm font-bold text-pink-500 mt-auto">@lppm.unpar</span>
+                </a>
+
+            </div>
+
+        </div>
+    </section>
+
+<div id="footer-placeholder"></div>
+
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+</body>
+</html>

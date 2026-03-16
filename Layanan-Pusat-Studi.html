@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pusat Studi - LPPM UNPAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-slate-50 text-gray-800 antialiased" x-data="appData()">
+
+    <div id="header-placeholder"></div>
+    <section class="bg-white border-b border-gray-200 py-10 px-6">
+        <div class="max-w-[1400px] mx-auto">
+            <div class="flex items-center gap-3 text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">
+                <a href="Beranda.html" class="hover:text-[#015850]">Beranda</a>
+                <span>/</span>
+                <a href="Layanan.html" class="hover:text-[#015850]">Layanan</a>
+                <span>/</span>
+                <span class="text-[#015850]">Pusat Studi</span>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">Layanan Pusat Studi</h1>
+            <p class="text-gray-500 mt-3 max-w-2xl text-sm leading-relaxed">
+                Panduan tata kelola, pendirian, evaluasi, dan restrukturisasi unit Pusat Studi di lingkungan Universitas Katolik Parahyangan.
+            </p>
+        </div>
+    </section>
+
+    <main class="py-12 px-6 max-w-[1400px] mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            
+            <div class="lg:col-span-3 space-y-8 sticky top-32">
+                <template x-for="category in categories" :key="category.title">
+                    <div>
+                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4" x-text="category.title"></h3>
+                        <div class="space-y-2">
+                            <template x-for="menuId in category.menus" :key="menuId">
+                                <button 
+                                    @click="activeMenu = menuId"
+                                    :class="activeMenu === menuId ? 'bg-[#015850] text-white shadow-md' : 'bg-white text-gray-600 hover:bg-gray-50 hover:text-[#015850] border border-gray-100'"
+                                    class="w-full text-left px-5 py-3.5 rounded-xl font-semibold text-sm transition-all flex justify-between items-center group">
+                                    <span x-text="menus[menuId].name"></span>
+                                    <i class="fa-solid fa-chevron-right text-[10px]" :class="activeMenu === menuId ? 'text-yellow-400' : 'text-gray-300 group-hover:text-[#015850]'"></i>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <div class="lg:col-span-6 space-y-8">
+                <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm" x-transition>
+                    <h2 class="text-2xl font-extrabold text-gray-900 mb-2" x-text="current.name"></h2>
+                    <p class="text-gray-500 text-sm mb-8 leading-relaxed" x-text="current.description"></p>
+
+                    <div class="space-y-8">
+                        <template x-for="section in current.sections" :key="section.title">
+                            <div>
+                                <h3 class="flex items-center gap-2 text-sm font-bold text-[#015850] uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">
+                                    <i class="fa-solid" :class="section.icon"></i> <span x-text="section.title"></span>
+                                </h3>
+                                <ul class="space-y-3">
+                                    <template x-for="item in section.items">
+                                        <li class="flex items-start gap-3 text-sm text-gray-700">
+                                            <i class="fa-solid fa-check text-green-500 mt-1 text-xs"></i>
+                                            <span class="leading-relaxed" x-html="item"></span>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <template x-if="current.hasAlur">
+                    <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+                        <h3 class="text-lg font-bold text-gray-900 mb-6 border-b border-gray-100 pb-4">Alur Proses</h3>
+                        <div class="relative border-l-2 border-[#015850]/20 ml-3 space-y-8 py-2">
+                            <template x-for="(step, index) in current.alur">
+                                <div class="relative pl-8">
+                                    <div class="absolute -left-[17px] top-0 w-8 h-8 bg-[#015850] text-white rounded-full flex items-center justify-center font-bold text-xs shadow-md border-4 border-white" x-text="index + 1"></div>
+                                    <h4 class="font-bold text-gray-900 text-sm mb-1 mt-1" x-text="step.title"></h4>
+                                    <p class="text-sm text-gray-500 leading-relaxed" x-text="step.desc"></p>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <div class="lg:col-span-3 space-y-6">
+
+                <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+                    <h4 class="font-bold text-gray-900 text-xs uppercase tracking-widest mb-4 flex items-center gap-2 border-b border-gray-100 pb-3">
+                        <i class="fa-solid fa-folder-open text-[#015850]"></i> Formulir Unduhan
+                    </h4>
+                    <div class="space-y-2 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                        <a href="#" class="flex items-start gap-3 p-2 hover:bg-gray-50 rounded-lg transition-colors group">
+                            <i class="fa-solid fa-file-word text-blue-500 mt-0.5"></i>
+                            <div>
+                                <h5 class="text-[11px] font-bold text-gray-700 group-hover:text-[#015850]">F-0901 Pengusulan Pendirian</h5>
+                            </div>
+                        </a>
+                        <a href="#" class="flex items-start gap-3 p-2 hover:bg-gray-50 rounded-lg transition-colors group">
+                            <i class="fa-solid fa-file-word text-blue-500 mt-0.5"></i>
+                            <div>
+                                <h5 class="text-[11px] font-bold text-gray-700 group-hover:text-[#015850]">F-0902 Usulan Anggota</h5>
+                            </div>
+                        </a>
+                        <a href="#" class="flex items-start gap-3 p-2 hover:bg-gray-50 rounded-lg transition-colors group">
+                            <i class="fa-solid fa-file-word text-blue-500 mt-0.5"></i>
+                            <div>
+                                <h5 class="text-[11px] font-bold text-gray-700 group-hover:text-[#015850]">F-0903 Evaluasi Kinerja</h5>
+                            </div>
+                        </a>
+                        <a href="#" class="flex items-start gap-3 p-2 hover:bg-gray-50 rounded-lg transition-colors group">
+                            <i class="fa-solid fa-file-word text-blue-500 mt-0.5"></i>
+                            <div>
+                                <h5 class="text-[11px] font-bold text-gray-700 group-hover:text-[#015850]">F-0904 Usulan Penggabungan</h5>
+                            </div>
+                        </a>
+                        <a href="#" class="flex items-start gap-3 p-2 hover:bg-gray-50 rounded-lg transition-colors group">
+                            <i class="fa-solid fa-file-word text-blue-500 mt-0.5"></i>
+                            <div>
+                                <h5 class="text-[11px] font-bold text-gray-700 group-hover:text-[#015850]">F-0905 Perubahan Nama</h5>
+                            </div>
+                        </a>
+                        <a href="#" class="flex items-start gap-3 p-2 hover:bg-gray-50 rounded-lg transition-colors group">
+                            <i class="fa-solid fa-file-word text-blue-500 mt-0.5"></i>
+                            <div>
+                                <h5 class="text-[11px] font-bold text-gray-700 group-hover:text-[#015850]">F-0906 Usulan Ketua</h5>
+                            </div>
+                        </a>
+                        <a href="#" class="flex items-start gap-3 p-2 hover:bg-gray-50 rounded-lg transition-colors group">
+                            <i class="fa-solid fa-file-pdf text-red-500 mt-0.5"></i>
+                            <div>
+                                <h5 class="text-[11px] font-bold text-gray-700 group-hover:text-[#015850]">Prosedur P-09 (PDF)</h5>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+                    <h4 class="font-bold text-gray-900 text-xs uppercase tracking-widest mb-3">Pusat Bantuan</h4>
+                    <p class="text-xs text-gray-500 mb-4 leading-relaxed">Hubungi LPPM untuk konsultasi administratif Pusat Studi.</p>
+                    <div class="space-y-2 text-xs text-gray-600">
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-envelope w-4 text-gray-400"></i> lppm@unpar.ac.id</div>
+                        <div class="flex items-center gap-2"><i class="fa-brands fa-whatsapp w-4 text-gray-400"></i> +62 895 2201 7571</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+  <div id="footer-placeholder"></div>
+
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+    <script>
+        const serviceData = {
+            'pendirian': {
+                name: "Pendirian Pusat Studi",
+                description: "Ketentuan administratif dan prosedur pengajuan pembentukan Pusat Studi baru di lingkungan UNPAR.",
+                sections: [
+                    {
+                        title: "Persyaratan Pembentukan",
+                        icon: "fa-building-columns",
+                        items: [
+                            "Memiliki <strong>minimal 5 dosen tetap atau dosen kontrak</strong> sesuai dengan bidang keilmuan pusat studi.",
+                            "Memiliki <i>roadmap</i> penelitian dan pengabdian yang selaras dan mendukung roadmap universitas.",
+                            "Memiliki rencana kerja operasional pusat studi beserta indikator kinerja yang terukur.",
+                            "Mengusulkan kandidat Ketua Pusat Studi pada saat pendaftaran."
+                        ]
+                    }
+                ],
+                hasAlur: true,
+                alur: [
+                    { title: "Pengajuan Dokumen", desc: "Pengusul mengisi formulir (F-0901) dan menyampaikan dokumen kelengkapan kepada Dekan atau LPPM." },
+                    { title: "Verifikasi Kelengkapan", desc: "LPPM melakukan verifikasi administratif terhadap kelengkapan dokumen dan kesesuaian usulan." },
+                    { title: "Evaluasi Kelayakan", desc: "Tim evaluasi menilai kelayakan usulan pusat studi berdasarkan urgensi dan roadmap universitas." },
+                    { title: "Penerbitan Keputusan", desc: "Rektor menerbitkan Surat Keputusan (SK) atau dokumen legal pendirian pusat studi." },
+                    { title: "Pelaksanaan & Monitoring", desc: "Pusat studi mulai beroperasi menjalankan kegiatan Tridharma dan dievaluasi secara berkala." }
+                ]
+            },
+            'penetapan': {
+                name: "Penetapan Ketua & Anggota",
+                description: "Kriteria pengangkatan struktur organisasi Pusat Studi untuk menjamin kualitas operasional dan penelitian.",
+                sections: [
+                    {
+                        title: "Persyaratan Ketua Pusat Studi",
+                        icon: "fa-user-tie",
+                        items: [
+                            "Berstatus Dosen tetap atau kontrak penuh waktu yang memiliki NIDN/NIDK/NUPTK.",
+                            "Memiliki kualifikasi pendidikan <strong>minimal Doktor (S3)</strong> yang linier/sesuai dengan bidang pusat studi.",
+                            "Memiliki pengalaman operasional Tridharma Perguruan Tinggi minimal 3 tahun.",
+                            "Memiliki rekam jejak yang baik dan terbukti dalam pelaksanaan penelitian, publikasi, maupun pengabdian masyarakat."
+                        ]
+                    },
+                    {
+                        title: "Persyaratan Anggota Pusat Studi",
+                        icon: "fa-users",
+                        items: [
+                            "Berstatus Dosen tetap atau dosen kontrak Universitas Katolik Parahyangan.",
+                            "Memiliki latar belakang keahlian spesifik yang menunjang fokus kajian pusat studi.",
+                            "Ditugaskan secara resmi melalui Surat Tugas dari pimpinan."
+                        ]
+                    }
+                ],
+                hasAlur: false
+            },
+            'evaluasi': {
+                name: "Evaluasi Kinerja",
+                description: "Proses penilaian berkala (tahunan) untuk mengukur capaian dan produktivitas Pusat Studi berdasarkan standar LPPM.",
+                sections: [
+                    {
+                        title: "Indikator Kinerja Wajib",
+                        icon: "fa-chart-line",
+                        items: [
+                            "Setiap Pusat Studi diharapkan mampu memenuhi <strong>minimal salah satu</strong> dari indikator kinerja berikut setiap tahunnya:",
+                            "<strong>Opsi 1:</strong> Memperoleh minimal 3 (tiga) hibah penelitian atau pengabdian masyarakat per tahun.",
+                            "<strong>Opsi 2:</strong> Menghasilkan luaran berupa 4 publikasi tingkat nasional <u>dan</u> 1 publikasi internasional.",
+                            "<strong>Opsi 3:</strong> Menjalin minimal 1 (satu) kontrak kerja sama penelitian/pengabdian yang didanai oleh pihak mitra luar."
+                        ]
+                    }
+                ],
+                hasAlur: false
+            },
+            'perubahan': {
+                name: "Perubahan Struktur Pusat Studi",
+                description: "Aturan dan mekanisme yang memfasilitasi kebutuhan perubahan nama atau penggabungan beberapa Pusat Studi.",
+                sections: [
+                    {
+                        title: "Persyaratan Perubahan/Penggabungan",
+                        icon: "fa-code-branch",
+                        items: [
+                            "Mengisi dan menyertakan dokumen usulan resmi perubahan nama (F-0905) atau usulan penggabungan pusat studi (F-0904).",
+                            "Melampirkan analisis pertimbangan mengenai kesesuaian perubahan tersebut dengan <i>roadmap</i> penelitian dan pengabdian yang baru.",
+                            "Mendapatkan persetujuan serta tanda tangan dari Pimpinan Fakultas atau Kepala LPPM."
+                        ]
+                    }
+                ],
+                hasAlur: false
+            },
+            'pembekuan': {
+                name: "Status Pembekuan & Pembubaran",
+                description: "Tindakan administratif terhadap Pusat Studi yang gagal mempertahankan indikator kinerja atau menyimpang dari tujuan pendirian.",
+                sections: [
+                    {
+                        title: "Kriteria Pembekuan",
+                        icon: "fa-snowflake",
+                        items: [
+                            "Jumlah anggota aktif telah menyusut dan berada di bawah batas ketentuan minimal pendirian.",
+                            "Pusat Studi tidak berhasil mencapai target kinerja yang telah disepakati selama <strong>2 (dua) tahun berturut-turut</strong>."
+                        ]
+                    },
+                    {
+                        title: "Kriteria Pembubaran",
+                        icon: "fa-ban",
+                        items: [
+                            "Pusat Studi telah berstatus dibekukan selama lebih dari 1 (satu) tahun tanpa ada perbaikan kinerja atau pengaktifan kembali.",
+                            "Ditemukan bahwa kegiatan operasional Pusat Studi tidak lagi sesuai dengan tujuan awal pendiriannya."
+                        ]
+                    }
+                ],
+                hasAlur: false
+            }
+        };
+
+        const menuCategories = [
+            { 
+                title: "TATA KELOLA", 
+                menus: [ "pendirian", "penetapan", "perubahan" ] 
+            },
+            { 
+                title: "KINERJA & EVALUASI", 
+                menus: [ "evaluasi", "pembekuan" ] 
+            }
+        ];
+
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('appData', () => ({
+                activeMenu: 'pendirian', 
+                menus: serviceData,
+                categories: menuCategories,
+                
+                get current() {
+                    return this.menus[this.activeMenu];
+                }
+            }));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumen Internal - LPPM UNPAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        [x-cloak] { display: none !important; }
+        /* Animasi halu pada card */
+        .doc-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .doc-card:hover { transform: translateY(-4px); }
+    </style>
+</head>
+<body class="bg-slate-50 text-gray-800 antialiased flex flex-col min-h-screen" x-data="dokumenApp()">
+
+    <div id="header-placeholder"></div>
+
+    <main class="flex-grow">
+        
+        <section class="bg-gradient-to-br from-[#0b3832] to-[#015850] text-white py-16 px-6 relative overflow-hidden">
+            <div class="absolute inset-0 w-full h-full opacity-10" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 32px 32px;"></div>
+            <div class="max-w-[1200px] mx-auto text-center relative z-10">
+                <h1 class="text-4xl md:text-5xl font-black mb-4 tracking-tight">Pusat Dokumen Internal</h1>
+                <p class="text-lg md:text-xl text-green-100 max-w-2xl mx-auto">
+                    Akses cepat seluruh panduan, prosedur operasional standar (SOP), formulir, dan media informasi LPPM UNPAR.
+                </p>
+            </div>
+        </section>
+
+        <section class="py-10 px-6 -mt-8 relative z-20">
+            <div class="max-w-[1200px] mx-auto">
+                <div class="bg-white p-6 md:p-8 rounded-3xl shadow-xl border border-gray-100 flex flex-col lg:flex-row gap-6 items-center">
+                    
+                    <div class="relative w-full lg:flex-1">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        <input type="text" 
+                               x-model="searchQuery" 
+                               placeholder="Cari nama dokumen atau deskripsi..." 
+                               class="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-[#015850] focus:border-[#015850] outline-none transition-all">
+                    </div>
+
+                    <div class="flex flex-wrap justify-center gap-2">
+                        <template x-for="cat in categories" :key="cat">
+                            <button @click="activeCategory = cat" 
+                                    :class="activeCategory === cat ? 'bg-[#015850] text-white shadow-md' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'"
+                                    class="px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all" 
+                                    x-text="cat">
+                            </button>
+                        </template>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="pb-24 px-6">
+            <div class="max-w-[1200px] mx-auto">
+                
+                <div x-show="filteredDocs.length === 0" class="text-center py-20" x-cloak>
+                    <div class="text-gray-300 text-6xl mb-4"><i class="fa-solid fa-folder-open"></i></div>
+                    <h3 class="text-xl font-bold text-gray-400">Dokumen tidak ditemukan</h3>
+                    <p class="text-gray-400 text-sm mt-2">Coba kata kunci lain atau pilih kategori yang berbeda.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-5">
+                    <template x-for="doc in filteredDocs" :key="doc.id">
+                        <div class="bg-white p-4 md:p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-[#015850] transition-all flex items-start gap-4 group h-full">
+                            
+                            <div class="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center text-lg md:text-xl transition-colors" :class="doc.iconBg">
+                                <i class="fa-solid" :class="doc.icon"></i>
+                            </div>
+
+                            <div class="flex-grow flex flex-col h-full">
+                                <div class="flex flex-wrap items-center gap-2 mb-2">
+                                    <span class="text-[10px] font-black uppercase tracking-widest px-2 py-0.5 bg-slate-100 text-gray-500 rounded-md" x-text="doc.category"></span>
+                                    <div class="flex items-center gap-2 text-[10px] md:text-[11px] text-gray-400">
+                                        <span class="flex items-center gap-1" x-show="doc.date"><i class="fa-solid fa-calendar-day"></i> <span x-text="doc.date"></span></span>
+                                        <span class="flex items-center gap-1" x-show="doc.rev"><i class="fa-solid fa-code-revision"></i> <span x-text="'Rev. ' + doc.rev"></span></span>
+                                    </div>
+                                </div>
+
+                                <h4 class="text-sm md:text-base font-bold text-gray-900 leading-snug group-hover:text-[#015850] transition-colors mb-1.5" x-text="doc.title"></h4>
+                                <p class="text-[11px] md:text-xs text-gray-500 leading-relaxed mb-3 flex-grow" x-text="doc.description"></p>
+                                
+                                <div class="mt-auto pt-1">
+                                    <a :href="doc.link" target="_blank" class="inline-flex w-full sm:w-auto px-4 py-2 md:py-2.5 bg-gray-50 text-[#015850] text-xs font-bold text-center rounded-xl border border-gray-200 group-hover:bg-[#015850] group-hover:text-white group-hover:border-[#015850] transition-all items-center justify-center gap-2">
+                                        <i class="fa-solid fa-download"></i> Unduh Dokumen
+                                    </a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </template>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+
+    <script>
+        function dokumenApp() {
+            return {
+                searchQuery: '',
+                activeCategory: 'Semua',
+                // Array Categories Disesuaikan Dengan Data Terbaru
+                categories: ['Semua', 'Panduan Internal', 'Prosedur', 'Laporan Tahunan', 'Formulir', 'Leaflet'],
+                
+                // DATA DOKUMEN RIIL LPPM UNPAR
+                docs: [
+                    // --- KATEGORI: PANDUAN INTERNAL ---
+                    { id: 1, category: 'Panduan Internal', icon: 'fa-gavel', iconBg: 'bg-blue-50 text-blue-600', title: 'Peraturan Pengurus Yayasan No. 19 Tahun 2017', description: 'Tentang Pengelolaan Penelitian dan Pengabdian kepada Masyarakat.', date: '2017', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/internal/' },
+                    { id: 2, category: 'Panduan Internal', icon: 'fa-file-contract', iconBg: 'bg-blue-50 text-blue-600', title: 'Peraturan Rektor No. III/PRT/2024-10/110', description: 'Skema dan Tata Laksana Hibah Penelitian, Pengabdian, dan Fasilitasi Jurnal Internasional.', date: '2024', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/internal/' },
+                    { id: 3, category: 'Panduan Internal', icon: 'fa-book-atlas', iconBg: 'bg-blue-50 text-blue-600', title: 'Rencana Induk Pengembangan Penelitian (RIPP) 2024–2027', description: 'Rencana Induk Pengembangan Penelitian beserta SK Rektor.', date: '2024', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/internal/' },
+                    { id: 4, category: 'Panduan Internal', icon: 'fa-handshake-angle', iconBg: 'bg-blue-50 text-blue-600', title: 'Rencana Induk Pengabdian Masyarakat (RIPM) 2024–2027', description: 'Rencana Induk Pengabdian kepada Masyarakat beserta SK Rektor.', date: '2024', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/internal/' },
+                    { id: 5, category: 'Panduan Internal', icon: 'fa-scale-balanced', iconBg: 'bg-blue-50 text-blue-600', title: 'Peraturan Rektor No. III/PRT/2024-11/113', description: 'Beban SKS Kegiatan Penelitian dan Pengabdian Kepada Masyarakat.', date: '2024', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/internal/' },
+                    { id: 6, category: 'Panduan Internal', icon: 'fa-award', iconBg: 'bg-blue-50 text-blue-600', title: 'Peraturan Rektor No. III/PRT/2025-05/019', description: 'Persyaratan dan Tata Laksana Pemberian Insentif Karya Ilmiah Dosen UNPAR.', date: '2025', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/internal/' },
+                    { id: 7, category: 'Panduan Internal', icon: 'fa-copyright', iconBg: 'bg-blue-50 text-blue-600', title: 'Peraturan Rektor No. III/PRT/2020-12/142-SK', description: 'Pengelolaan Hak Atas Kekayaan Intelektual (HKI) Di Lingkungan UNPAR.', date: '2020', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/internal/' },
+                    { id: 8, category: 'Panduan Internal', icon: 'fa-plane-departure', iconBg: 'bg-blue-50 text-blue-600', title: 'Peraturan Rektor No. III/PRT/2025-05/020', description: 'Persyaratan dan Tata Laksana Pendanaan untuk Keikutsertaan Dosen Pada Konferensi.', date: '2025', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/internal/' },
+                    { id: 9, category: 'Panduan Internal', icon: 'fa-clipboard-check', iconBg: 'bg-blue-50 text-blue-600', title: 'Kode Etik & Integritas Akademik', description: 'Kode Etik, Komisi Etik P2M, dan Integritas Akademik dalam Menghasilkan Karya Ilmiah.', date: 'Internal', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/internal/' },
+
+                    // --- KATEGORI: LAPORAN TAHUNAN ---
+                    { id: 10, category: 'Laporan Tahunan', icon: 'fa-book-open', iconBg: 'bg-indigo-50 text-indigo-600', title: 'Buku Laporan Penelitian dan Pengabdian 2024', description: 'Laporan pelaksanaan P2M LPPM UNPAR Tahun 2024.', date: '2024', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/internal/' },
+                    { id: 11, category: 'Laporan Tahunan', icon: 'fa-book-open', iconBg: 'bg-indigo-50 text-indigo-600', title: 'Buku Laporan Penelitian dan Pengabdian 2023', description: 'Laporan pelaksanaan P2M LPPM UNPAR Tahun 2023.', date: '2023', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/internal/' },
+                    { id: 12, category: 'Laporan Tahunan', icon: 'fa-book-open', iconBg: 'bg-indigo-50 text-indigo-600', title: 'Buku Laporan Penelitian dan Pengabdian 2022', description: 'Laporan pelaksanaan P2M LPPM UNPAR Tahun 2022.', date: '2022', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/internal/' },
+                    { id: 13, category: 'Laporan Tahunan', icon: 'fa-book-open', iconBg: 'bg-indigo-50 text-indigo-600', title: 'Buku Laporan Penelitian dan Pengabdian 2021', description: 'Laporan pelaksanaan P2M LPPM UNPAR Tahun 2021.', date: '2021', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/internal/' },
+                    { id: 14, category: 'Laporan Tahunan', icon: 'fa-book-open', iconBg: 'bg-indigo-50 text-indigo-600', title: 'Buku Laporan Penelitian dan Pengabdian 2020', description: 'Laporan pelaksanaan P2M LPPM UNPAR Tahun 2020.', date: '2020', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/internal/' },
+                    { id: 15, category: 'Laporan Tahunan', icon: 'fa-book-open', iconBg: 'bg-indigo-50 text-indigo-600', title: 'Buku Laporan Penelitian dan Pengabdian 2019', description: 'Laporan pelaksanaan P2M LPPM UNPAR Tahun 2019.', date: '2019', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/internal/' },
+                    { id: 16, category: 'Laporan Tahunan', icon: 'fa-book-open', iconBg: 'bg-indigo-50 text-indigo-600', title: 'Buku Laporan Penelitian dan Pengabdian 2018', description: 'Laporan pelaksanaan P2M LPPM UNPAR Tahun 2018.', date: '2018', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/internal/' },
+                    { id: 17, category: 'Laporan Tahunan', icon: 'fa-book-open', iconBg: 'bg-indigo-50 text-indigo-600', title: 'Buku Laporan Penelitian dan Pengabdian 2017', description: 'Laporan pelaksanaan P2M LPPM UNPAR Tahun 2017.', date: '2017', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/internal/' },
+                    { id: 18, category: 'Laporan Tahunan', icon: 'fa-book-open', iconBg: 'bg-indigo-50 text-indigo-600', title: 'Buku Laporan Penelitian dan Pengabdian 2016', description: 'Laporan pelaksanaan P2M LPPM UNPAR Tahun 2016.', date: '2016', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/internal/' },
+                    { id: 19, category: 'Laporan Tahunan', icon: 'fa-book-open', iconBg: 'bg-indigo-50 text-indigo-600', title: 'Buku Laporan Penelitian dan Pengabdian 2015', description: 'Laporan pelaksanaan P2M LPPM UNPAR Tahun 2015.', date: '2015', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/internal/' },
+
+                    // --- KATEGORI: PROSEDUR ---
+                    { id: 101, category: 'Prosedur', icon: 'fa-vial-circle-check', iconBg: 'bg-emerald-50 text-emerald-600', title: 'P-01: Prosedur Penelitian Dana Internal', description: 'Tata kelola penelitian hibah internal UNPAR.', date: 'Nov 2023', rev: 'XII', link: 'https://drive.google.com/file/d/120s4daYTvH5Id9GHED27_CtROIXfINUu/view' },
+
+                    { id: 102, category: 'Prosedur', icon: 'fa-people-group', iconBg: 'bg-emerald-50 text-emerald-600', title: 'P-02: Prosedur Pengabdian Dana Internal', description: 'Tata kelola pengabdian hibah internal UNPAR.', date: 'Nov 2023', rev: 'IX', link: 'https://drive.google.com/file/d/1Dtm1dqGHueO2ymsjyBpRdwczbUxEXO2t/view' },
+
+                    { id: 103, category: 'Prosedur', icon: 'fa-file-invoice-dollar', iconBg: 'bg-emerald-50 text-emerald-600', title: 'P-03: Pengajuan Insentif Karya Ilmiah', description: 'Mekanisme pengajuan insentif karya ilmiah dan publikasi.', date: 'Mei 2025', rev: 'X', link: 'https://drive.google.com/file/d/1lceqbKz7uMtWS114sEvaa0hEXlO-hDkE/view' },
+
+                    { id: 104, category: 'Prosedur', icon: 'fa-plane', iconBg: 'bg-emerald-50 text-emerald-600', title: 'P-04: Pertemuan Ilmiah di Dalam Negeri', description: 'Pengajuan keikutsertaan pertemuan ilmiah tingkat nasional.', date: 'Nov 2023', rev: 'VIII', link: 'https://drive.google.com/file/d/13sbluRRljA41rymUDOKmbQqcMrNLGB9x/view' },
+
+                    { id: 105, category: 'Prosedur', icon: 'fa-graduation-cap', iconBg: 'bg-emerald-50 text-emerald-600', title: 'P-05: Hibah Dikti', description: 'Pengajuan proposal, pelaksanaan, dan penyelesaian hibah Dikti.', date: 'Apr 2018', rev: 'II', link: 'https://drive.google.com/file/d/1jpk28zchGHRbke_-FtXyh18sKH82qbdE/view' },
+
+                    { id: 106, category: 'Prosedur', icon: 'fa-plane-departure', iconBg: 'bg-emerald-50 text-emerald-600', title: 'P-06: Pertemuan Ilmiah di Luar Negeri', description: 'Pengajuan keikutsertaan pertemuan ilmiah tingkat internasional.', date: 'Nov 2023', rev: 'IV', link: 'https://drive.google.com/file/d/1Y6Qa7GmuoAZksUJPoLyrQcci3kybpz_0/view' },
+
+                    { id: 107, category: 'Prosedur', icon: 'fa-newspaper', iconBg: 'bg-emerald-50 text-emerald-600', title: 'P-07: Pengelolaan Jurnal', description: 'Alur administrasi bagi pengelola jurnal di lingkungan UNPAR.', date: 'Apr 2016', rev: null, link: 'https://drive.google.com/file/d/1cmQw5IcZzAP_7AW3k-fVJM6lOMU43ygl/view' },
+
+                    { id: 108, category: 'Prosedur', icon: 'fa-box-archive', iconBg: 'bg-emerald-50 text-emerald-600', title: 'P-08: Pengarsipan Laporan P2M', description: 'Prosedur pengarsipan laporan penelitian & pengabdian.', date: 'Jun 2020', rev: null, link: 'https://drive.google.com/file/d/1MXzYz1O9kymKxX2Jidl6pMsYvz0qcr2k/view' },
+
+                    { id: 109, category: 'Prosedur', icon: 'fa-building-columns', iconBg: 'bg-emerald-50 text-emerald-600', title: 'P-09: Pengelolaan Pusat Studi', description: 'Tata laksana pembentukan dan pengelolaan Pusat Studi.', date: 'Apr 2024', rev: null, link: 'https://drive.google.com/file/d/1CobrKBXLMPuU-nMabjNhAwCzwawLY2bK/view' },
+
+                    { id: 110, category: 'Prosedur', icon: 'fa-copyright', iconBg: 'bg-emerald-50 text-emerald-600', title: 'P-10: Pencatatan Hak Cipta', description: 'Prosedur legalisasi dan pencatatan Hak Cipta (HKI).', date: 'Nov 2023', rev: 'III', link: 'https://drive.google.com/file/d/15bqOS7M3L8vOPVtiWcVinQuGQtCylz44/view' },
+
+                    { id: 112, category: 'Prosedur', icon: 'fa-trophy', iconBg: 'bg-emerald-50 text-emerald-600', title: 'P-12: Penelitian Kompetitif', description: 'Prosedur pengajuan pendanaan penelitian kompetitif.', date: 'Jan 2018', rev: 'I', link: 'https://drive.google.com/file/d/1DK_hdgA2NQif5OwBl27zyKLCBCqC_Xq8/view' },
+
+                    { id: 113, category: 'Prosedur', icon: 'fa-sack-dollar', iconBg: 'bg-emerald-50 text-emerald-600', title: 'P-13: P2M Mandiri & Eksternal', description: 'Prosedur penelitian/pengabdian dana mandiri/eksternal non-RISTEK.', date: 'Sep 2020', rev: 'IV', link: 'https://drive.google.com/file/d/1vgoBBe7zN8XCh3XnEtj67PZrTtO_7AnF/view' },
+
+                    { id: 117, category: 'Prosedur', icon: 'fa-magnifying-glass', iconBg: 'bg-emerald-50 text-emerald-600', title: 'P-17: Deteksi Kemiripan Karya Ilmiah', description: 'Prosedur pelaksanaan deteksi plagiarisme (similarity check).', date: 'Sep 2020', rev: 'I', link: 'https://drive.google.com/file/d/1TBtnE9SlYriSs2tH4JAZ5S6DGA2wFwNv/view' },
+
+                    { id: 118, category: 'Prosedur', icon: 'fa-bullhorn', iconBg: 'bg-emerald-50 text-emerald-600', title: 'P-18: Fasilitasi Hasil Penelitian', description: 'Prosedur pengajuan fasilitasi luaran hasil penelitian.', date: 'Mar 2021', rev: null, link: 'https://drive.google.com/file/d/1ytgG5H9GFpcf28oVfLyj1ZJ6rdog-9vW/view' },
+
+                    { id: 119, category: 'Prosedur', icon: 'fa-server', iconBg: 'bg-emerald-50 text-emerald-600', title: 'Prosedur Repository', description: 'Publikasi karya ilmiah dosen pada Repository UNPAR.', date: 'Agu 2017', rev: null, link: 'https://drive.google.com/file/d/1_7WExTNRDo3hJj7bTq8djrrMDhJgqMuW/view' },
+
+                    { id: 121, category: 'Prosedur', icon: 'fa-laptop', iconBg: 'bg-emerald-50 text-emerald-600', title: 'P-21: Forum Akademik Secara Daring', description: 'Prosedur pengajuan penyelenggaraan forum akademik daring.', date: 'Nov 2020', rev: 'I', link: 'https://drive.google.com/file/d/1D52dHwEdfBrOu14H47M0BAhkYRbBtgm6/view' },
+
+                    { id: 122, category: 'Prosedur', icon: 'fa-shield-halved', iconBg: 'bg-emerald-50 text-emerald-600', title: 'P-22: Prosedur PenAJari', description: 'Fasilitas Penulisan Artikel Jurnal Internasional Bereputasi.', date: 'Jul 2021', rev: null, link: 'https://drive.google.com/file/d/1oH-AMsE4FvNwN86vwI7QbCJ6okrnYlel/view' },
+
+                    // --- KATEGORI: FORMULIR ---
+                    { id: 301, category: 'Formulir', icon: 'fa-file-signature', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-01', description: 'Proposal Penelitian Dana Internal.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+                    { id: 302, category: 'Formulir', icon: 'fa-file-signature', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-02', description: 'Persetujuan Penelitian Dana Internal.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+                    { id: 303, category: 'Formulir', icon: 'fa-file-signature', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-03', description: 'Perubahan Proposal Penelitian.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+                    { id: 304, category: 'Formulir', icon: 'fa-file-signature', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-04', description: 'Monitoring Penelitian.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+                    { id: 305, category: 'Formulir', icon: 'fa-file-signature', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-05', description: 'Evaluasi Penelitian.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+                    { id: 306, category: 'Formulir', icon: 'fa-file-signature', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-06', description: 'Laporan Kemajuan Penelitian.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+                    { id: 307, category: 'Formulir', icon: 'fa-file-signature', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-07', description: 'Laporan Akhir Penelitian.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+                    { id: 308, category: 'Formulir', icon: 'fa-file-signature', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-08', description: 'Luaran Penelitian.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+
+                    { id: 309, category: 'Formulir', icon: 'fa-people-group', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-10', description: 'Proposal Pengabdian kepada Masyarakat.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+                    { id: 310, category: 'Formulir', icon: 'fa-people-group', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-11', description: 'Persetujuan Pengabdian.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+                    { id: 311, category: 'Formulir', icon: 'fa-people-group', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-12', description: 'Perubahan Kegiatan Pengabdian.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+                    { id: 312, category: 'Formulir', icon: 'fa-people-group', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-13', description: 'Monitoring Pengabdian.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+                    { id: 313, category: 'Formulir', icon: 'fa-people-group', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-14', description: 'Evaluasi Pengabdian.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+                    { id: 314, category: 'Formulir', icon: 'fa-people-group', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-15', description: 'Laporan Kemajuan Pengabdian.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+                    { id: 315, category: 'Formulir', icon: 'fa-people-group', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-16', description: 'Laporan Akhir Pengabdian.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+                    { id: 316, category: 'Formulir', icon: 'fa-people-group', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-17', description: 'Luaran Pengabdian.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+
+                    { id: 317, category: 'Formulir', icon: 'fa-file-invoice-dollar', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-25', description: 'Formulir laporan penggunaan dana.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+
+                    { id: 318, category: 'Formulir', icon: 'fa-copyright', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-37', description: 'Pengajuan HKI.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+
+                    { id: 319, category: 'Formulir', icon: 'fa-award', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-47', description: 'Pengajuan Insentif Karya Ilmiah.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+                    { id: 320, category: 'Formulir', icon: 'fa-award', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-48', description: 'Pengajuan Repository.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+
+                    { id: 321, category: 'Formulir', icon: 'fa-graduation-cap', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-51', description: 'Pengajuan Hibah Dikti.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+                    { id: 322, category: 'Formulir', icon: 'fa-graduation-cap', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-52', description: 'Laporan Hibah Dikti.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+
+                    { id: 323, category: 'Formulir', icon: 'fa-money-bill-transfer', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-57', description: 'Pelaporan penggunaan dana.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+
+                    { id: 324, category: 'Formulir', icon: 'fa-file-video', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-61', description: 'Pengajuan forum akademik daring.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+
+                    { id: 325, category: 'Formulir', icon: 'fa-file-lines', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-64', description: 'Formulir PenAJari.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+                    { id: 326, category: 'Formulir', icon: 'fa-file-lines', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir-65', description: 'Formulir PenAJari.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+
+                    { id: 327, category: 'Formulir', icon: 'fa-money-bill-transfer', iconBg: 'bg-rose-50 text-rose-600', title: 'Formulir F-72', description: 'Formulir Reimburse Penelitian/Pengabdian.', date: 'Form', rev: null, link: 'https://lppm.unpar.ac.id/panduan-panduan/prosedur/' },
+
+                    // --- KATEGORI: LEAFLET & MEDIA ---
+                    { id: 201, category: 'Leaflet', icon: 'fa-book-bookmark', iconBg: 'bg-amber-50 text-amber-600', title: 'Buku Saku Penelitian (Edisi 2024)', description: 'Ringkasan informasi penting kegiatan penelitian.', date: '2024', rev: null, link: 'https://lppm.unpar.ac.id/leaflet/' },
+                    { id: 202, category: 'Leaflet', icon: 'fa-book-bookmark', iconBg: 'bg-amber-50 text-amber-600', title: 'Buku Saku Pengabdian (Edisi 2024)', description: 'Ringkasan informasi kegiatan pengabdian masyarakat.', date: '2024', rev: null, link: 'https://lppm.unpar.ac.id/leaflet/' },
+                    { id: 203, category: 'Leaflet', icon: 'fa-star', iconBg: 'bg-amber-50 text-amber-600', title: 'Leaflet: PenAJari', description: 'Informasi singkat Fasilitas Penulisan Artikel Jurnal Internasional.', date: 'Leaflet', rev: null, link: 'https://lppm.unpar.ac.id/leaflet/' },
+                    { id: 204, category: 'Leaflet', icon: 'fa-desktop', iconBg: 'bg-amber-50 text-amber-600', title: 'Buku Saku PENAMAS Penelitian', description: 'Panduan sistem PENAMAS untuk modul Penelitian.', date: 'Leaflet', rev: null, link: 'https://lppm.unpar.ac.id/leaflet/' },
+                    { id: 205, category: 'Leaflet', icon: 'fa-desktop', iconBg: 'bg-amber-50 text-amber-600', title: 'Buku Saku PENAMAS Pengabdian', description: 'Panduan sistem PENAMAS untuk modul Pengabdian.', date: 'Leaflet', rev: null, link: 'https://lppm.unpar.ac.id/leaflet/' },
+                    { id: 206, category: 'Leaflet', icon: 'fa-desktop', iconBg: 'bg-amber-50 text-amber-600', title: 'Buku Saku PENAMAS Output', description: 'Panduan input luaran/output pada sistem PENAMAS.', date: 'Leaflet', rev: null, link: 'https://lppm.unpar.ac.id/leaflet/' },
+                    { id: 207, category: 'Leaflet', icon: 'fa-building', iconBg: 'bg-amber-50 text-amber-600', title: 'Buku Saku Pusat Studi', description: 'Informasi dan panduan singkat mengenai Pusat Studi.', date: 'Leaflet', rev: null, link: 'https://lppm.unpar.ac.id/leaflet/' },
+                    { id: 208, category: 'Leaflet', icon: 'fa-id-card', iconBg: 'bg-amber-50 text-amber-600', title: 'Pendaftaran SINTA', description: 'Panduan pembuatan akun dan pendaftaran Science & Technology Index.', date: 'Leaflet', rev: null, link: 'https://lppm.unpar.ac.id/leaflet/' },
+                    { id: 209, category: 'Leaflet', icon: 'fa-users-gear', iconBg: 'bg-amber-50 text-amber-600', title: 'Rekruitmen Reviewer', description: 'Informasi syarat dan pendaftaran reviewer LPPM.', date: 'Leaflet', rev: null, link: 'https://lppm.unpar.ac.id/leaflet/' },
+                    { id: 210, category: 'Leaflet', icon: 'fa-file-pdf', iconBg: 'bg-amber-50 text-amber-600', title: 'Karya dan Publikasi (File Baru & Lama)', description: 'Informasi format penyusunan karya dan publikasi ilmiah.', date: 'Leaflet', rev: null, link: 'https://lppm.unpar.ac.id/leaflet/' }
+                ],
+
+                // LOGIKA FILTERING
+                get filteredDocs() {
+                    return this.docs.filter(doc => {
+                        const matchesSearch = doc.title.toLowerCase().includes(this.searchQuery.toLowerCase()) || 
+                                              doc.description.toLowerCase().includes(this.searchQuery.toLowerCase());
+                        const matchesCategory = this.activeCategory === 'Semua' || doc.category === this.activeCategory;
+                        return matchesSearch && matchesCategory;
+                    });
+                }
+            }
+        }
+    </script>
+</body>
+</html>

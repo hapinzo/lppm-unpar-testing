@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capaian & Luaran - LPPM UNPAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-slate-50 text-gray-800 antialiased flex flex-col min-h-screen" x-data="capaianData()">
+
+    <div id="header-placeholder"></div>
+
+    <main class="flex-grow">
+        
+        <section class="bg-white border-b border-gray-200 py-10 px-6">
+            <div class="max-w-[1200px] mx-auto">
+                <div class="flex items-center gap-3 text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">
+                    <a href="Beranda.html" class="hover:text-[#015850]">Beranda</a>
+                    <span>/</span>
+                    <span class="text-[#015850]">Capaian & Luaran</span>
+                </div>
+                <h1 class="text-3xl md:text-5xl font-extrabold text-gray-900 tracking-tight">Rekam Jejak Karya UNPAR</h1>
+                <p class="text-gray-500 mt-4 max-w-2xl text-base leading-relaxed">
+                    Menampilkan pengakuan internasional serta metrik kinerja riset, pengabdian, publikasi, dan inovasi kekayaan intelektual sivitas akademika Universitas Katolik Parahyangan.
+                </p>
+            </div>
+        </section>
+
+        <section class="py-16 px-6 max-w-[1200px] mx-auto">
+            
+            <div class="flex flex-col sm:flex-row justify-between items-center mb-10 gap-4">
+                <h2 class="text-2xl font-black text-gray-800">
+                    Kinerja Tahunan: <span x-text="activeYear" class="text-yellow-500"></span>
+                </h2>
+                
+                <div class="bg-white p-1.5 rounded-xl border border-gray-200 inline-flex shadow-sm">
+                    <button @click="activeYear = '2024'" 
+                        :class="activeYear === '2024' ? 'bg-[#015850] text-white shadow-md' : 'text-gray-500 hover:text-gray-800 hover:bg-gray-50'"
+                        class="px-6 py-2.5 rounded-lg font-bold text-sm transition-all">
+                        Tahun 2024
+                    </button>
+                    <button @click="activeYear = '2023'" 
+                        :class="activeYear === '2023' ? 'bg-[#015850] text-white shadow-md' : 'text-gray-500 hover:text-gray-800 hover:bg-gray-50'"
+                        class="px-6 py-2.5 rounded-lg font-bold text-sm transition-all">
+                        Tahun 2023
+                    </button>
+                </div>
+            </div>
+
+            <div class="mb-16">
+                <div class="text-center mb-10">
+                    <h2 class="text-xs font-bold text-yellow-500 tracking-widest uppercase mb-2">Prestasi & Rekognisi Riset</h2>
+                    <h3 class="text-3xl font-black text-[#015850]">Diakui Secara Internasional</h3>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden relative group transform hover:-translate-y-1 transition-all duration-300 max-w-[1000px] mx-auto">
+                    <div class="absolute top-0 left-0 w-3 bg-[#015850] h-full"></div>
+                    <div class="absolute right-0 bottom-0 opacity-5 pointer-events-none overflow-hidden">
+                        <i class="fa-solid fa-ranking-star text-[15rem] -mr-10 -mb-10 text-[#015850]"></i>
+                    </div>
+                    
+                    <div class="p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-10 relative z-10">
+                        <div class="flex-shrink-0 text-center md:text-left">
+                            <span class="font-black text-5xl md:text-6xl text-gray-800 tracking-tighter block mb-3">nature<span class="font-light">INDEX</span></span>
+                            
+                            <span class="inline-block bg-gray-100 text-gray-500 text-xs font-bold px-4 py-1.5 rounded-full border border-gray-200 mb-2" x-text="currentData.natureIndex.timeFrame">
+                            </span>
+                        </div>
+                        
+                        <div class="w-full md:w-px h-px md:h-28 bg-gray-200"></div>
+                        
+                        <div class="text-center md:text-left flex-1">
+                            <div class="inline-flex items-center justify-center w-12 h-12 bg-yellow-100 text-yellow-600 rounded-full mb-4 md:hidden">
+                                <i class="fa-solid fa-medal text-xl"></i>
+                            </div>
+                            <h4 class="text-4xl md:text-5xl font-black text-[#015850] mb-2 leading-tight" x-text="currentData.natureIndex.rank"></h4>
+                            <p class="text-xl md:text-2xl text-gray-500 font-medium tracking-wide mb-3">in Indonesia</p>
+                            
+                            <div class="inline-flex items-center gap-2 bg-green-50 border border-green-100 px-4 py-2 rounded-xl">
+                                <i class="fa-solid fa-chart-pie text-green-600"></i>
+                                <span class="text-sm font-bold text-[#015850]">Total Share: <span class="text-green-600 text-lg" x-text="currentData.natureIndex.share"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm relative overflow-hidden group hover:border-blue-500 transition-colors">
+                    <div class="absolute -right-4 -top-4 w-24 h-24 bg-blue-50 rounded-full group-hover:scale-[2.5] transition-transform duration-500 ease-out"></div>
+                    <div class="relative z-10">
+                        <p class="text-gray-400 text-xs font-bold uppercase tracking-widest mb-3">Penelitian Internal</p>
+                        <h3 class="text-5xl font-black text-gray-900 mb-2" x-text="currentData.penelitian"></h3>
+                        <p class="text-xs text-blue-600 font-semibold"><i class="fa-solid fa-file-contract mr-1.5"></i>Proposal Didanai</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm relative overflow-hidden group hover:border-green-500 transition-colors">
+                    <div class="absolute -right-4 -top-4 w-24 h-24 bg-green-50 rounded-full group-hover:scale-[2.5] transition-transform duration-500 ease-out"></div>
+                    <div class="relative z-10">
+                        <p class="text-gray-400 text-xs font-bold uppercase tracking-widest mb-3">Publikasi Scopus</p>
+                        <h3 class="text-5xl font-black text-gray-900 mb-2" x-text="currentData.scopus"></h3>
+                        <p class="text-xs text-green-600 font-semibold"><i class="fa-solid fa-globe mr-1.5"></i>Jurnal Bereputasi</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm relative overflow-hidden group hover:border-yellow-500 transition-colors">
+                    <div class="absolute -right-4 -top-4 w-24 h-24 bg-yellow-50 rounded-full group-hover:scale-[2.5] transition-transform duration-500 ease-out"></div>
+                    <div class="relative z-10">
+                        <p class="text-gray-400 text-xs font-bold uppercase tracking-widest mb-3">Sertifikat HKI</p>
+                        <h3 class="text-5xl font-black text-gray-900 mb-2" x-text="currentData.hki"></h3>
+                        <p class="text-xs text-yellow-600 font-semibold"><i class="fa-solid fa-lightbulb mr-1.5"></i>Hak Cipta & Paten</p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-[#0b3832] to-[#015850] rounded-3xl p-8 shadow-lg relative overflow-hidden group">
+                    <div class="absolute -right-4 -top-4 w-24 h-24 bg-white/5 rounded-full group-hover:scale-[2.5] transition-transform duration-500 ease-out"></div>
+                    <div class="relative z-10">
+                        <p class="text-green-100/70 text-xs font-bold uppercase tracking-widest mb-3">Hibah Eksternal</p>
+                        <h3 class="text-4xl font-black text-yellow-400 mb-2 tracking-tight" x-text="currentData.dana"></h3>
+                        <p class="text-xs text-white/80 font-semibold mt-3"><i class="fa-solid fa-sack-dollar mr-1.5"></i>Total Pendanaan</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+                
+                <div class="lg:col-span-2 space-y-6">
+                    <h3 class="text-2xl font-black text-gray-900 mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-star text-yellow-400"></i> <span x-text="currentData.sorotanTitle"></span>
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <template x-for="item in currentData.sorotan" :key="item.judul">
+                            <div class="bg-white p-7 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition-all flex flex-col h-full group">
+                                <div>
+                                    <div class="text-[10px] font-bold inline-block px-3 py-1.5 rounded-lg uppercase tracking-widest mb-5" 
+                                         :class="item.badgeColor" x-text="item.kategori"></div>
+                                    <h4 class="font-bold text-gray-900 text-base mb-3 leading-snug group-hover:text-[#015850] transition-colors" x-text="item.judul"></h4>
+                                    <p class="text-sm text-gray-500 mb-6 leading-relaxed" x-text="item.deskripsi"></p>
+                                </div>
+                                <div class="flex items-center gap-4 border-t border-gray-100 pt-5 mt-auto">
+                                    <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 bg-gray-50 group-hover:scale-110 transition-transform" :class="item.iconColor">
+                                        <i class="fa-solid text-lg" :class="item.icon"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-[11px] font-bold text-gray-900" x-text="item.penulis"></p>
+                                        <p class="text-[10px] text-gray-500 mt-0.5" x-text="item.afiliasi"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-1 space-y-6 sticky top-32">
+                    <div class="bg-[#0b3832] rounded-3xl p-1 shadow-xl">
+                        <div class="bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-white/5 rounded-[22px] p-8 text-center h-full flex flex-col items-center border border-white/10">
+                            <div class="w-32 h-44 bg-white rounded-lg shadow-2xl mb-6 flex items-center justify-center border-4 border-white transform -rotate-3 hover:rotate-0 transition-transform">
+                                <span class="font-black text-[#015850] text-center leading-tight">BUKU<br>LPPM<br><span x-text="activeYear" class="text-xl"></span></span>
+                            </div>
+                            
+                            <h3 class="text-xl font-bold text-white mb-3 leading-tight" x-text="'Laporan Tahunan ' + activeYear"></h3>
+                            <p class="text-sm text-green-100/80 mb-8 px-2 leading-relaxed">Unduh katalog lengkap "Rekam Jejak Karya UNPAR Bagi Bangsa" periode tahun tersebut.</p>
+                            
+                            <button class="w-full bg-yellow-400 text-[#0b3832] font-black py-4 px-4 rounded-xl shadow-[0_4px_0_#b45309] hover:translate-y-1 hover:shadow-[0_0px_0_#b45309] transition-all uppercase tracking-wide text-sm mb-3 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cloud-arrow-down"></i> Unduh PDF
+                            </button>
+                            <p class="text-[11px] text-white/50">Ukuran file: ±15MB</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+
+    <script>
+        const databaseCapaian = {
+            '2024': {
+                // DATA NATURE INDEX 2024
+                natureIndex: {
+                    timeFrame: "1 December 2023 - 30 November 2024",
+                    rank: "#2 University",
+                    share: "3.00"
+                },
+                // DATA METRIK UMUM 2024
+                penelitian: "215",   
+                scopus: "102",       
+                hki: "86",           
+                dana: "Rp 4.5 M",    
+                sorotanTitle: "Karya Unggulan Berdampak Tinggi",
+                sorotan: [
+                    {
+                        kategori: "Penelitian - Scopus Q2",
+                        judul: "Value-for-Money Drivers in Public-Private Partnerships in Affordable Housing in Indonesia",
+                        deskripsi: "Mengeksplorasi faktor pendorong 'value-for-money' dalam skema kerja sama pemerintah-swasta (PPP) untuk perumahan terjangkau di Indonesia menggunakan metode Analytic Network Process.",
+                        icon: "fa-user-tie",
+                        penulis: "Prof. (R) Dr. Ing. Habil. Andreas Wibowo",
+                        afiliasi: "Journal of Construction in Developing Countries",
+                        badgeColor: "text-[#015850] bg-green-100",
+                        iconColor: "text-[#015850]"
+                    },
+                    {
+                        kategori: "Pengabdian Masyarakat",
+                        judul: "Pelatihan Cost Calculation bagi 21 UMKM di Kota Bandung dan Sekitarnya",
+                        deskripsi: "Pusat Studi Multidisiplin CoE SMED bekerjasama dengan Yayasan Dharma Bhakti Astra (YDBA) membimbing 21 UMKM untuk mengidentifikasi biaya produksi secara presisi dan berkelanjutan.",
+                        icon: "fa-users",
+                        penulis: "Tim CoE SMED UNPAR & YDBA",
+                        afiliasi: "Kegiatan Pemberdayaan Komunitas",
+                        badgeColor: "text-yellow-700 bg-yellow-100",
+                        iconColor: "text-yellow-600"
+                    },
+                    {
+                        kategori: "Artikel Internasional",
+                        judul: "Indonesians Head To Polls Amid Concerns Over Declining Democracy",
+                        deskripsi: "Opini pakar dan analisis mendalam terkait dinamika politik luar negeri dan domestik Indonesia yang diterbitkan di platform diskusi akademis bereputasi internasional.",
+                        icon: "fa-pen-nib",
+                        penulis: "Angguntari Ceria Sari, S.IP., M.Sc., Ph.D.",
+                        afiliasi: "Diterbitkan di The Conversation",
+                        badgeColor: "text-blue-700 bg-blue-100",
+                        iconColor: "text-blue-600"
+                    },
+                    {
+                        kategori: "Inovasi Teknologi",
+                        judul: "Sistem Peringatan Dini Bencana Hidrometeorologi Terintegrasi",
+                        deskripsi: "Pengembangan perangkat IoT berbasis sensor murah untuk mitigasi bencana di daerah rawan longsor wilayah Jawa Barat, didanai oleh skema riset kolaborasi internasional.",
+                        icon: "fa-microchip",
+                        penulis: "Tim Peneliti CUID UNPAR",
+                        afiliasi: "Prototipe Teknologi Tepat Guna",
+                        badgeColor: "text-purple-700 bg-purple-100",
+                        iconColor: "text-purple-600"
+                    }
+                ]
+            },
+            '2023': {
+                // FAKTA HISTORIS NATURE INDEX 2023
+                natureIndex: {
+                    timeFrame: "1 December 2022 - 30 November 2023",
+                    rank: "#2 University",
+                    share: "2.50" // Silakan sesuaikan angkanya dengan dokumen internal Anda
+                },
+                // DATA METRIK UMUM 2023
+                penelitian: "128",   
+                scopus: "65",        
+                hki: "45",           
+                dana: "Rp 2.8 M",
+                sorotanTitle: "Kilas Balik Karya Unggulan 2023",
+                sorotan: [
+                    {
+                        kategori: "Penelitian - Scopus Q1",
+                        judul: "The Dynamics of Interpersonal Space in Congregational Prayers in Salman Mosque Bandung During Covid-19",
+                        deskripsi: "Mengkaji dinamika persepsi jarak interpersonal jemaah saat salat berjamaah dengan penyesuaian protokol kesehatan demi menekan penyebaran virus.",
+                        icon: "fa-book-open-reader",
+                        penulis: "Aldyfra Luhulima Lukman, Ph.D., dkk.",
+                        afiliasi: "The Journal of Islamic Architecture (JIA)",
+                        badgeColor: "text-[#015850] bg-green-100",
+                        iconColor: "text-[#015850]"
+                    },
+                    {
+                        kategori: "Inovasi & HKI",
+                        judul: "Permainan Edukasi Anti Foodwaste Berbasis Web",
+                        deskripsi: "Pengembangan program komputer berupa permainan interaktif untuk meningkatkan kesadaran masyarakat khususnya generasi muda mengenai pencegahan limbah makanan.",
+                        icon: "fa-laptop-code",
+                        penulis: "Nico Saputro, Ph.D., Dr. Theresia Gunawan, dkk.",
+                        afiliasi: "Karya Cipta - Program Komputer",
+                        badgeColor: "text-yellow-700 bg-yellow-100",
+                        iconColor: "text-yellow-600"
+                    },
+                    {
+                        kategori: "Inovasi Medis & HKI",
+                        judul: "Manajemen & Visualisasi Data Program Kerja Puskesmas",
+                        deskripsi: "Aplikasi program komputer berbasis web dengan data warehouse dinamis guna memfasilitasi upaya pelaporan dan analisis kesehatan masyarakat di level Puskesmas.",
+                        icon: "fa-hospital",
+                        penulis: "Prof. Dr. Veronica Sri Moertini, Ir., M.T., dkk.",
+                        afiliasi: "Karya Cipta - Program Komputer",
+                        badgeColor: "text-blue-700 bg-blue-100",
+                        iconColor: "text-blue-600"
+                    }
+                ]
+            }
+        };
+
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('capaianData', () => ({
+                activeYear: '2024',
+                data: databaseCapaian,
+                
+                get currentData() {
+                    return this.data[this.activeYear];
+                }
+            }));
+        });
+    </script>
+</body>
+</html>

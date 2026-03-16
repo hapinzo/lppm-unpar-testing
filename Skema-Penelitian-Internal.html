@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skema Penelitian Internal - LPPM UNPAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        /* Transisi Accordion Halus */
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-white text-gray-800 antialiased" x-data="appData()">
+    <div id="header-placeholder"></div>
+    <div class="bg-gray-50 border-b border-gray-200 py-8 px-6">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-900 mb-3">Skema Penelitian Internal</h2>
+            <p class="text-gray-600 max-w-3xl leading-relaxed">
+                Halaman ini memberikan informasi mengenai berbagai skema penelitian internal yang dikelola oleh LPPM Universitas Katolik Parahyangan. Dosen dapat memahami karakteristik skema, persyaratan, luaran yang diharapkan, serta alur pengajuan sebelum mengajukan proposal melalui sistem PENAMAS.
+            </p>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <aside class="lg:col-span-3">
+                <div class="bg-white border border-gray-200 rounded-lg overflow-hidden sticky top-8 shadow-sm">
+                    <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                        <h3 class="text-sm font-semibold text-gray-700">Skema Penelitian Internal</h3>
+                    </div>
+                    
+                    <nav class="p-3">
+                        <template x-for="category in categories" :key="category.title">
+                            <div class="mb-6 last:mb-0">
+                                <h4 class="text-xs font-bold text-gray-400 mb-2 px-2 uppercase tracking-wider" x-text="category.title"></h4>
+                                <div class="space-y-1">
+                                    <template x-for="schemeId in category.schemes" :key="schemeId">
+                                        <button 
+                                            @click="activeScheme = schemeId"
+                                            :class="activeScheme === schemeId ? 'bg-[#015850] text-white shadow-sm' : 'hover:bg-gray-100 text-gray-700'"
+                                            class="w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors text-left"
+                                        >
+                                            <span x-text="schemes[schemeId].name"></span>
+                                            <i class="fa-solid fa-circle text-[8px] flex-shrink-0"
+                                               :class="activeScheme === schemeId ? 'text-white' : getStatusColor(schemes[schemeId].status)">
+                                            </i>
+                                        </button>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </nav>
+
+                    <div class="px-4 py-3 bg-gray-50 border-t border-gray-200 space-y-2 text-xs">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-circle text-[8px] text-green-500"></i>
+                            <span class="text-gray-600">Pendaftaran dibuka</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-circle text-[8px] text-orange-500"></i>
+                            <span class="text-gray-600">Segera dibuka</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-circle text-[8px] text-gray-400"></i>
+                            <span class="text-gray-600">Ditutup</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="lg:col-span-6">
+                <div class="space-y-6">
+                    
+                    <div class="flex items-start justify-between">
+                        <h2 class="text-[#015850] text-2xl font-bold" x-text="current.name"></h2>
+                        <span x-show="current.badge" x-text="current.badge" 
+                              class="px-3 py-1 rounded-full text-xs font-semibold border"
+                              :class="{
+                                  'bg-green-100 text-green-700 border-green-300': current.status === 'open',
+                                  'bg-orange-100 text-orange-700 border-orange-300': current.status === 'soon',
+                                  'bg-gray-100 text-gray-600 border-gray-300': current.status === 'closed'
+                              }">
+                        </span>
+                    </div>
+
+                    <p class="text-gray-700 leading-relaxed text-sm" x-text="current.description"></p>
+
+                    <section class="border border-gray-200 bg-white rounded-lg p-5 shadow-sm">
+                        <div class="flex items-center gap-2 mb-4 border-b border-gray-100 pb-2">
+                            <i class="fa-solid fa-check text-[#015850]"></i>
+                            <h3 class="text-[#015850] font-semibold" x-text="current.requirements.title"></h3>
+                        </div>
+                        <ul class="space-y-2.5 ml-2">
+                            <template x-for="item in current.requirements.items">
+                                <li class="flex items-start gap-2 text-gray-600 text-sm">
+                                    <span class="text-[#015850] mt-0.5">•</span>
+                                    <span x-text="item"></span>
+                                </li>
+                            </template>
+                        </ul>
+                    </section>
+
+                    <section class="border border-gray-200 bg-white rounded-lg p-5 shadow-sm">
+                        <div class="flex items-center gap-2 mb-4 border-b border-gray-100 pb-2">
+                            <i class="fa-solid fa-users text-[#015850]"></i>
+                            <h3 class="text-[#015850] font-semibold">Anggota Penelitian</h3>
+                        </div>
+                        <div class="space-y-4 ml-2">
+                            <div>
+                                <h4 class="font-semibold text-gray-800 text-sm mb-1" x-text="current.team.leader.title"></h4>
+                                <p class="text-gray-500 text-sm" x-text="current.team.leader.description"></p>
+                            </div>
+                            <div x-show="current.team.members">
+                                <h4 class="font-semibold text-gray-800 text-sm mb-1" x-text="current.team.members?.title"></h4>
+                                <p class="text-gray-500 text-sm" x-text="current.team.members?.description"></p>
+                            </div>
+                            <div x-show="current.team.students">
+                                <h4 class="font-semibold text-gray-800 text-sm mb-1" x-text="current.team.students?.title"></h4>
+                                <p class="text-gray-500 text-sm" x-text="current.team.students?.description"></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="border border-gray-200 bg-white rounded-lg p-5 shadow-sm">
+                        <div class="flex items-center gap-2 mb-4 border-b border-gray-100 pb-2">
+                            <i class="fa-solid fa-file-alt text-[#015850]"></i>
+                            <h3 class="text-[#015850] font-semibold" x-text="current.outputs.title"></h3>
+                        </div>
+                        <div class="space-y-4 ml-2">
+                            <template x-for="output in current.outputs.items">
+                                <div class="flex items-start gap-3">
+                                    <i class="fa-regular fa-file-lines text-[#015850] mt-1"></i>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800 text-sm" x-text="output.name"></h4>
+                                        <p class="text-gray-500 text-sm mt-0.5" x-text="output.description"></p>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </section>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <section class="border border-gray-200 bg-white rounded-lg p-5 shadow-sm">
+                            <div class="flex items-center gap-2 mb-3">
+                                <i class="fa-solid fa-money-bill-wave text-[#015850]"></i>
+                                <h3 class="text-[#015850] text-sm font-semibold">Dana Maksimal</h3>
+                            </div>
+                            <p class="text-xl font-bold text-gray-800 mb-1" x-text="current.funding.amount"></p>
+                            <p class="text-xs text-gray-500 leading-relaxed" x-text="current.funding.description"></p>
+                        </section>
+
+                        <section class="border border-gray-200 bg-white rounded-lg p-5 shadow-sm">
+                            <div class="flex items-center gap-2 mb-3">
+                                <i class="fa-regular fa-calendar text-[#015850]"></i>
+                                <h3 class="text-[#015850] text-sm font-semibold">Durasi Penelitian</h3>
+                            </div>
+                            <p class="text-xl font-bold text-gray-800 mb-1" x-text="current.duration.period"></p>
+                            <p class="text-xs text-gray-500 leading-relaxed" x-text="current.duration.description"></p>
+                        </section>
+                    </div>
+
+                    <button class="w-full bg-[#015850] text-white py-4 px-6 rounded-xl hover:bg-[#014540] transition-colors flex items-center justify-center gap-2 font-semibold shadow-md">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        Ajukan Proposal di PENAMAS
+                    </button>
+                </div>
+            </main>
+
+            <aside class="lg:col-span-3">
+                <div class="space-y-4 sticky top-8">
+                    <h3 class="font-bold text-[#015850] text-lg mb-2">Informasi Pendukung</h3>
+
+                    <div class="space-y-3">
+                        
+                        <div x-data="{ open: false }" class="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+                            <button @click="open = !open" class="w-full flex items-center justify-between p-4 hover:bg-gray-100 transition-colors">
+                                <h4 class="text-[#015850] font-semibold text-sm text-left">Alur Pengajuan Skema</h4>
+                                <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" :class="open ? 'rotate-180' : ''"></i>
+                            </button>
+                            <div x-show="open" x-cloak class="px-4 pb-4">
+                                <p class="text-gray-500 text-xs mb-3">Proses pengajuan proposal penelitian dari pendaftaran hingga pelaksanaan.</p>
+                                <ol class="space-y-3 mb-4">
+                                    <li class="text-xs"><span class="text-[#015850] font-bold">1. Pengajuan Proposal</span><br><span class="text-gray-500 ml-3">Submit via PENAMAS.</span></li>
+                                    <li class="text-xs"><span class="text-[#015850] font-bold">2. Verifikasi Administrasi</span><br><span class="text-gray-500 ml-3">Pemeriksaan oleh LPPM.</span></li>
+                                    <li class="text-xs"><span class="text-[#015850] font-bold">3. Review Substansi</span><br><span class="text-gray-500 ml-3">Penilaian oleh reviewer.</span></li>
+                                    <li class="text-xs"><span class="text-[#015850] font-bold">4. Penetapan Hasil</span><br><span class="text-gray-500 ml-3">Pengumuman hasil.</span></li>
+                                    <li class="text-xs"><span class="text-[#015850] font-bold">5. Kontrak & Pelaksanaan</span><br><span class="text-gray-500 ml-3">Tanda tangan kontrak.</span></li>
+                                </ol>
+                                <a href="#" class="text-[#015850] text-xs font-semibold hover:underline flex items-center gap-1">
+                                    <i class="fa-solid fa-download"></i> Unduh Template Proposal
+                                </a>
+                            </div>
+                        </div>
+
+                        <div x-data="{ open: false }" class="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+                            <button @click="open = !open" class="w-full flex items-center justify-between p-4 hover:bg-gray-100 transition-colors">
+                                <h4 class="text-[#015850] font-semibold text-sm text-left">Perubahan Anggota</h4>
+                                <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" :class="open ? 'rotate-180' : ''"></i>
+                            </button>
+                            <div x-show="open" x-cloak class="px-4 pb-4">
+                                <ul class="space-y-1 mb-4 text-xs text-gray-500">
+                                    <li>• Mengisi Form Perubahan</li>
+                                    <li>• Mengirim permohonan ke LPPM</li>
+                                    <li>• LPPM memproses di PENAMAS</li>
+                                </ul>
+                                <button class="w-full bg-white border border-[#015850] text-[#015850] py-2 px-4 rounded text-xs hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-download"></i> Unduh Form
+                                </button>
+                            </div>
+                        </div>
+
+                        <div x-data="{ open: false }" class="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+                            <button @click="open = !open" class="w-full flex items-center justify-between p-4 hover:bg-gray-100 transition-colors">
+                                <h4 class="text-[#015850] font-semibold text-sm text-left">Pelaporan Monev</h4>
+                                <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" :class="open ? 'rotate-180' : ''"></i>
+                            </button>
+                            <div x-show="open" x-cloak class="px-4 pb-4">
+                                <ul class="space-y-1 mb-4 text-xs text-gray-500">
+                                    <li>• Mengisi Form Monev</li>
+                                    <li>• Menyiapkan bon realisasi</li>
+                                    <li>• Kirim hardcopy ke LPPM</li>
+                                </ul>
+                                <button class="w-full bg-white border border-[#015850] text-[#015850] py-2 px-4 rounded text-xs hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-download"></i> Unduh Template Monev
+                                </button>
+                            </div>
+                        </div>
+                        <div x-data="{ open: false }" class="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+                            <button @click="open = !open" class="w-full flex items-center justify-between p-4 hover:bg-gray-100 transition-colors">
+                                <h4 class="text-[#015850] font-semibold text-sm text-left">Pelaporan Akhir</h4>
+                                <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" :class="open ? 'rotate-180' : ''"></i>
+                            </button>
+                            <div x-show="open" x-cloak class="px-4 pb-4">
+                                <p class="text-gray-500 text-xs mb-3">
+                                    Proses pelaporan akhir kegiatan penelitian setelah penelitian selesai dilaksanakan.
+                                </p>
+                                
+                                <ul class="space-y-1 mb-4 text-xs text-gray-500">
+                                    <li>• Peneliti menyusun laporan akhir penelitian berupa kegiatan penelitian</li>
+                                    <li>• Peneliti membuat poster penelitian</li>
+                                    <li>• Peneliti mengisi form pengajuan reimburse apabila terdapat sisa bon 20 persen yang hendak dilaporkan</li>
+                                    <li>• Peneliti mengunggah laporan kegiatan dan poster melalui sistem PENAMAS</li>
+                                    <li>• Dekan melakukan persetujuan laporan di sistem</li>
+                                    <li>• Peneliti mengirimkan laporan kegiatan berupa hardcopy dijilid softcover sesuai warna fakultas ke LPPM</li>
+                                </ul>
+                                
+                                <div class="space-y-2">
+                                    <button class="w-full bg-white border border-[#015850] text-[#015850] py-2 px-4 rounded text-xs hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                                        <i class="fa-solid fa-download"></i> Unduh Template Laporan Akhir
+                                    </button>
+                                    <button class="w-full bg-white border border-[#015850] text-[#015850] py-2 px-4 rounded text-xs hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                                        <i class="fa-solid fa-download"></i> Unduh Format Poster
+                                    </button>
+                                    <button class="w-full bg-white border border-[#015850] text-[#015850] py-2 px-4 rounded text-xs hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                                        <i class="fa-solid fa-download"></i> Unduh Template Pengajuan Reimburse
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div x-data="{ open: false }" class="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+                            <button @click="open = !open" class="w-full flex items-center justify-between p-4 hover:bg-gray-100 transition-colors">
+                                <h4 class="text-[#015850] font-semibold text-sm text-left">Dokumen Pendukung</h4>
+                                <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" :class="open ? 'rotate-180' : ''"></i>
+                            </button>
+                            <div x-show="open" x-cloak class="px-4 pb-4">
+                                <ul class="space-y-3 text-xs">
+                                    <li><a href="#" class="text-[#015850] hover:underline flex items-center gap-2"><i class="fa-solid fa-file-pdf"></i> Time Line Penelitian</a></li>
+                                    <li><a href="#" class="text-[#015850] hover:underline flex items-center gap-2"><i class="fa-solid fa-book"></i> Buku Saku Penelitian</a></li>
+                                    <li><a href="#" class="text-[#015850] hover:underline flex items-center gap-2"><i class="fa-solid fa-laptop-code"></i> Panduan PENAMAS</a></li>
+                                    <li><a href="#" class="text-[#015850] hover:underline flex items-center gap-2"><i class="fa-solid fa-circle-question"></i> Lihat FAQ</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div x-data="{ open: false }" class="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden shadow-sm mb-6">
+                        <button @click="open = !open" class="w-full flex items-center justify-between p-4 hover:bg-gray-100 transition-colors">
+                            <h4 class="text-[#015850] font-semibold text-sm text-left flex items-center gap-2">
+                                <i class="fa-solid fa-circle-question"></i> FAQ – Pertanyaan yang Sering Diajukan
+                            </h4>
+                            <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" :class="open ? 'rotate-180' : ''"></i>
+                        </button>
+                        
+                        <div x-show="open" x-cloak class="px-4 pb-4">
+                            <div class="space-y-4 mt-2">
+                                
+                                <div>
+                                    <h5 class="text-sm font-bold text-gray-800">Form 01, Form 02, dan Form 03 itu apa?</h5>
+                                    <p class="text-xs text-gray-600 mt-1 leading-relaxed">
+                                        Form tersebut adalah template administrasi penelitian yang digunakan dalam proses pengajuan proposal penelitian melalui sistem PENAMAS. Template dapat diunduh pada bagian prosedur di halaman ini.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h5 class="text-sm font-bold text-gray-800">Di mana saya dapat mengunduh template proposal penelitian?</h5>
+                                    <p class="text-xs text-gray-600 mt-1 leading-relaxed">
+                                        Template proposal dapat diunduh pada bagian Alur Pengajuan Skema di halaman ini atau melalui dokumen yang disediakan oleh LPPM.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h5 class="text-sm font-bold text-gray-800">Apakah template proposal sama untuk semua skema penelitian?</h5>
+                                    <p class="text-xs text-gray-600 mt-1 leading-relaxed">
+                                        Secara umum struktur proposal sama, namun beberapa skema memiliki ketentuan tambahan yang dijelaskan pada buku saku penelitian.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h5 class="text-sm font-bold text-gray-800">Apakah mahasiswa boleh menjadi anggota penelitian?</h5>
+                                    <p class="text-xs text-gray-600 mt-1 leading-relaxed">
+                                        Ya, beberapa skema penelitian memungkinkan keterlibatan mahasiswa sebagai bagian dari tim penelitian.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h5 class="text-sm font-bold text-gray-800">Bagaimana jika ingin mengganti anggota peneliti?</h5>
+                                    <p class="text-xs text-gray-600 mt-1 leading-relaxed">
+                                        Perubahan anggota dapat dilakukan dengan mengisi form perubahan anggota dan mengajukan permohonan kepada LPPM.
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-[#015850] text-white rounded-xl p-5 shadow-sm mt-6">
+                        <h4 class="font-bold mb-2">Perlu Bantuan?</h4>
+                        <p class="text-green-50 text-xs mb-4 leading-relaxed">
+                            Jika membutuhkan bantuan terkait pengajuan penelitian atau pelaporan, silakan hubungi LPPM.
+                        </p>
+                        <div class="space-y-3 mb-5 text-sm">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-building w-4"></i> Gedung 0 Lt. 4</div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-envelope w-4"></i> lppm@unpar.ac.id</div>
+                            <div class="flex items-center gap-2"><i class="fa-brands fa-whatsapp w-4"></i> +62 895 2201 7571</div>
+                        </div>
+                        <button class="w-full bg-white text-[#015850] font-semibold py-2.5 px-4 rounded-lg hover:bg-gray-100 transition-colors text-sm shadow-sm">
+                            Hubungi LPPM
+                        </button>
+                    </div>
+
+                </div>
+            </aside>
+        </div>
+    </div>
+<div id="footer-placeholder"></div>
+
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+    <script>
+        // Data persis seperti dari file React yang kamu berikan
+        const researchSchemes = {
+            "dosen-muda": {
+                id: "dosen-muda", name: "Dosen Muda", status: "open", badge: "Dibuka",
+                description: "Skema pembinaan peneliti awal untuk menghasilkan publikasi ilmiah dan membangun kapasitas penelitian dosen yang baru memulai karir akademik.",
+                requirements: { title: "Persyaratan Ketua", items: [ "Dosen tetap UNPAR dengan masa kerja maksimal 5 tahun", "Belum pernah menjadi ketua skema penelitian lanjutan", "Memiliki latar belakang pendidikan minimal S2", "Tidak sedang menjadi ketua penelitian skema lain di tahun berjalan" ] },
+                team: { leader: { title: "Ketua Peneliti", description: "1 (satu) dosen tetap UNPAR yang memenuhi kriteria" }, members: { title: "Anggota Peneliti", description: "1-2 dosen anggota dari UNPAR atau institusi lain (opsional)" }, students: { title: "Mahasiswa", description: "Mahasiswa diperbolehkan sebagai anggota penelitian" } },
+                outputs: { title: "Luaran Wajib", items: [ { name: "Artikel Jurnal Ilmiah", description: "Minimal 1 artikel yang disubmit ke jurnal ilmiah terakreditasi Sinta atau bereputasi internasional" }, { name: "Laporan Akhir Penelitian", description: "Laporan lengkap sesuai format LPPM UNPAR" } ] },
+                funding: { amount: "Rp 15.000.000", description: "Dana maksimal per penelitian untuk periode 1 tahun" }, duration: { period: "1 Tahun", description: "Dari penandatanganan kontrak hingga penyerahan laporan akhir" }
+            },
+            "mini-riset": {
+                id: "mini-riset", name: "Mini Riset", status: "open", badge: "Dibuka",
+                description: "Skema penelitian singkat untuk eksplorasi awal ide penelitian dengan durasi dan pendanaan terbatas.",
+                requirements: { title: "Persyaratan Ketua", items: [ "Dosen tetap UNPAR", "Tidak sedang menjadi ketua penelitian skema lain", "Memiliki ide penelitian yang jelas dan terukur", "Proposal mengikuti format yang ditetapkan" ] },
+                team: { leader: { title: "Ketua Peneliti", description: "1 (satu) dosen tetap UNPAR" }, members: { title: "Anggota Peneliti", description: "Maksimal 2 anggota (opsional)" } },
+                outputs: { title: "Luaran Wajib", items: [ { name: "Laporan Penelitian", description: "Laporan hasil penelitian sesuai format LPPM" }, { name: "Presentasi Hasil", description: "Presentasi dalam forum internal LPPM" } ] },
+                funding: { amount: "Rp 5.000.000", description: "Dana maksimal per penelitian untuk periode 6 bulan" }, duration: { period: "6 Bulan", description: "Dari penandatanganan kontrak hingga penyerahan laporan" }
+            },
+            "penelitian-bersaing": {
+                id: "penelitian-bersaing", name: "Penelitian Bersaing", status: "open", badge: "Dibuka",
+                description: "Skema penelitian kompetitif untuk dosen berpengalaman dengan target publikasi berkualitas tinggi.",
+                requirements: { title: "Persyaratan Ketua", items: [ "Dosen tetap UNPAR dengan minimal 3 publikasi dalam 3 tahun terakhir", "Memiliki track record penelitian yang baik", "Tidak sedang menjalani studi lanjut", "Proposal harus kompetitif dan inovatif" ] },
+                team: { leader: { title: "Ketua Peneliti", description: "1 (satu) dosen tetap UNPAR yang berpengalaman" }, members: { title: "Anggota Peneliti", description: "1-3 dosen anggota dari berbagai institusi" }, students: { title: "Mahasiswa", description: "Dapat melibatkan mahasiswa S1/S2/S3" } },
+                outputs: { title: "Luaran Wajib", items: [ { name: "Artikel Jurnal Internasional", description: "Minimal 1 artikel di jurnal internasional bereputasi (Q1-Q2)" }, { name: "Laporan Akhir Penelitian", description: "Laporan lengkap dengan dokumentasi lengkap" }, { name: "HKI atau Paten", description: "Hak Kekayaan Intelektual (jika relevan)" } ] },
+                funding: { amount: "Rp 30.000.000", description: "Dana maksimal per penelitian untuk periode 1 tahun" }, duration: { period: "1 Tahun", description: "Dapat diperpanjang hingga maksimal 2 tahun" }
+            },
+            "penelitian-terapan": {
+                id: "penelitian-terapan", name: "Penelitian Terapan", status: "open", badge: "Dibuka",
+                description: "Penelitian yang berorientasi pada penerapan ilmu pengetahuan untuk memecahkan masalah praktis di masyarakat atau industri.",
+                requirements: { title: "Persyaratan Ketua", items: [ "Dosen tetap UNPAR", "Memiliki mitra industri atau masyarakat", "Proposal memiliki roadmap implementasi yang jelas", "Tidak sedang menjalani studi lanjut" ] },
+                team: { leader: { title: "Ketua Peneliti", description: "1 (satu) dosen tetap UNPAR" }, members: { title: "Anggota Peneliti", description: "1-3 dosen anggota, dapat melibatkan praktisi" }, students: { title: "Mahasiswa", description: "Dapat melibatkan mahasiswa dalam implementasi" } },
+                outputs: { title: "Luaran Wajib", items: [ { name: "Produk/Prototipe", description: "Produk terapan atau prototipe yang siap digunakan" }, { name: "Artikel Ilmiah", description: "Artikel di jurnal atau prosiding" }, { name: "Laporan Akhir", description: "Laporan lengkap dengan dokumentasi implementasi" } ] },
+                funding: { amount: "Rp 25.000.000", description: "Dana maksimal per penelitian untuk periode 1 tahun" }, duration: { period: "1 Tahun", description: "Dengan milestone implementasi yang jelas" }
+            },
+            "kolaborasi": {
+                id: "kolaborasi", name: "Kolaborasi", status: "soon", badge: "Segera Dibuka",
+                description: "Penelitian kolaboratif antara UNPAR dengan institusi lain atau industri untuk menghasilkan penelitian interdisipliner.",
+                requirements: { title: "Persyaratan Ketua", items: [ "Dosen tetap UNPAR", "Memiliki MoU atau kesepakatan kolaborasi dengan mitra", "Proposal kolaboratif dengan pembagian peran yang jelas", "Memenuhi ketentuan beban penelitian" ] },
+                team: { leader: { title: "Ketua Peneliti", description: "1 (satu) dosen tetap UNPAR sebagai koordinator" }, members: { title: "Anggota Peneliti", description: "Dosen dari UNPAR dan institusi mitra" }, students: { title: "Mahasiswa", description: "Dapat melibatkan mahasiswa dari berbagai institusi" } },
+                outputs: { title: "Luaran Wajib", items: [ { name: "Artikel Jurnal Bersama", description: "Artikel dengan afiliasi gabungan institusi" }, { name: "Laporan Kolaboratif", description: "Laporan yang disusun bersama mitra" } ] },
+                funding: { amount: "Rp 35.000.000", description: "Dana maksimal per penelitian kolaboratif" }, duration: { period: "1-2 Tahun", description: "Sesuai dengan ruang lingkup kolaborasi" }
+            },
+            "tugas-akhir-sarjana": {
+                id: "tugas-akhir-sarjana", name: "Tugas Akhir Sarjana", status: "open", badge: "Dibuka",
+                description: "Pendanaan untuk penelitian tugas akhir mahasiswa S1 yang berkualitas dengan potensi publikasi.",
+                requirements: { title: "Persyaratan", items: [ "Mahasiswa aktif program S1 UNPAR", "Proposal tugas akhir telah disetujui pembimbing", "Memiliki potensi untuk dipublikasikan", "IPK minimal 3.00" ] },
+                team: { leader: { title: "Mahasiswa", description: "1 mahasiswa S1 sebagai peneliti utama" }, members: { title: "Pembimbing", description: "Dosen pembimbing tugas akhir" } },
+                outputs: { title: "Luaran Wajib", items: [ { name: "Laporan Tugas Akhir", description: "Laporan lengkap sesuai format fakultas" }, { name: "Artikel Konferensi", description: "Artikel untuk konferensi nasional/internasional" } ] },
+                funding: { amount: "Rp 7.500.000", description: "Dana maksimal per tugas akhir" }, duration: { period: "6-8 Bulan", description: "Sesuai dengan jadwal tugas akhir" }
+            },
+            "tesis-magister": {
+                id: "tesis-magister", name: "Tesis Magister", status: "open", badge: "Dibuka",
+                description: "Pendanaan untuk penelitian tesis mahasiswa S2 dengan target publikasi jurnal nasional terakreditasi.",
+                requirements: { title: "Persyaratan", items: [ "Mahasiswa aktif program S2 UNPAR", "Proposal tesis telah disetujui", "Target publikasi di jurnal terakreditasi minimal Sinta 3", "IPK minimal 3.25" ] },
+                team: { leader: { title: "Mahasiswa", description: "1 mahasiswa S2 sebagai peneliti utama" }, members: { title: "Pembimbing", description: "Dosen pembimbing tesis" } },
+                outputs: { title: "Luaran Wajib", items: [ { name: "Tesis", description: "Tesis lengkap sesuai standar program S2" }, { name: "Artikel Jurnal", description: "Artikel di jurnal terakreditasi Sinta" } ] },
+                funding: { amount: "Rp 12.000.000", description: "Dana maksimal per tesis" }, duration: { period: "1 Tahun", description: "Sesuai dengan jadwal program S2" }
+            },
+            "disertasi-doktor": {
+                id: "disertasi-doktor", name: "Disertasi Doktor", status: "open", badge: "Dibuka",
+                description: "Pendanaan untuk penelitian disertasi mahasiswa S3 dengan target publikasi jurnal internasional bereputasi.",
+                requirements: { title: "Persyaratan", items: [ "Mahasiswa aktif program S3 UNPAR", "Proposal disertasi telah disetujui", "Target publikasi di jurnal internasional Q1-Q3", "Telah lulus ujian kualifikasi" ] },
+                team: { leader: { title: "Mahasiswa", description: "1 mahasiswa S3 sebagai peneliti utama" }, members: { title: "Promotor", description: "Tim promotor dan ko-promotor" } },
+                outputs: { title: "Luaran Wajib", items: [ { name: "Disertasi", description: "Disertasi lengkap sesuai standar program S3" }, { name: "Artikel Jurnal Internasional", description: "Minimal 2 artikel di jurnal internasional bereputasi" } ] },
+                funding: { amount: "Rp 25.000.000", description: "Dana maksimal per disertasi" }, duration: { period: "1-2 Tahun", description: "Sesuai dengan tahap penelitian disertasi" }
+            },
+            "artikel-mahasiswa": {
+                id: "artikel-mahasiswa", name: "Artikel Mahasiswa", status: "soon", badge: "Segera Dibuka",
+                description: "Dukungan dana untuk publikasi artikel ilmiah mahasiswa di jurnal atau konferensi.",
+                requirements: { title: "Persyaratan", items: [ "Mahasiswa aktif UNPAR (S1/S2/S3)", "Artikel telah diterima untuk publikasi", "Mahasiswa sebagai penulis pertama atau korespondensi", "Afiliasi UNPAR tercantum dalam artikel" ] },
+                team: { leader: { title: "Mahasiswa", description: "Mahasiswa penulis artikel" }, members: { title: "Ko-Penulis", description: "Dosen pembimbing atau anggota tim penelitian" } },
+                outputs: { title: "Luaran Wajib", items: [ { name: "Artikel Terpublikasi", description: "Artikel yang telah terbit dengan afiliasi UNPAR" }, { name: "Laporan Singkat", description: "Laporan tentang proses publikasi" } ] },
+                funding: { amount: "Rp 5.000.000", description: "Dana maksimal untuk biaya publikasi" }, duration: { period: "3-6 Bulan", description: "Dari acceptance hingga publikasi" }
+            },
+            "produk-mahasiswa": {
+                id: "produk-mahasiswa", name: "Produk Mahasiswa", status: "soon", badge: "Segera Dibuka",
+                description: "Pendanaan untuk pengembangan produk inovatif hasil penelitian mahasiswa.",
+                requirements: { title: "Persyaratan", items: [ "Mahasiswa aktif UNPAR", "Memiliki ide produk yang inovatif dan feasible", "Proposal pengembangan produk yang jelas", "Didampingi oleh dosen pembimbing" ] },
+                team: { leader: { title: "Mahasiswa", description: "Tim mahasiswa (1-3 orang)" }, members: { title: "Pembimbing", description: "Dosen pembimbing pengembangan produk" } },
+                outputs: { title: "Luaran Wajib", items: [ { name: "Prototipe Produk", description: "Prototipe produk yang siap diuji" }, { name: "Dokumentasi Produk", description: "Dokumentasi lengkap pengembangan produk" }, { name: "HKI", description: "Pendaftaran Hak Kekayaan Intelektual (jika memungkinkan)" } ] },
+                funding: { amount: "Rp 10.000.000", description: "Dana maksimal untuk pengembangan produk" }, duration: { period: "6-8 Bulan", description: "Dari konsep hingga prototipe" }
+            },
+            "hibah-pendamping": {
+                id: "hibah-pendamping", name: "Hibah pendamping", status: "open", badge: "Dibuka",
+                description: "Program pendamping masyarakat untuk penerapan hasil penelitian dan pengembangan kapasitas masyarakat.",
+                requirements: { title: "Persyaratan", items: [ "Dosen tetap UNPAR", "Memiliki mitra masyarakat yang jelas", "Proposal pendamping berbasis hasil penelitian", "Program berkelanjutan dan terukur" ] },
+                team: { leader: { title: "Ketua Tim", description: "1 (satu) dosen tetap UNPAR" }, members: { title: "Anggota Tim", description: "Dosen dan mahasiswa yang terlibat" } },
+                outputs: { title: "Luaran Wajib", items: [ { name: "Laporan Kegiatan", description: "Laporan lengkap kegiatan pendamping" }, { name: "Dokumentasi", description: "Foto dan video dokumentasi kegiatan" }, { name: "Artikel Pengabdian", description: "Artikel di jurnal pengabdian masyarakat" } ] },
+                funding: { amount: "Rp 15.000.000", description: "Dana maksimal per program pendamping" }, duration: { period: "6-12 Bulan", description: "Sesuai dengan program pendamping" }
+            }
+        };
+
+        const schemeCategories = [
+            { title: "PENELITIAN MANDIRI DOSEN", schemes: [ "dosen-muda", "mini-riset", "penelitian-bersaing", "penelitian-terapan", "kolaborasi" ] },
+            { title: "PENELITIAN BERSAMA MAHASISWA", schemes: [ "tugas-akhir-sarjana", "tesis-magister", "disertasi-doktor", "artikel-mahasiswa", "produk-mahasiswa" ] },
+            { title: "PENELITIAN PENDAMPING", schemes: ["hibah-pendamping"] }
+        ];
+
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('appData', () => ({
+                activeScheme: 'dosen-muda', // State awal
+                schemes: researchSchemes,
+                categories: schemeCategories,
+                
+                get current() {
+                    return this.schemes[this.activeScheme];
+                },
+                
+                getStatusColor(status) {
+                    if (status === 'open') return 'text-green-500';
+                    if (status === 'soon') return 'text-orange-500';
+                    return 'text-gray-400';
+                }
+            }));
+        });
+    </script>
+</body>
+</html>

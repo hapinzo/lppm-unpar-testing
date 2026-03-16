@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direktori Pusat Studi Monodisiplin - LPPM UNPAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-gray-800 antialiased" x-data="direktoriData()">
+
+    <div id="header-placeholder"></div>
+
+    <section class="bg-white border-b border-gray-200 py-10 px-6">
+        <div class="max-w-[1400px] mx-auto">
+            <div class="flex items-center gap-3 text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">
+                <a href="Beranda.html" class="hover:text-[#015850]">Beranda</a>
+                <span>/</span>
+                <span class="text-[#015850]">Pusat Studi</span>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">Pusat Studi Monodisiplin</h1>
+            <p class="text-gray-500 mt-3 max-w-2xl text-sm leading-relaxed">
+                LPPM Universitas Katolik Parahyangan mewadahi dan mengelola 20 Pusat Studi Monodisiplin yang berafiliasi langsung dengan fakultas guna mendorong riset mendalam serta pengembangan keilmuan yang spesifik.
+            </p>
+        </div>
+    </section>
+
+    <main class="py-12 px-6 max-w-[1400px] mx-auto">
+        
+        <div class="flex items-center justify-between border-b border-gray-200 pb-4 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-[#015850] pl-3">
+                Direktori Pusat Studi Aktif
+            </h2>
+            <span class="bg-[#015850]/10 text-[#015850] text-sm font-bold px-4 py-1.5 rounded-full">Total: 20 Pusat Studi</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <template x-for="center in centers" :key="center.abbr">
+                <div class="bg-white border border-gray-200 rounded-2xl p-6 hover:border-[#015850] hover:shadow-xl transition-all group flex flex-col h-full relative">
+                    
+                    <div class="w-full h-40 mb-5 rounded-xl overflow-hidden border-2 border-gray-100 shadow-inner bg-gray-50 relative group-hover:border-[#015850]/30 transition-colors">
+                        <img :src="center.foto" :alt="'Foto ' + center.abbr" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="relative z-10 flex-grow">
+                        <div class="text-[10px] font-bold text-[#015850] bg-[#015850]/10 inline-block px-3 py-1 rounded-full uppercase tracking-widest mb-3">
+                            Fakultas <span x-text="center.fakultas"></span>
+                        </div>
+                        
+                        <h3 class="font-black text-gray-900 text-lg mb-1 tracking-tight leading-snug" x-text="center.abbr"></h3>
+                        <p class="text-[11px] font-semibold text-gray-500 mb-5 leading-relaxed min-h-[32px]" x-text="center.name"></p>
+                        
+                        <div class="space-y-3 text-sm text-gray-600 border-t border-gray-100 pt-5">
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 bg-gray-50 rounded-full flex items-center justify-center shrink-0 text-gray-400 group-hover:bg-[#015850] group-hover:text-white transition-colors border border-gray-100">
+                                    <i class="fa-solid fa-user-tie text-[11px]"></i>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-0.5">Ketua Pusat Studi</p>
+                                    <p class="font-semibold text-gray-800 text-[11px] leading-snug" x-text="center.ketua"></p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 bg-gray-50 rounded-full flex items-center justify-center shrink-0 text-gray-400 group-hover:bg-[#015850] group-hover:text-white transition-colors border border-gray-100">
+                                    <i class="fa-solid fa-envelope text-[11px]"></i>
+                                </div>
+                                <div class="flex flex-col">
+                                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-0.5">Kontak Email</p>
+                                    <a :href="'mailto:' + center.email" class="hover:text-yellow-600 transition-colors text-[11px] font-medium" x-text="center.email"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a x-show="center.web" :href="center.web ? 'https://' + center.web : '#'" target="_blank" class="relative z-10 mt-6 w-full bg-slate-50 hover:bg-[#015850] hover:text-white text-[#015850] border border-gray-200 hover:border-[#015850] font-bold py-3 px-4 rounded-xl transition-all text-center text-xs tracking-wide group-hover:shadow-md flex justify-center items-center gap-2">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Kunjungi Website
+                    </a>
+                </div>
+            </template>
+        </div>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('direktoriData', () => ({
+                centers: [
+                    // FAKULTAS EKONOMI
+                    {
+                        abbr: "PS Ilmu Akuntansi",
+                        name: "Pusat Studi Ilmu Akuntansi",
+                        fakultas: "Ekonomi",
+                        ketua: "Dr. Sylvia Fettry E M,SE.,SH.,M.Si.,Ak., CA., Cert. IFR.",
+                        email: "sylvia.fettry@unpar.ac.id",
+                        foto: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=800&auto=format&fit=crop"
+                    },
+                    {
+                        abbr: "PS Ilmu Ekonomi",
+                        name: "Pusat Studi Ilmu Ekonomi",
+                        fakultas: "Ekonomi",
+                        ketua: "Dr. Chandra Utama, S.E., M.M., M.Sc.",
+                        email: "chandradst@unpar.ac.id",
+                        foto: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=800&auto=format&fit=crop"
+                    },
+                    {
+                        abbr: "PS Ilmu Manajemen",
+                        name: "Pusat Studi Ilmu Manajemen",
+                        fakultas: "Ekonomi",
+                        ketua: "Dr. Deti Mulyo Harsono, S.E., M.M.",
+                        email: "detty@unpar.ac.id",
+                        foto: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop"
+                    },
+                    // FAKULTAS ISIP
+                    {
+                        abbr: "CEBIS",
+                        name: "Centre for Business Studies",
+                        fakultas: "Ilmu Sosial dan Ilmu Politik",
+                        ketua: "Dr. Agus Gunawan, S.Sos., B.App.Com., MBA., M.Phil.",
+                        email: "agus_gun@unpar.ac.id",
+                        foto: "https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&w=800&auto=format&fit=crop"
+                    },
+                    {
+                        abbr: "CPMS",
+                        name: "Centre for Policy & Management Studies",
+                        fakultas: "Ilmu Sosial dan Ilmu Politik",
+                        ketua: "Tutik Rachmawati, S.I.P., M.A., Ph.D",
+                        email: "tutikr@unpar.ac.id",
+                        foto: "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=800&auto=format&fit=crop"
+                    },
+                    {
+                        abbr: "PS Hubungan Internasional",
+                        name: "Pusat Studi Hubungan Internasional",
+                        fakultas: "Ilmu Sosial dan Ilmu Politik",
+                        ketua: "Yulius Purwadi Hermawan, Drs, M.A., Ph.D.",
+                        email: "purwadi@unpar.ac.id",
+                        foto: "https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=800&auto=format&fit=crop"
+                    },
+                    // FAKULTAS FILSAFAT
+                    {
+                        abbr: "CPCRS",
+                        name: "Centre for Philosophy, Culture and Religious Studies",
+                        fakultas: "Filsafat",
+                        ketua: "Dr. Stephanus Djunatan",
+                        email: "stephanus.djunatan@unpar.ac.id",
+                        foto: "https://images.unsplash.com/photo-1491841550275-ad7854e35ca6?q=80&w=800&auto=format&fit=crop"
+                    },
+                    // FAKULTAS HUKUM
+                    {
+                        abbr: "PS Hukum Transnasional",
+                        name: "Pusat Studi Hukum Transnasional",
+                        fakultas: "Hukum",
+                        ketua: "Dr. Tristam Pascal Moeliono, S.H., M.H., LL.M.",
+                        email: "tristam@unpar.ac.id",
+                        foto: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=800&auto=format&fit=crop"
+                    },
+                    // FAKULTAS TEKNOLOGI REKAYASA
+                    {
+                        abbr: "PS Ergonomi",
+                        name: "Pusat Studi Ergonomi",
+                        fakultas: "Teknologi Rekayasa",
+                        ketua: "Dr.Ir. Kristiana Asih Damayanti, S.T., M.T., IPM",
+                        email: "krist@unpar.ac.id",
+                        foto: "https://images.unsplash.com/photo-1542621334-a254cf47733d?q=80&w=800&auto=format&fit=crop"
+                    },
+                    {
+                        abbr: "PS Sistem Enterprise",
+                        name: "Pusat Studi Sistem Enterprise",
+                        fakultas: "Teknologi Rekayasa",
+                        ketua: "Dr. Ir. Hotna Marina Rosaly Sitorus, S.T., M.M.",
+                        email: "nina@unpar.ac.id",
+                        foto: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=800&auto=format&fit=crop"
+                    },
+                    {
+                        abbr: "PS Rantai Pasok",
+                        name: "Pusat Studi Rantai Pasok",
+                        fakultas: "Teknologi Rekayasa",
+                        ketua: "Dr. Titi Iswari, S.T., M.Sc., M.B.A.",
+                        email: "titiiswari@unpar.ac.id",
+                        foto: "https://images.unsplash.com/photo-1586528116311-ad8ed7fc51f7?q=80&w=800&auto=format&fit=crop"
+                    },
+                    {
+                        abbr: "PS Manufaktur",
+                        name: "Pusat Studi Manufaktur",
+                        fakultas: "Teknologi Rekayasa",
+                        ketua: "Dr. Ir. Sugih Sudharma Tjandra, S.T., M.Si.",
+                        email: "sugih.sudharma@unpar.ac.id",
+                        foto: "https://images.unsplash.com/photo-1565439390118-bfa12b9c7921?q=80&w=800&auto=format&fit=crop"
+                    },
+                    {
+                        abbr: "PS Konversi Energi Terbarukan",
+                        name: "Pusat Studi Konversi Energi Terbarukan",
+                        fakultas: "Teknologi Rekayasa",
+                        ketua: "Dr. Angela Martina, S.T., M.T.",
+                        email: "angela.martina@unpar.ac.id",
+                        foto: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=800&auto=format&fit=crop"
+                    },
+                    {
+                        abbr: "PS Teknologi Air & Pengolahan Limbah",
+                        name: "Pusat Studi Teknologi Air dan Pengolahan Limbah",
+                        fakultas: "Teknologi Rekayasa",
+                        ketua: "Ir. Ariestya Arlene Arbita, S.T., M.T., Ph.D.",
+                        email: "ariestya.arlene@unpar.ac.id",
+                        foto: "https://images.unsplash.com/photo-1582216515862-26156a6230f2?q=80&w=800&auto=format&fit=crop"
+                    },
+                    {
+                        abbr: "PS Pengembangan Produk & Material Maju",
+                        name: "Pusat Studi Pengembangan Produk dan Material Maju",
+                        fakultas: "Teknologi Rekayasa",
+                        ketua: "Dr. Ir. Angela Justina Kumalaputri",
+                        email: "angela.justina@unpar.ac.id",
+                        foto: "https://images.unsplash.com/photo-1616423640778-28d1b53229bd?q=80&w=800&auto=format&fit=crop"
+                    },
+                    {
+                        abbr: "CeCASE",
+                        name: "Center for Control, Automation and Systems Engineering",
+                        fakultas: "Teknologi Rekayasa",
+                        ketua: "Prof. Dr. Ir. Bagus Made Arthaya, M.Eng.",
+                        email: "bagusart@unpar.ac.id",
+                        foto: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop"
+                    },
+                    // FAKULTAS SAINS
+                    {
+                        abbr: "PS Fisika Teori",
+                        name: "Pusat Studi Fisika Teori",
+                        fakultas: "Sains",
+                        ketua: "Sylvia Hastuti Sutanto, S.Si., Ph.D.",
+                        email: "sylvia@unpar.ac.id",
+                        foto: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=800&auto=format&fit=crop"
+                    },
+                    {
+                        abbr: "PS Matematika & Masyarakat",
+                        name: "Pusat Studi Matematika dan Masyarakat",
+                        fakultas: "Sains",
+                        ketua: "Dr. Livia Owen, S.Si., M.Si.",
+                        email: "livia.owen@unpar.ac.id",
+                        foto: "https://images.unsplash.com/photo-1509228468518-180dd4864904?q=80&w=800&auto=format&fit=crop"
+                    },
+                    {
+                        abbr: "CDSAI",
+                        name: "Center for Data Science and Artificial Intelligence System",
+                        fakultas: "Sains",
+                        ketua: "Prof. Dr. Veronica Sri Moertini, Ir., M.T.",
+                        email: "moertini@unpar.ac.id",
+                        foto: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=800&auto=format&fit=crop"
+                    },
+                    {
+                        abbr: "RCASI",
+                        name: "Research Centre of Applied Science and Instrumentation",
+                        fakultas: "Sains",
+                        ketua: "Elok Fidiani, S.Si., M.Sc., Ph.D.",
+                        email: "elokfidiani@unpar.ac.id",
+                        foto: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop"
+                    }
+                ]
+            }));
+        });
+    </script>
+</body>
+</html>

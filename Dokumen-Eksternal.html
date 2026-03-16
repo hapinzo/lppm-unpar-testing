@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumen Eksternal - LPPM UNPAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        [x-cloak] { display: none !important; }
+        .doc-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .doc-card:hover { transform: translateY(-4px); }
+    </style>
+</head>
+<body class="bg-slate-50 text-gray-800 antialiased flex flex-col min-h-screen" x-data="dokumenEksternalApp()">
+
+    <div id="header-placeholder"></div>
+
+    <main class="flex-grow">
+        
+        <section class="bg-gradient-to-br from-[#0b3832] to-[#015850] text-white py-16 px-6 relative overflow-hidden">
+            <div class="absolute inset-0 w-full h-full opacity-10" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 32px 32px;"></div>
+            <div class="max-w-[1200px] mx-auto text-center relative z-10">
+                <h1 class="text-4xl md:text-5xl font-black mb-4 tracking-tight">Pusat Dokumen Eksternal</h1>
+                <p class="text-lg md:text-xl text-green-100 max-w-2xl mx-auto">
+                    Akses pedoman dari kementerian, BRIN, serta peraturan pemerintah terkait kegiatan penelitian dan pengabdian.
+                </p>
+            </div>
+        </section>
+
+        <section class="py-10 px-6 -mt-8 relative z-20">
+            <div class="max-w-[1200px] mx-auto">
+                <div class="bg-white p-6 md:p-8 rounded-3xl shadow-xl border border-gray-100 flex flex-col lg:flex-row gap-6 items-center">
+                    
+                    <div class="relative w-full lg:flex-1">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        <input type="text" 
+                               x-model="searchQuery" 
+                               placeholder="Cari nama dokumen, peraturan, atau deskripsi..." 
+                               class="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-[#015850] focus:border-[#015850] outline-none transition-all">
+                    </div>
+
+                    <div class="flex flex-wrap justify-center gap-2">
+                        <template x-for="cat in categories" :key="cat">
+                            <button @click="activeCategory = cat" 
+                                    :class="activeCategory === cat ? 'bg-[#015850] text-white shadow-md' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'"
+                                    class="px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all" 
+                                    x-text="cat">
+                            </button>
+                        </template>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="pb-24 px-6">
+            <div class="max-w-[1200px] mx-auto">
+                
+                <div x-show="filteredDocs.length === 0" class="text-center py-20" x-cloak>
+                    <div class="text-gray-300 text-6xl mb-4"><i class="fa-solid fa-folder-open"></i></div>
+                    <h3 class="text-xl font-bold text-gray-400">Dokumen tidak ditemukan</h3>
+                    <p class="text-gray-400 text-sm mt-2">Coba kata kunci lain atau pilih kategori yang berbeda.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-5">
+                    <template x-for="doc in filteredDocs" :key="doc.id">
+                        <div class="bg-white p-4 md:p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-[#015850] transition-all flex items-start gap-4 group h-full">
+                            
+                            <div class="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center text-lg md:text-xl transition-colors" :class="doc.iconBg">
+                                <i class="fa-solid" :class="doc.icon"></i>
+                            </div>
+
+                            <div class="flex-grow flex flex-col h-full">
+                                <div class="flex flex-wrap items-center gap-2 mb-2">
+                                    <span class="text-[10px] font-black uppercase tracking-widest px-2 py-0.5 bg-slate-100 text-gray-500 rounded-md" x-text="doc.category"></span>
+                                    <div class="flex items-center gap-2 text-[10px] md:text-[11px] text-gray-400">
+                                        <span class="flex items-center gap-1" x-show="doc.date"><i class="fa-solid fa-calendar-day"></i> <span x-text="doc.date"></span></span>
+                                    </div>
+                                </div>
+
+                                <h4 class="text-sm md:text-base font-bold text-gray-900 leading-snug group-hover:text-[#015850] transition-colors mb-1.5" x-text="doc.title"></h4>
+                                <p class="text-[11px] md:text-xs text-gray-500 leading-relaxed mb-3 flex-grow" x-text="doc.description"></p>
+                                
+                                <div class="mt-auto pt-1">
+                                    <a :href="doc.link" target="_blank" class="inline-flex w-full sm:w-auto px-4 py-2 md:py-2.5 bg-gray-50 text-[#015850] text-xs font-bold text-center rounded-xl border border-gray-200 group-hover:bg-[#015850] group-hover:text-white group-hover:border-[#015850] transition-all items-center justify-center gap-2">
+                                        <i class="fa-solid fa-download"></i> Unduh File
+                                    </a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </template>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+
+    <script>
+        function dokumenEksternalApp() {
+            return {
+                searchQuery: '',
+                activeCategory: 'Semua',
+                // Kategori Disesuaikan untuk Dokumen Eksternal
+                categories: ['Semua', 'Pedoman BRIN', 'Peraturan Menteri', 'PP & Perpres', 'Undang-Undang', 'Lainnya'],
+                
+                // DATA DOKUMEN EKSTERNAL RIIL
+                docs: [
+                    // --- KATEGORI: PEDOMAN BRIN ---
+                    { id: 1, category: 'Pedoman BRIN', icon: 'fa-microscope', iconBg: 'bg-blue-50 text-blue-600', title: 'Pedoman RIIM Ekspedisi (BRIN)', description: 'Pedoman Riset dan Inovasi untuk Indonesia Maju Ekspedisi Tahun 2025 (BRIN).', date: '2025', link: 'https://bit.ly/2025-Pedoman-RIIM-Ekspedisi' },
+                    { id: 2, category: 'Pedoman BRIN', icon: 'fa-flask', iconBg: 'bg-blue-50 text-blue-600', title: 'Pedoman RIIM Kompetisi (BRIN)', description: 'Pedoman Riset dan Inovasi untuk Indonesia Maju Kompetisi Tahun 2025 (BRIN).', date: '2025', link: 'https://lppm.unpar.ac.id/wp-content/uploads/sites/37/2025/12/57-II-7-HK-2025-Pedoman-RIIM-Kompetisi.pdf' },
+
+                    // --- KATEGORI: PERATURAN MENTERI ---
+                    { id: 3, category: 'Peraturan Menteri', icon: 'fa-scale-unbalanced', iconBg: 'bg-emerald-50 text-emerald-600', title: 'Permendikbudristek No. 39 Tahun 2021', description: 'Tentang Integritas Akademik Dalam Menghasilkan Karya Ilmiah.', date: '2021', link: 'https://lppm.unpar.ac.id/wp-content/uploads/sites/37/2025/12/2021_PERMEN-39-2021_Integritas-Akademik.pdf' },
+                    { id: 4, category: 'Peraturan Menteri', icon: 'fa-file-invoice-dollar', iconBg: 'bg-emerald-50 text-emerald-600', title: 'PMK No. 39 Tahun 2024', description: 'Standar Biaya Masukan (SBM) Tahun Anggaran 2025.', date: '2024', link: 'https://lppm.unpar.ac.id/wp-content/uploads/sites/37/2025/12/PMK-039-Tahun-2024-SBM-2025.pdf' },
+                    { id: 5, category: 'Peraturan Menteri', icon: 'fa-file-invoice-dollar', iconBg: 'bg-emerald-50 text-emerald-600', title: 'PMK No. 49 Tahun 2023', description: 'Standar Biaya Masukan (SBM) Tahun Anggaran 2024.', date: '2023', link: 'https://lppm.unpar.ac.id/wp-content/uploads/sites/37/2025/12/PMK-049-Tahun-2023_SBM-2024.pdf' },
+                    { id: 6, category: 'Peraturan Menteri', icon: 'fa-plane', iconBg: 'bg-emerald-50 text-emerald-600', title: 'PMK No. 119 Tahun 2023', description: 'Tentang Perjalanan Dinas Dalam Negeri Bagi Pejabat/Pegawai.', date: '2023', link: 'https://lppm.unpar.ac.id/wp-content/uploads/sites/37/2025/12/PMK-No.-119-Tahun-2023_Tentang-Perjalanan-Dinas-Dalam-Negeri.pdf' },
+                    { id: 7, category: 'Peraturan Menteri', icon: 'fa-plane-departure', iconBg: 'bg-emerald-50 text-emerald-600', title: 'Peraturan Menteri Keuangan', description: 'Tata Cara Perjalanan Dinas Luar Negeri.', date: '2019', link: 'https://lppm.unpar.ac.id/wp-content/uploads/sites/37/2025/12/181PMK.052019-Tata-Cara-Perjadin-LN.pdf' },
+                    { id: 8, category: 'Peraturan Menteri', icon: 'fa-user-check', iconBg: 'bg-emerald-50 text-emerald-600', title: 'Permenristekdikti No. 27 Tahun 2019', description: 'Pedoman Pembentukan Komite Penilaian/Reviewer dan Tata Cara Pelaksanaan Penilaian.', date: '2019', link: 'https://lppm.unpar.ac.id/wp-content/uploads/sites/37/2025/12/Permenristekdikti-Nomor-27-Tahun-2019_Pembentukan-Komite-Penilaian.pdf' },
+                    { id: 9, category: 'Peraturan Menteri', icon: 'fa-microchip', iconBg: 'bg-emerald-50 text-emerald-600', title: 'Permenristekdikti No. 42 Tahun 2016', description: 'Pengukuran dan Penetapan Tingkat Kesiapterapan Teknologi (TKT).', date: '2016', link: 'https://lppm.unpar.ac.id/wp-content/uploads/sites/37/2025/12/Permenristekdikti-Nomor-42-Tahun-2016_Pengukuran-dan-Penetapan-TKT.pdf' },
+
+                    // --- KATEGORI: PERATURAN PEMERINTAH (PP) & PERPRES ---
+                    { id: 10, category: 'PP & Perpres', icon: 'fa-book-atlas', iconBg: 'bg-purple-50 text-purple-600', title: 'Perpres No. 38 Tahun 2018', description: 'Tentang Rencana Induk Riset Nasional (RIRN) Tahun 2017-2045.', date: '2018', link: 'https://lppm.unpar.ac.id/wp-content/uploads/sites/37/2025/12/Perpres-Nomor-38-Tahun-2018-RIRN.pdf' },
+                    { id: 11, category: 'PP & Perpres', icon: 'fa-id-card-clip', iconBg: 'bg-purple-50 text-purple-600', title: 'PP No. 41 Tahun 2006', description: 'Perizinan Melakukan Kegiatan Penelitian bagi Perguruan Tinggi/Peneliti Asing.', date: '2006', link: 'https://lppm.unpar.ac.id/wp-content/uploads/sites/37/2025/12/PP_no_41_th_2006_Tentang-Perizinan-Peneliti-Asing.pdf' },
+                    { id: 12, category: 'PP & Perpres', icon: 'fa-dna', iconBg: 'bg-purple-50 text-purple-600', title: 'PP No. 21 Tahun 2005', description: 'Tentang Keamanan Hayati Produk Rekayasa Genetik.', date: '2005', link: 'https://lppm.unpar.ac.id/wp-content/uploads/sites/37/2025/12/2005_PPRI-no-21-Tentang-Keamanan-Hayati-Produk-Rekayasa-Genetik.pdf' },
+
+                    // --- KATEGORI: UNDANG-UNDANG ---
+                    { id: 13, category: 'Undang-Undang', icon: 'fa-copyright', iconBg: 'bg-rose-50 text-rose-600', title: 'UU No. 28 Tahun 2014', description: 'Undang-Undang Republik Indonesia tentang Hak Cipta.', date: '2014', link: 'https://lppm.unpar.ac.id/wp-content/uploads/sites/37/2025/12/UU-Nomor-28-Tahun-2014-ttg-Hak-Cipta.pdf' },
+
+                    // --- KATEGORI: LAINNYA ---
+                    { id: 14, category: 'Lainnya', icon: 'fa-handshake', iconBg: 'bg-amber-50 text-amber-600', title: 'Peraturan LKPP No. 3 Tahun 2021', description: 'Peraturan Lembaga Kebijakan Pengadaan Barang/Jasa tentang Pedoman Swakelola.', date: '2021', link: 'https://lppm.unpar.ac.id/wp-content/uploads/sites/37/2025/12/2021_-Peraturan-Lembaga-Pengadaan-Barang-Jasa_SWAKELOLA.pdf' }
+                ],
+
+                // LOGIKA FILTERING
+                get filteredDocs() {
+                    return this.docs.filter(doc => {
+                        const matchesSearch = doc.title.toLowerCase().includes(this.searchQuery.toLowerCase()) || 
+                                              doc.description.toLowerCase().includes(this.searchQuery.toLowerCase());
+                        const matchesCategory = this.activeCategory === 'Semua' || doc.category === this.activeCategory;
+                        return matchesSearch && matchesCategory;
+                    });
+                }
+            }
+        }
+    </script>
+</body>
+</html>

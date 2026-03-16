@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jurnal Ilmiah Elektronik - LPPM UNPAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-gray-800 antialiased" x-data="jurnalData()">
+
+    <div id="header-placeholder"></div>
+
+    <section class="bg-white border-b border-gray-200 py-10 px-6">
+        <div class="max-w-[1400px] mx-auto">
+            <div class="flex items-center gap-3 text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">
+                <a href="Beranda.html" class="hover:text-[#015850]">Beranda</a>
+                <span>/</span>
+                <span class="text-[#015850]">Publikasi</span>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">Jurnal Ilmiah Elektronik UNPAR</h1>
+            <p class="text-gray-500 mt-3 max-w-2xl text-sm leading-relaxed">
+                Portal resmi publikasi berkala ilmiah Universitas Katolik Parahyangan. Jelajahi berbagai artikel penelitian dari berbagai disiplin ilmu yang diterbitkan melalui sistem Open Journal Systems (OJS).
+            </p>
+        </div>
+    </section>
+
+    <main class="py-12 px-6 max-w-[1400px] mx-auto">
+        
+        <div class="flex items-center justify-between border-b border-gray-200 pb-4 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-[#015850] pl-3">
+                Daftar Jurnal Terbitan
+            </h2>
+            <a href="https://journal.unpar.ac.id" target="_blank" class="bg-yellow-400 text-[#015850] hover:bg-yellow-300 text-sm font-bold px-5 py-2 rounded-lg transition-colors shadow-sm flex items-center gap-2">
+                <i class="fa-solid fa-up-right-from-square"></i> Portal OJS Utama
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <template x-for="jurnal in daftarJurnal" :key="jurnal.id">
+                <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-[#015850] hover:shadow-xl transition-all group flex flex-col h-full">
+                    
+                    <div class="w-full h-56 bg-gray-100 relative overflow-hidden border-b border-gray-100">
+                        <img :src="jurnal.cover" :alt="'Cover ' + jurnal.judul" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div x-show="jurnal.sinta" class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-[#015850] font-black text-xs px-3 py-1.5 rounded-md shadow-md border border-[#015850]/20 tracking-wider">
+                            <span x-text="jurnal.sinta"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="font-black text-gray-900 text-lg mb-2 leading-snug group-hover:text-[#015850] transition-colors line-clamp-2" x-text="jurnal.judul"></h3>
+                        <p class="text-sm text-gray-600 mb-6 flex-grow leading-relaxed" x-text="jurnal.deskripsi"></p>
+                        
+                        <div class="grid grid-cols-2 gap-3 mt-auto">
+                            <a :href="jurnal.linkView" target="_blank" class="bg-[#015850] text-white hover:bg-[#0b3832] font-bold py-2.5 px-3 rounded-lg transition-colors text-center text-[11px] tracking-widest uppercase shadow-sm">
+                                View Journal
+                            </a>
+                            <a :href="jurnal.linkIssue" target="_blank" class="bg-white text-[#015850] border border-[#015850] hover:bg-gray-50 font-bold py-2.5 px-3 rounded-lg transition-colors text-center text-[11px] tracking-widest uppercase shadow-sm">
+                                Current Issue
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </template>
+        </div>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+    
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('jurnalData', () => ({
+                daftarJurnal: [
+                    {
+                        id: 1,
+                        judul: "Jurnal Ilmiah Hubungan Internasional (JIHI)",
+                        deskripsi: "Mempublikasikan artikel hasil penelitian dan kajian analitis kritis di bidang Hubungan Internasional secara luas.",
+                        sinta: "SINTA 2",
+                        cover: "https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=800&auto=format&fit=crop", // Ganti dengan gambar cover asli
+                        linkView: "#",
+                        linkIssue: "#"
+                    },
+                    {
+                        id: 2,
+                        judul: "Veritas et Justitia: Jurnal Ilmu Hukum",
+                        deskripsi: "Wadah publikasi ilmiah dalam bidang ilmu hukum yang menitikberatkan pada aspek kebenaran dan keadilan.",
+                        sinta: "SINTA 2",
+                        cover: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=800&auto=format&fit=crop", // Ganti dengan gambar cover asli
+                        linkView: "#",
+                        linkIssue: "#"
+                    },
+                    {
+                        id: 3,
+                        judul: "Jurnal Rekayasa Sistem Industri (JRSI)",
+                        deskripsi: "Berfokus pada diseminasi hasil penelitian di bidang Teknik Industri, sistem manufaktur, dan optimasi.",
+                        sinta: "SINTA 3",
+                        cover: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop", // Ganti dengan gambar cover asli
+                        linkView: "#",
+                        linkIssue: "#"
+                    },
+                    {
+                        id: 4,
+                        judul: "Bina Ekonomi",
+                        deskripsi: "Memuat tulisan ilmiah berupa kajian empiris maupun teoritis dalam Ilmu Ekonomi, Manajemen, dan Akuntansi.",
+                        sinta: "SINTA 4",
+                        cover: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=800&auto=format&fit=crop", // Ganti dengan gambar cover asli
+                        linkView: "#",
+                        linkIssue: "#"
+                    },
+                    {
+                        id: 5,
+                        judul: "FOCUS: Jurnal Pekerjaan Sosial",
+                        deskripsi: "Kajian ilmu kesejahteraan sosial dan praktik pekerjaan sosial dalam merespons isu-isu sosial di masyarakat.",
+                        sinta: "SINTA 4",
+                        cover: "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=800&auto=format&fit=crop", // Ganti dengan gambar cover asli
+                        linkView: "#",
+                        linkIssue: "#"
+                    },
+                    {
+                        id: 6,
+                        judul: "Jurnal HPJI",
+                        deskripsi: "Jurnal Himpunan Pengembangan Jalan Indonesia. Membahas inovasi infrastruktur jalan, transportasi, dan rekayasa sipil.",
+                        sinta: "SINTA 4",
+                        cover: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=800&auto=format&fit=crop", // Ganti dengan gambar cover asli
+                        linkView: "#",
+                        linkIssue: "#"
+                    },
+                    {
+                        id: 7,
+                        judul: "AEROTROPOVILIS",
+                        deskripsi: "Journal of Architecture and Aviation. Membahas perancangan arsitektur, lanskap, dan pengembangan kawasan aviasi.",
+                        sinta: "SINTA 5",
+                        cover: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop", // Ganti dengan gambar cover asli
+                        linkView: "#",
+                        linkIssue: "#"
+                    },
+                    {
+                        id: 8,
+                        judul: "Jurnal RISA (Riset Arsitektur)",
+                        deskripsi: "Media publikasi mahasiswa dan akademisi untuk kajian sejarah, teori arsitektur, teknologi bangunan, dan permukiman.",
+                        sinta: "SINTA 5",
+                        cover: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop", // Ganti dengan gambar cover asli
+                        linkView: "#",
+                        linkIssue: "#"
+                    },
+                    {
+                        id: 9,
+                        judul: "Jurnal Hukum Kelautan",
+                        deskripsi: "Mengkaji isu-isu strategis seputar hukum maritim, kebijakan kelautan, dan yurisdiksi perairan nasional/internasional.",
+                        sinta: "",
+                        cover: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=800&auto=format&fit=crop", // Ganti dengan gambar cover asli
+                        linkView: "#",
+                        linkIssue: "#"
+                    }
+                ]
+            }));
+        });
+    </script>
+</body>
+</html>

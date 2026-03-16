@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hak Kekayaan Intelektual</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        /* TAMBAHKAN X-CLOAK DI SINI */
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-slate-50 text-gray-800 antialiased">
+
+    <div id="header-placeholder"></div>
+    <section class="bg-white border-b border-gray-200 py-10 px-6">
+        <div class="max-w-[1400px] mx-auto">
+            <div class="flex items-center gap-3 text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">
+                <a href="Beranda.html" class="hover:text-[#015850]">Beranda</a>
+                <span>/</span>
+                <a href="Layanan.html" class="hover:text-[#015850]">Layanan</a>
+                <span>/</span>
+                <span class="text-[#015850]">HKI</span>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">Hak Kekayaan Intelektual (HKI)</h1>
+            <p class="text-gray-500 mt-3 max-w-2xl text-sm leading-relaxed">
+                Layanan fasilitasi pendaftaran karya dan inovasi sivitas akademika Universitas Katolik Parahyangan ke Direktorat Jenderal Kekayaan Intelektual (DJKI).
+            </p>
+        </div>
+    </section>
+
+    <main class="py-12 px-6 max-w-[1400px] mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
+            
+            <div class="lg:col-span-2 space-y-10">
+                
+                <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+                    <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b border-gray-100 pb-4">Skema Layanan HKI</h2>
+                    <p class="text-gray-600 text-sm mb-6 leading-relaxed">LPPM UNPAR memfasilitasi 3 (tiga) jenis skema pendaftaran Hak Kekayaan Intelektual, yaitu:</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="border border-gray-200 rounded-xl p-5 hover:border-[#015850] transition-colors bg-slate-50">
+                            <i class="fa-solid fa-copyright text-3xl text-[#015850] mb-4"></i>
+                            <h3 class="font-bold text-gray-900 mb-2">Hak Cipta</h3>
+                            <p class="text-xs text-gray-500 leading-relaxed">Perlindungan atas karya di bidang ilmu pengetahuan, seni, dan sastra (buku, modul, program komputer, dll).</p>
+                        </div>
+                        <div class="border border-gray-200 rounded-xl p-5 hover:border-[#015850] transition-colors bg-slate-50">
+                            <i class="fa-solid fa-cubes text-3xl text-[#015850] mb-4"></i>
+                            <h3 class="font-bold text-gray-900 mb-2">Desain Industri</h3>
+                            <p class="text-xs text-gray-500 leading-relaxed">Perlindungan atas kreasi bentuk, konfigurasi, atau komposisi garis maupun warna pada suatu produk.</p>
+                        </div>
+                        <div class="border border-gray-200 rounded-xl p-5 hover:border-[#015850] transition-colors bg-slate-50">
+                            <i class="fa-solid fa-microchip text-3xl text-[#015850] mb-4"></i>
+                            <h3 class="font-bold text-gray-900 mb-2">DTLST</h3>
+                            <p class="text-xs text-gray-500 leading-relaxed">Desain Tata Letak Sirkuit Terpadu. Perlindungan atas kreasi berupa rancangan peletakan 3 dimensi dari elemen sirkuit.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+                    <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b border-gray-100 pb-4">Alur Pengajuan HKI</h2>
+                    
+                    <div class="relative border-l-2 border-[#015850]/20 ml-3 space-y-8 py-2 mt-6">
+                        <div class="relative pl-6">
+                            <div class="absolute -left-[17px] top-0 w-8 h-8 bg-[#015850] text-white rounded-full flex items-center justify-center font-bold text-xs shadow-md border-4 border-white">1</div>
+                            <h4 class="font-bold text-gray-900 text-sm mb-1 mt-1">Pengajuan melalui Sistem PENAMAS</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">Pengusul masuk ke portal PENAMAS, mengisi formulir elektronik, dan mengunggah dokumen persyaratan (termasuk template surat yang telah diisi).</p>
+                        </div>
+                        <div class="relative pl-6">
+                            <div class="absolute -left-[17px] top-0 w-8 h-8 bg-[#015850] text-white rounded-full flex items-center justify-center font-bold text-xs shadow-md border-4 border-white">2</div>
+                            <h4 class="font-bold text-gray-900 text-sm mb-1 mt-1">Verifikasi LPPM</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">Tim LPPM memeriksa kelengkapan dan kesesuaian dokumen yang diunggah. Jika ada kekurangan, LPPM akan meminta revisi kepada pengusul.</p>
+                        </div>
+                        <div class="relative pl-6">
+                            <div class="absolute -left-[17px] top-0 w-8 h-8 bg-[#015850] text-white rounded-full flex items-center justify-center font-bold text-xs shadow-md border-4 border-white">3</div>
+                            <h4 class="font-bold text-gray-900 text-sm mb-1 mt-1">Pendaftaran ke DJKI</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">Apabila dokumen dinyatakan lengkap dan valid, LPPM akan mendaftarkan permohonan tersebut secara resmi ke sistem portal DJKI (Pangkalan Data Kekayaan Intelektual).</p>
+                        </div>
+                        <div class="relative pl-6">
+                            <div class="absolute -left-[17px] top-0 w-8 h-8 bg-[#015850] text-white rounded-full flex items-center justify-center font-bold text-xs shadow-md border-4 border-white">4</div>
+                            <h4 class="font-bold text-gray-900 text-sm mb-1 mt-1">Pemeriksaan DJKI</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">Pihak DJKI Kementerian Hukum dan HAM memproses usulan, melakukan pemeriksaan formalitas dan substantif terhadap karya/inovasi yang diajukan.</p>
+                        </div>
+                        <div class="relative pl-6">
+                            <div class="absolute -left-[17px] top-0 w-8 h-8 bg-[#015850] text-white rounded-full flex items-center justify-center font-bold text-xs shadow-md border-4 border-white">5</div>
+                            <h4 class="font-bold text-gray-900 text-sm mb-1 mt-1">Sertifikat Terbit</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">Setelah pendaftaran disetujui, DJKI menerbitkan Sertifikat Elektronik. LPPM akan mengunduh dan mendistribusikan sertifikat tersebut kepada pengusul.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1 space-y-6 sticky top-24">
+                
+                <div class="bg-[#015850] rounded-xl p-6 shadow-lg text-center border-t-4 border-yellow-400">
+                    <h3 class="text-lg font-bold text-white mb-2">Portal PENAMAS</h3>
+                    <p class="text-green-100 text-xs mb-5">
+                        Seluruh proses pengajuan Hak Cipta, Desain Industri, dan DTLST wajib dilakukan melalui sistem PENAMAS.
+                    </p>
+                    <a href="#" class="block w-full bg-yellow-400 text-[#015850] font-bold py-3 px-4 rounded-lg shadow hover:bg-yellow-300 transition-colors uppercase tracking-wide text-xs">
+                        <i class="fa-solid fa-right-to-bracket mr-1"></i> Buka PENAMAS
+                    </a>
+                </div>
+
+                <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+                    <h4 class="font-bold text-gray-900 text-xs uppercase tracking-widest mb-4 flex items-center gap-2 border-b border-gray-100 pb-3">
+                        <i class="fa-solid fa-download text-[#015850]"></i> Dokumen Pendukung
+                    </h4>
+                    <div class="space-y-2">
+                        <a href="#" class="flex items-start gap-3 p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors border border-gray-100 group">
+                            <i class="fa-solid fa-file-word text-blue-500 mt-1"></i>
+                            <div>
+                                <h5 class="text-xs font-bold text-gray-700 group-hover:text-[#015850]">Template Surat Pernyataan</h5>
+                                <p class="text-[10px] text-gray-500 mt-0.5">Pernyataan kepemilikan ciptaan</p>
+                            </div>
+                        </a>
+                        <a href="#" class="flex items-start gap-3 p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors border border-gray-100 group">
+                            <i class="fa-solid fa-file-word text-blue-500 mt-1"></i>
+                            <div>
+                                <h5 class="text-xs font-bold text-gray-700 group-hover:text-[#015850]">Template Surat Kuasa</h5>
+                                <p class="text-[10px] text-gray-500 mt-0.5">Kuasa pendaftaran kepada LPPM</p>
+                            </div>
+                        </a>
+                        <a href="#" class="flex items-start gap-3 p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors border border-gray-100 group">
+                            <i class="fa-solid fa-file-pdf text-red-500 mt-1"></i>
+                            <div>
+                                <h5 class="text-xs font-bold text-gray-700 group-hover:text-[#015850]">Prosedur Pengajuan HKI</h5>
+                                <p class="text-[10px] text-gray-500 mt-0.5">Dokumen Resmi P-10 (PDF)</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+                    <h4 class="font-bold text-gray-900 text-xs uppercase tracking-widest mb-3">Butuh Bantuan?</h4>
+                    <p class="text-xs text-gray-500 mb-4 leading-relaxed">Hubungi Sentra HKI LPPM UNPAR jika Anda mengalami kendala saat pendaftaran.</p>
+                    <div class="space-y-2 text-xs text-gray-600">
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-envelope w-4 text-gray-400"></i> lppm@unpar.ac.id</div>
+                        <div class="flex items-center gap-2"><i class="fa-brands fa-whatsapp w-4 text-gray-400"></i> +62 895 2201 7571</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+    </body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIPP - LPPM UNPAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        /* TAMBAHKAN X-CLOAK DI SINI */
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-white text-gray-800 antialiased">
+
+    <div id="header-placeholder"></div>
+
+    <section class="bg-gradient-to-br from-[#0b3832] to-[#015850] text-white py-20 px-6">
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="text-5xl font-bold mb-6 leading-tight">
+                Rencana Induk Pengembangan Penelitian (RIPP) 2024–2027
+            </h2>
+            <p class="text-2xl text-green-50 mb-10 leading-relaxed">
+                Arah Strategis Penelitian UNPAR Menuju Inovasi dan Dampak Berkelanjutan
+            </p>
+            <button class="bg-white text-[#015850] px-8 py-4 rounded-lg font-semibold hover:bg-gray-50 transition-colors inline-flex items-center gap-3 text-lg shadow-lg">
+                <i class="fa-solid fa-download text-xl"></i>
+                Unduh Dokumen Lengkap (PDF)
+            </button>
+        </div>
+    </section>
+
+    <section class="py-16 px-6 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-12 text-center">
+                <h3 class="text-3xl font-bold text-[#015850] mb-4">Ringkasan Eksekutif</h3>
+                <div class="w-24 h-1 bg-[#015850] mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-12 h-12 bg-green-50 border border-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-book-open text-xl text-[#015850]"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg text-gray-900 mb-3">Komitmen terhadap Kesejahteraan Manusia</h4>
+                            <p class="text-gray-600 leading-relaxed">
+                                UNPAR berkomitmen mengembangkan penelitian yang berorientasi pada peningkatan kesejahteraan manusia, 
+                                melalui pendekatan interdisipliner yang menjawab tantangan nyata masyarakat.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-arrow-trend-up text-xl text-green-700"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg text-gray-900 mb-3">Integrasi dengan SDGs dan Riset Nasional</h4>
+                            <p class="text-gray-600 leading-relaxed">
+                                Penelitian UNPAR selaras dengan Sustainable Development Goals (SDGs) dan arah penelitian nasional, 
+                                memastikan kontribusi nyata terhadap pembangunan berkelanjutan Indonesia.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-award text-xl text-amber-700"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg text-gray-900 mb-3">Penguatan Potensi Lokal</h4>
+                            <p class="text-gray-600 leading-relaxed">
+                                Menguatkan penelitian berbasis kearifan lokal dan potensi wilayah, mengintegrasikan pengetahuan 
+                                tradisional dengan inovasi modern untuk solusi kontekstual.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-circle-check text-xl text-teal-700"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg text-gray-900 mb-3">Keberlanjutan dan Dampak Jangka Panjang</h4>
+                            <p class="text-gray-600 leading-relaxed">
+                                Fokus pada penelitian berkelanjutan dengan dampak jangka panjang, membangun ekosistem riset 
+                                yang responsif terhadap perubahan dan kebutuhan masa depan.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-6 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-12 text-center">
+                <h3 class="text-3xl font-bold text-[#015850] mb-4">Prinsip dan Dasar Penelitian</h3>
+                <div class="w-24 h-1 bg-[#015850] mx-auto"></div>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-6 mb-16">
+                <div class="text-center p-6 bg-gray-50 rounded-lg border-2 border-gray-200 hover:border-[#015850] transition-colors">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">👥</span>
+                    </div>
+                    <h4 class="font-semibold text-gray-900 mb-2">Kesejahteraan Manusia</h4>
+                    <p class="text-sm text-gray-600">Berorientasi pada peningkatan kualitas hidup</p>
+                </div>
+
+                <div class="text-center p-6 bg-gray-50 rounded-lg border-2 border-gray-200 hover:border-[#015850] transition-colors">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">🌱</span>
+                    </div>
+                    <h4 class="font-semibold text-gray-900 mb-2">Kebaruan Berbasis Kearifan Lokal</h4>
+                    <p class="text-sm text-gray-600">Inovasi yang menghormati nilai tradisional</p>
+                </div>
+
+                <div class="text-center p-6 bg-gray-50 rounded-lg border-2 border-gray-200 hover:border-[#015850] transition-colors">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">🤝</span>
+                    </div>
+                    <h4 class="font-semibold text-gray-900 mb-2">Inklusif</h4>
+                    <p class="text-sm text-gray-600">Melibatkan berbagai pemangku kepentingan</p>
+                </div>
+
+                <div class="text-center p-6 bg-gray-50 rounded-lg border-2 border-gray-200 hover:border-[#015850] transition-colors">
+                    <div class="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">♻️</span>
+                    </div>
+                    <h4 class="font-semibold text-gray-900 mb-2">Berkelanjutan</h4>
+                    <p class="text-sm text-gray-600">Dampak positif untuk generasi mendatang</p>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-green-50 to-gray-50 p-10 rounded-xl border border-green-200">
+                <h4 class="text-xl font-semibold text-[#015850] mb-6 text-center">Prioritas Transformasi Ekonomi</h4>
+                <div class="grid md:grid-cols-4 gap-4">
+                    <div class="bg-white p-5 rounded-lg shadow-sm text-center border border-gray-200">
+                        <div class="text-3xl mb-2">💻</div>
+                        <p class="font-semibold text-gray-900">Ekonomi Digital</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg shadow-sm text-center border border-gray-200">
+                        <div class="text-3xl mb-2">🌿</div>
+                        <p class="font-semibold text-gray-900">Ekonomi Hijau</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg shadow-sm text-center border border-gray-200">
+                        <div class="text-3xl mb-2">🌊</div>
+                        <p class="font-semibold text-gray-900">Ekonomi Biru</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg shadow-sm text-center border border-gray-200">
+                        <div class="text-3xl mb-2">🔄</div>
+                        <p class="font-semibold text-gray-900">Ekonomi Sirkular</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-6 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-12 text-center">
+                <h3 class="text-3xl font-bold text-[#015850] mb-4">Tiga Bidang Unggulan Penelitian</h3>
+                <div class="w-24 h-1 bg-[#015850] mx-auto"></div>
+            </div>
+
+            <div class="mb-8 bg-gradient-to-r from-green-50 to-emerald-50 p-10 rounded-xl border-l-4 border-green-600">
+                <div class="flex items-start gap-4">
+                    <div class="w-14 h-14 bg-green-600 rounded-lg flex items-center justify-center flex-shrink-0 text-white text-2xl font-bold">
+                        A
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-2xl font-bold text-gray-900 mb-4">Sustainable Food System</h4>
+                        <p class="text-gray-700 mb-6 leading-relaxed">
+                            Pengembangan sistem pangan yang berkelanjutan, dari produksi hingga konsumsi, dengan memperhatikan 
+                            ketahanan pangan, nutrisi, dan dampak lingkungan.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-3">
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-green-600 mt-1"></i>
+                                <span class="text-gray-700">Produksi pangan berkelanjutan</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-green-600 mt-1"></i>
+                                <span class="text-gray-700">Ketahanan dan keamanan pangan</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-green-600 mt-1"></i>
+                                <span class="text-gray-700">Nutrisi dan kesehatan masyarakat</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-green-600 mt-1"></i>
+                                <span class="text-gray-700">Sistem distribusi dan logistik pangan</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-8 bg-gradient-to-r from-blue-50 to-cyan-50 p-10 rounded-xl border-l-4 border-blue-600">
+                <div class="flex items-start gap-4">
+                    <div class="w-14 h-14 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0 text-white text-2xl font-bold">
+                        B
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-2xl font-bold text-gray-900 mb-4">Sustainable Technology & Innovation</h4>
+                        <p class="text-gray-700 mb-6 leading-relaxed">
+                            Inovasi teknologi yang mendukung keberlanjutan lingkungan, efisiensi sumber daya, dan transformasi 
+                            digital yang inklusif dan bertanggung jawab.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-3">
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-blue-600 mt-1"></i>
+                                <span class="text-gray-700">Teknologi energi terbarukan</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-blue-600 mt-1"></i>
+                                <span class="text-gray-700">Transformasi digital berkelanjutan</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-blue-600 mt-1"></i>
+                                <span class="text-gray-700">Material dan manufaktur hijau</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-blue-600 mt-1"></i>
+                                <span class="text-gray-700">Smart cities dan infrastruktur cerdas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-10 rounded-xl border-l-4 border-purple-600">
+                <div class="flex items-start gap-4">
+                    <div class="w-14 h-14 bg-purple-600 rounded-lg flex items-center justify-center flex-shrink-0 text-white text-2xl font-bold">
+                        C
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-2xl font-bold text-gray-900 mb-4">Wellbeing</h4>
+                        <p class="text-gray-700 mb-6 leading-relaxed">
+                            Penelitian holistik tentang kesejahteraan manusia, mencakup kesehatan fisik dan mental, kualitas 
+                            hidup, serta dimensi sosial dan spiritual kehidupan masyarakat.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-3">
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-purple-600 mt-1"></i>
+                                <span class="text-gray-700">Kesehatan fisik dan mental</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-purple-600 mt-1"></i>
+                                <span class="text-gray-700">Kualitas hidup masyarakat</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-purple-600 mt-1"></i>
+                                <span class="text-gray-700">Inklusi sosial dan keadilan</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-purple-600 mt-1"></i>
+                                <span class="text-gray-700">Spiritualitas dan nilai kehidupan</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-6 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-12 text-center">
+                <h3 class="text-3xl font-bold text-[#015850] mb-4">Program Strategis 2024–2027</h3>
+                <div class="w-24 h-1 bg-[#015850] mx-auto"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow text-center">
+                    <div class="w-16 h-16 bg-[#015850] rounded-lg flex items-center justify-center mb-6 mx-auto">
+                        <i class="fa-solid fa-arrow-trend-up text-2xl text-white"></i>
+                    </div>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-4">
+                        Transformasi Pusat Studi menuju PUI
+                    </h4>
+                    <p class="text-gray-600 leading-relaxed">
+                        Pengembangan pusat-pusat studi menjadi Pusat Unggulan Iptek (PUI) yang kompetitif dan berdaya saing 
+                        nasional maupun internasional.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow text-center">
+                    <div class="w-16 h-16 bg-[#015850] rounded-lg flex items-center justify-center mb-6 mx-auto">
+                        <i class="fa-solid fa-award text-2xl text-white"></i>
+                    </div>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-4">
+                        Peningkatan Kualitas dan Kuantitas Penelitian
+                    </h4>
+                    <p class="text-gray-600 leading-relaxed">
+                        Mendorong peningkatan jumlah dan mutu penelitian melalui pendampingan, kolaborasi, serta penguatan 
+                        kapasitas peneliti di semua jenjang.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow text-center">
+                    <div class="w-16 h-16 bg-[#015850] rounded-lg flex items-center justify-center mb-6 mx-auto">
+                        <i class="fa-solid fa-file-lines text-2xl text-white"></i>
+                    </div>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-4">
+                        Peningkatan Luaran dan HKI
+                    </h4>
+                    <p class="text-gray-600 leading-relaxed">
+                        Meningkatkan publikasi berkualitas, paten, dan hak kekayaan intelektual sebagai wujud kontribusi 
+                        nyata terhadap ilmu pengetahuan dan masyarakat.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-6 bg-gradient-to-br from-[#0b3832] to-[#015850] text-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-12 text-center">
+                <h3 class="text-3xl font-bold mb-4">Target Kinerja 2027</h3>
+                <div class="w-24 h-1 bg-green-200 mx-auto"></div>
+            </div>
+
+            <div class="grid md:grid-cols-5 gap-6">
+                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-xl border border-white/20 text-center hover:bg-white/15 transition-colors">
+                    <div class="text-5xl font-bold mb-3">250+</div>
+                    <div class="text-lg text-green-50">Total Penelitian Internal</div>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-xl border border-white/20 text-center hover:bg-white/15 transition-colors">
+                    <div class="text-5xl font-bold mb-3">150+</div>
+                    <div class="text-lg text-green-50">Publikasi Terindeks Scopus</div>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-xl border border-white/20 text-center hover:bg-white/15 transition-colors">
+                    <div class="text-5xl font-bold mb-3">80+</div>
+                    <div class="text-lg text-green-50">HKI Terdaftar</div>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-xl border border-white/20 text-center hover:bg-white/15 transition-colors">
+                    <div class="text-5xl font-bold mb-3">25+</div>
+                    <div class="text-lg text-green-50">Paten</div>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-xl border border-white/20 text-center hover:bg-white/15 transition-colors">
+                    <div class="text-5xl font-bold mb-3">50+</div>
+                    <div class="text-lg text-green-50">Hibah Eksternal</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <section class="py-16 px-6 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <div class="mb-12 text-center">
+                <h3 class="text-3xl font-bold text-[#015850] mb-4">Pusat Studi Pendukung</h3>
+                <p class="text-gray-500 max-w-2xl mx-auto">Pengembangan riset dan pengabdian di UNPAR didukung oleh pusat-pusat studi kepakaran untuk memberikan dampak yang terukur dan terarah.</p>
+                <div class="w-24 h-1 bg-[#015850] mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <a href="Pusat Studi.html" class="bg-white p-10 rounded-2xl border border-gray-200 hover:border-[#015850] hover:shadow-xl transition-all group flex flex-col items-center text-center relative overflow-hidden">
+                    <div class="absolute top-0 w-full h-1 bg-[#015850] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                    <div class="w-20 h-20 bg-green-50 group-hover:bg-[#015850] rounded-full flex items-center justify-center mb-6 transition-colors shadow-sm">
+                        <i class="fa-solid fa-layer-group text-3xl text-[#015850] group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#015850] transition-colors">Pusat Studi Multidisiplin</h4>
+                    <p class="text-gray-600 leading-relaxed text-sm mb-6">
+                        Dikelola di bawah koordinasi LPPM, mengintegrasikan kepakaran lintas fakultas dan disiplin ilmu untuk menjawab tantangan strategis masyarakat yang kompleks.
+                    </p>
+                    <span class="mt-auto text-xs font-bold text-yellow-600 uppercase tracking-widest flex items-center gap-2">
+                        Lihat Direktori <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </span>
+                </a>
+
+                <a href="Pusat Studi Monodisiplin.html" class="bg-white p-10 rounded-2xl border border-gray-200 hover:border-[#015850] hover:shadow-xl transition-all group flex flex-col items-center text-center relative overflow-hidden">
+                    <div class="absolute top-0 w-full h-1 bg-[#015850] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                    <div class="w-20 h-20 bg-green-50 group-hover:bg-[#015850] rounded-full flex items-center justify-center mb-6 transition-colors shadow-sm">
+                        <i class="fa-solid fa-building-columns text-3xl text-[#015850] group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#015850] transition-colors">Pusat Studi Monodisiplin</h4>
+                    <p class="text-gray-600 leading-relaxed text-sm mb-6">
+                        Berafiliasi langsung dengan Fakultas, berfokus pada pendalaman cabang keilmuan yang spesifik guna menghasilkan karya akademik yang mendalam dan terspesialisasi.
+                    </p>
+                    <span class="mt-auto text-xs font-bold text-yellow-600 uppercase tracking-widest flex items-center gap-2">
+                        Lihat Direktori <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-6 bg-white border-t border-gray-100">
+        <div class="max-w-4xl mx-auto text-center">
+            <h3 class="text-3xl font-bold text-gray-900 mb-6">
+                Selaraskan penelitian Anda dengan arah RIPP UNPAR
+            </h3>
+            <p class="text-xl text-gray-600 mb-10 leading-relaxed">
+                Mari bersama membangun ekosistem penelitian yang berdampak, berkelanjutan, dan bermakna 
+                bagi kemajuan ilmu pengetahuan dan kesejahteraan masyarakat.
+            </p>
+            <a href="Skema-Penelitian-Internal.html" class="inline-block bg-[#015850] text-white px-10 py-4 rounded-lg font-semibold hover:bg-[#0b3832] transition-colors text-lg shadow-lg">
+                Lihat Skema Penelitian Internal
+            </a>
+        </div>
+    </section>
+
+<div id="footer-placeholder"></div>
+
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+</body>
+</html>

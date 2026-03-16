@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pertemuan Ilmiah - LPPM UNPAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-white text-gray-800 antialiased" x-data="appData()">
+	<div id="header-placeholder"></div>
+   
+    <div class="bg-gray-50 border-b border-gray-200 py-8 px-6">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-900 mb-3">Pertemuan Ilmiah</h2>
+            <p class="text-gray-600 max-w-3xl leading-relaxed">
+                Layanan ini mendukung dosen Universitas Katolik Parahyangan yang mengikuti konferensi ilmiah nasional maupun internasional untuk mempresentasikan karya ilmiah.
+            </p>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <aside class="lg:col-span-3">
+                <div class="bg-white border border-gray-200 rounded-lg overflow-hidden sticky top-8 shadow-sm">
+                    <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                        <h3 class="text-sm font-semibold text-gray-700">Layanan LPPM</h3>
+                    </div>
+                    
+                    <nav class="p-3">
+                        <template x-for="category in categories" :key="category.title">
+                            <div class="mb-2">
+                                <h4 class="text-xs font-bold text-gray-400 mb-2 px-2 uppercase tracking-wider" x-text="category.title"></h4>
+                                <div class="space-y-1">
+                                    <template x-for="menuId in category.menus" :key="menuId">
+                                        <button 
+                                            @click="activeMenu = menuId"
+                                            :class="activeMenu === menuId ? 'bg-[#015850] text-white shadow-sm' : 'hover:bg-gray-100 text-gray-700'"
+                                            class="w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors text-left"
+                                        >
+                                            <span x-text="menus[menuId].name"></span>
+                                            <i class="fa-solid fa-circle text-[8px] flex-shrink-0" :class="activeMenu === menuId ? 'text-white' : 'text-gray-300'"></i>
+                                        </button>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </nav>
+                </div>
+            </aside>
+
+            <main class="lg:col-span-6">
+                <div class="space-y-6">
+                    
+                    <div class="flex items-start justify-between border-b border-gray-100 pb-4">
+                        <h2 class="text-[#015850] text-2xl font-bold" x-text="current.name"></h2>
+                    </div>
+
+                    <p class="text-gray-700 leading-relaxed text-sm mb-6" x-text="current.description"></p>
+
+                    <template x-if="!current.hasAlur">
+                        <div class="space-y-6">
+                            <template x-for="(section, index) in current.sections" :key="index">
+                                <section class="border border-gray-200 bg-white rounded-lg p-5 shadow-sm">
+                                    <div class="flex items-center gap-2 mb-4 border-b border-gray-100 pb-2">
+                                        <i class="fa-solid text-[#015850]" :class="section.icon"></i>
+                                        <h3 class="text-[#015850] font-semibold" x-text="section.title"></h3>
+                                    </div>
+                                    
+                                    <template x-if="section.items && section.items.length > 0">
+                                        <ul class="space-y-2.5 ml-2">
+                                            <template x-for="item in section.items">
+                                                <li class="flex items-start gap-2 text-gray-600 text-sm">
+                                                    <span class="text-[#015850] mt-0.5">•</span>
+                                                    <span x-text="item"></span>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </template>
+
+                                    <template x-if="section.subsections && section.subsections.length > 0">
+                                        <div class="space-y-5 ml-2">
+                                            <template x-for="sub in section.subsections">
+                                                <div>
+                                                    <h4 class="font-semibold text-gray-800 text-sm mb-2" x-text="sub.subtitle"></h4>
+                                                    <ul class="space-y-2">
+                                                        <template x-for="item in sub.items">
+                                                            <li class="flex items-start gap-2 text-gray-600 text-sm">
+                                                                <span class="text-[#015850] mt-0.5">-</span>
+                                                                <span x-text="item"></span>
+                                                            </li>
+                                                        </template>
+                                                    </ul>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </template>
+                                </section>
+                            </template>
+                        </div>
+                    </template>
+
+                    <template x-if="current.hasAlur">
+                        <section class="border border-gray-200 bg-white rounded-lg p-5 shadow-sm">
+                            <div class="flex items-center gap-2 mb-5 border-b border-gray-100 pb-2">
+                                <i class="fa-solid fa-list-check text-[#015850]"></i>
+                                <h3 class="text-[#015850] font-semibold">Alur Pelaporan</h3>
+                            </div>
+                            <div class="space-y-6 pl-2">
+                                <template x-for="(step, index) in current.alur" :key="index">
+                                    <div class="flex gap-4">
+                                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-50 text-[#015850] border border-green-200 flex items-center justify-center text-sm font-bold" x-text="index + 1"></div>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-gray-800 mb-1" x-text="step.title"></h4>
+                                            <p class="text-sm text-gray-600 leading-relaxed" x-text="step.desc"></p>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </section>
+                    </template>
+
+                    <div class="pt-4">
+                        <button class="w-full bg-[#015850] text-white py-4 px-6 rounded-xl hover:bg-[#014540] transition-colors flex items-center justify-center gap-2 font-semibold shadow-md">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            Ajukan melalui PENAMAS
+                        </button>
+                    </div>
+                </div>
+            </main>
+
+            <aside class="lg:col-span-3">
+                <div class="space-y-4 sticky top-8">
+                    <h3 class="font-bold text-[#015850] text-lg mb-2">Informasi Pendukung</h3>
+
+                    <div class="space-y-3">
+                        
+                        <div x-data="{ open: true }" class="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+                            <button @click="open = !open" class="w-full flex items-center justify-between p-4 hover:bg-gray-100 transition-colors">
+                                <h4 class="text-[#015850] font-semibold text-sm text-left">Alur Pengajuan & Penyelesaian</h4>
+                                <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" :class="open ? 'rotate-180' : ''"></i>
+                            </button>
+                            <div x-show="open" x-cloak class="px-4 pb-4">
+                                <ol class="space-y-3 mt-2">
+                                    <li class="text-xs"><span class="text-[#015850] font-bold">1. Pengajuan melalui PENAMAS</span></li>
+                                    <li class="text-xs"><span class="text-[#015850] font-bold">2. Persetujuan Fakultas</span></li>
+                                    <li class="text-xs"><span class="text-[#015850] font-bold">3. Proses LPPM</span></li>
+                                    <li class="text-xs"><span class="text-[#015850] font-bold">4. Pelaporan kegiatan</span></li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div x-data="{ open: false }" class="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+                            <button @click="open = !open" class="w-full flex items-center justify-between p-4 hover:bg-gray-100 transition-colors">
+                                <h4 class="text-[#015850] font-semibold text-sm text-left">Ketentuan Penting</h4>
+                                <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" :class="open ? 'rotate-180' : ''"></i>
+                            </button>
+                            <div x-show="open" x-cloak class="px-4 pb-4">
+                                <ul class="space-y-2 mt-2 text-xs text-gray-600">
+                                    <li class="flex items-start gap-2"><span class="text-[#015850] mt-0.5">•</span> Maksimal tiga dosen UNPAR per konferensi</li>
+                                    <li class="flex items-start gap-2"><span class="text-[#015850] mt-0.5">•</span> Surat tugas wajib dilampirkan</li>
+                                    <li class="flex items-start gap-2"><span class="text-[#015850] mt-0.5">•</span> Pendanaan mengikuti ketentuan perjalanan dinas universitas</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div x-data="{ open: false }" class="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+                            <button @click="open = !open" class="w-full flex items-center justify-between p-4 hover:bg-gray-100 transition-colors">
+                                <h4 class="text-[#015850] font-semibold text-sm text-left">Dokumen Pendukung</h4>
+                                <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" :class="open ? 'rotate-180' : ''"></i>
+                            </button>
+                            <div x-show="open" x-cloak class="px-4 pb-4">
+                                <ul class="space-y-3 text-xs mt-2">
+                                    <li><a href="#" class="text-[#015850] hover:underline flex items-center gap-2"><i class="fa-solid fa-file-pdf"></i> Unduh Prosedur Pertemuan Ilmiah</a></li>
+                                    <li><a href="#" class="text-[#015850] hover:underline flex items-center gap-2"><i class="fa-solid fa-book"></i> Unduh Panduan Buku Saku PENAMAS Output</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div x-data="{ open: false }" class="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+                            <button @click="open = !open" class="w-full flex items-center justify-between p-4 hover:bg-gray-100 transition-colors">
+                                <h4 class="text-[#015850] font-semibold text-sm text-left">FAQ</h4>
+                                <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" :class="open ? 'rotate-180' : ''"></i>
+                            </button>
+                            <div x-show="open" x-cloak class="px-4 pb-4">
+                                <a href="#" class="text-[#015850] text-xs hover:underline flex items-center gap-2 mt-2">
+                                    <i class="fa-solid fa-circle-question"></i> Kunjungi Halaman FAQ
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="bg-[#015850] text-white rounded-xl p-5 shadow-sm mt-6">
+                        <h4 class="font-bold mb-2">Perlu Bantuan?</h4>
+                        <p class="text-green-50 text-xs mb-4 leading-relaxed">
+                            Jika membutuhkan bantuan terkait pengajuan atau pelaporan kegiatan konferensi ilmiah, silakan menghubungi LPPM.
+                        </p>
+                        <div class="space-y-3 mb-5 text-sm">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-envelope w-4"></i> lppm@unpar.ac.id</div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-phone w-4"></i> +62 XXX XXXX</div>
+                            <div class="flex items-center gap-2"><i class="fa-regular fa-clock w-4"></i> Senin–Jumat, 08.00–16.00</div>
+                        </div>
+                        <button class="w-full bg-white text-[#015850] font-semibold py-2.5 px-4 rounded-lg hover:bg-gray-100 transition-colors text-sm shadow-sm">
+                            Hubungi LPPM
+                        </button>
+                    </div>
+
+                </div>
+            </aside>
+        </div>
+    </div>
+    <div id="footer-placeholder"></div>
+
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+    <script>
+        const serviceData = {
+            "pengajuan": {
+                name: "Pengajuan Dana LPPM",
+                description: "Pengajuan pendanaan bagi dosen yang mengikuti konferensi ilmiah nasional maupun internasional untuk mempresentasikan karya ilmiah, dengan sumber dana dari LPPM Universitas Katolik Parahyangan.",
+                hasAlur: false,
+                sections: [
+                    {
+                        title: "Syarat Dosen dan Peran",
+                        icon: "fa-user-tie",
+                        items: [
+                            "Dosen tetap atau dosen kontrak yang memiliki NIDN atau NUPTK",
+                            "Bertindak sebagai penulis pertama atau corresponding author",
+                            "Atau sebagai pembicara kunci (keynote speaker)"
+                        ]
+                    },
+                    {
+                        title: "Syarat Karya Ilmiah",
+                        icon: "fa-file-lines",
+                        subsections: [
+                            {
+                                subtitle: "Dalam Negeri",
+                                items: [
+                                    "Sesuai dengan bidang keilmuan dosen",
+                                    "Mencantumkan afiliasi Universitas Katolik Parahyangan",
+                                    "Tingkat kemiripan maksimal 25 persen",
+                                    "Dipublikasikan pada jurnal nasional terindeks SINTA 1–4 atau prosiding internasional terindeks",
+                                    "Status publikasi minimal accepted paling lambat satu tahun setelah konferensi"
+                                ]
+                            },
+                            {
+                                subtitle: "Luar Negeri",
+                                items: [
+                                    "Sesuai dengan bidang keilmuan dosen",
+                                    "Mencantumkan afiliasi Universitas Katolik Parahyangan",
+                                    "Tingkat kemiripan maksimal 25 persen",
+                                    "Dipublikasikan pada jurnal atau prosiding internasional terindeks Scopus atau Web of Science",
+                                    "Status publikasi minimal accepted paling lambat satu tahun setelah konferensi"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        title: "Pendanaan",
+                        icon: "fa-wallet",
+                        subsections: [
+                            {
+                                subtitle: "Dalam Negeri",
+                                items: [
+                                    "Maksimal Rp12.000.000 per dosen per tahun",
+                                    "Mencakup biaya kegiatan, transportasi, penginapan, uang makan, dan uang saku",
+                                    "Mengikuti ketentuan perjalanan dinas universitas"
+                                ]
+                            },
+                            {
+                                subtitle: "Luar Negeri",
+                                items: [
+                                    "Maksimal Rp20.000.000 per dosen per tahun",
+                                    "Mengikuti ketentuan perjalanan dinas universitas"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        title: "Ketentuan Tambahan",
+                        icon: "fa-circle-exclamation",
+                        subsections: [
+                            {
+                                subtitle: "Dalam Negeri",
+                                items: [
+                                    "Maksimal tiga dosen UNPAR per konferensi dengan pendanaan",
+                                    "Wajib melampirkan Surat Tugas Dekan"
+                                ]
+                            },
+                            {
+                                subtitle: "Luar Negeri",
+                                items: [
+                                    "Maksimal tiga dosen UNPAR per konferensi dengan pendanaan",
+                                    "Wajib melampirkan Surat Tugas Rektor"
+                                ]
+                            },
+                            {
+                                subtitle: "Ketentuan Lainnya",
+                                items: [
+                                    "Penerima pendanaan tidak dapat mengajukan insentif publikasi dari karya ilmiah yang sama"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "pelaporan": {
+                name: "Pelaporan Dana Non LPPM",
+                description: "Menu pelaporan dikhususkan bagi dosen yang mengikuti pertemuan ilmiah menggunakan pendanaan mandiri atau hibah di luar dana LPPM.",
+                hasAlur: true,
+                alur: [
+                    {
+                        title: "Unggah Dokumen Kegiatan",
+                        desc: "Dosen mengunggah makalah, prosiding atau cover prosiding, dan sertifikat kegiatan melalui PENAMAS."
+                    },
+                    {
+                        title: "Kirim Pelaporan",
+                        desc: "Dokumen pelaporan dikirim melalui sistem PENAMAS."
+                    },
+                    {
+                        title: "Verifikasi LPPM",
+                        desc: "LPPM melakukan pemeriksaan dan verifikasi dokumen hingga kegiatan dinyatakan selesai."
+                    }
+                ]
+            }
+        };
+
+        const menuCategories = [
+            { 
+                title: "LAYANAN PERTEMUAN ILMIAH", 
+                menus: [ "pengajuan", "pelaporan" ] 
+            }
+        ];
+
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('appData', () => ({
+                activeMenu: 'pengajuan', 
+                menus: serviceData,
+                categories: menuCategories,
+                
+                get current() {
+                    return this.menus[this.activeMenu];
+                }
+            }));
+        });
+    </script>
+</body>
+</html>

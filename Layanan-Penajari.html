@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layanan PenAJari - LPPM UNPAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        [x-cloak] { display: none !important; }
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-slate-50 text-gray-800 antialiased" x-data="penajariData()">
+
+    <div id="header-placeholder"></div>
+    <section class="bg-white border-b border-gray-200 py-10 px-6">
+        <div class="max-w-[1400px] mx-auto">
+            <div class="flex items-center gap-3 text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">
+                <a href="Beranda.html" class="hover:text-[#015850]">Beranda</a>
+                <span>/</span>
+                <a href="Layanan.html" class="hover:text-[#015850]">Layanan</a>
+                <span>/</span>
+                <span class="text-[#015850]">PenAJari</span>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">Layanan PenAJari</h1>
+            <p class="text-gray-500 mt-3 max-w-2xl text-sm leading-relaxed">
+                Fasilitas pendanaan publikasi artikel di jurnal internasional bereputasi bagi sivitas akademika Universitas Katolik Parahyangan.
+            </p>
+        </div>
+    </section>
+
+    <main class="py-12 px-6 max-w-[1400px] mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            
+            <div class="lg:col-span-3 space-y-8 sticky top-32">
+                <div>
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">TAHAPAN LAYANAN</h3>
+                    <div class="space-y-2">
+                        <template x-for="menuId in ['pengusulan', 'pelaporan']" :key="menuId">
+                            <button 
+                                @click="activeMenu = menuId"
+                                :class="activeMenu === menuId ? 'bg-[#015850] text-white shadow-md' : 'bg-white text-gray-600 hover:bg-gray-50 hover:text-[#015850] border border-gray-100'"
+                                class="w-full text-left px-5 py-3.5 rounded-xl font-semibold text-sm transition-all flex justify-between items-center group">
+                                <span x-text="menus[menuId].name"></span>
+                                <i class="fa-solid fa-chevron-right text-[10px]" :class="activeMenu === menuId ? 'text-yellow-400' : 'text-gray-300 group-hover:text-[#015850]'"></i>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-6 space-y-8">
+                <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm min-h-[400px]" x-transition>
+                    <h2 class="text-2xl font-extrabold text-gray-900 mb-2" x-text="current.name"></h2>
+                    <p class="text-gray-500 text-sm mb-8 leading-relaxed" x-text="current.description"></p>
+
+                    <div class="space-y-8">
+                        <template x-for="section in current.sections" :key="section.title">
+                            <div>
+                                <h3 class="flex items-center gap-2 text-sm font-bold text-[#015850] uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">
+                                    <i class="fa-solid" :class="section.icon"></i> <span x-text="section.title"></span>
+                                </h3>
+                                <ul class="space-y-3">
+                                    <template x-for="item in section.items">
+                                        <li class="flex items-start gap-3 text-sm text-gray-700">
+                                            <i class="fa-solid fa-check text-green-500 mt-1 text-xs shrink-0"></i>
+                                            <span class="leading-relaxed" x-html="item"></span>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </template>
+                    </div>
+
+                    <div class="mt-10 pt-8 border-t border-gray-100">
+                        <h3 class="text-lg font-bold text-gray-900 mb-6">Alur Proses</h3>
+                        <div class="relative border-l-2 border-[#015850]/20 ml-3 space-y-8 py-2">
+                            <template x-for="(step, index) in current.alur" :key="index">
+                                <div class="relative pl-8">
+                                    <div class="absolute -left-[17px] top-0 w-8 h-8 bg-[#015850] text-white rounded-full flex items-center justify-center font-bold text-xs shadow-md border-4 border-white" x-text="index + 1"></div>
+                                    <h4 class="font-bold text-gray-900 text-sm mb-1 mt-1" x-text="step.title"></h4>
+                                    <p class="text-sm text-gray-500 leading-relaxed" x-text="step.desc"></p>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="lg:col-span-3 space-y-6">
+                
+                <div class="bg-[#015850] rounded-xl p-6 shadow-lg text-center border-t-4 border-yellow-400">
+                    <h3 class="text-lg font-bold text-white mb-2">AJUKAN PENAJARI</h3>
+                    <p class="text-green-100 text-xs mb-5">
+                        Pastikan dokumen persyaratan sudah lengkap sebelum mengisi formulir Google Form PenAJari.
+                    </p>
+                    <a href="#" class="block w-full bg-yellow-400 text-[#015850] font-bold py-3 px-4 rounded-lg shadow hover:bg-yellow-300 transition-colors uppercase tracking-wide text-xs">
+                        <i class="fa-brands fa-google mr-1"></i> Buka Google Form
+                    </a>
+                </div>
+
+                <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+                    <h4 class="font-bold text-gray-900 text-xs uppercase tracking-widest mb-4 flex items-center gap-2 border-b border-gray-100 pb-3">
+                        <i class="fa-solid fa-download text-[#015850]"></i> Dokumen Terkait
+                    </h4>
+                    <div class="space-y-2">
+                        <a href="#" class="flex items-start gap-3 p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors border border-gray-100 group">
+                            <i class="fa-solid fa-file-word text-blue-500 mt-1"></i>
+                            <div>
+                                <h5 class="text-[11px] font-bold text-gray-700 group-hover:text-[#015850]">Form F-64</h5>
+                                <p class="text-[10px] text-gray-500 mt-0.5">Pengusulan PenAJari</p>
+                            </div>
+                        </a>
+                        <a href="#" class="flex items-start gap-3 p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors border border-gray-100 group">
+                            <i class="fa-solid fa-file-word text-blue-500 mt-1"></i>
+                            <div>
+                                <h5 class="text-[11px] font-bold text-gray-700 group-hover:text-[#015850]">Form F-65</h5>
+                                <p class="text-[10px] text-gray-500 mt-0.5">Penyelesaian PenAJari</p>
+                            </div>
+                        </a>
+                        <a href="#" class="flex items-start gap-3 p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors border border-gray-100 group">
+                            <i class="fa-solid fa-file-pdf text-red-500 mt-1"></i>
+                            <div>
+                                <h5 class="text-[11px] font-bold text-gray-700 group-hover:text-[#015850]">Prosedur P-22</h5>
+                                <p class="text-[10px] text-gray-500 mt-0.5">Panduan Lengkap (PDF)</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+                    <h4 class="font-bold text-gray-900 text-xs uppercase tracking-widest mb-3">Butuh Bantuan?</h4>
+                    <p class="text-xs text-gray-500 mb-4 leading-relaxed">Hubungi LPPM untuk pertanyaan seputar persyaratan PenAJari.</p>
+                    <div class="space-y-2 text-xs text-gray-600">
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-envelope w-4 text-gray-400"></i> lppm@unpar.ac.id</div>
+                        <div class="flex items-center gap-2"><i class="fa-brands fa-whatsapp w-4 text-gray-400"></i> +62 895 2201 7571</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('penajariData', () => ({
+                activeMenu: 'pengusulan', 
+                menus: {
+                    'pengusulan': {
+                        name: "Pengusulan PenAJari",
+                        description: "Tahap awal pengajuan fasilitasi pendanaan untuk penulisan dan publikasi jurnal internasional bereputasi.",
+                        sections: [
+                            {
+                                title: "Persyaratan Pengusul",
+                                icon: "fa-user-check",
+                                items: [
+                                    "Berstatus sebagai Dosen UNPAR (tidak sedang dalam masa studi lanjut).",
+                                    "Bertindak sebagai penulis tunggal atau penulis pertama (First Author).",
+                                    "Menargetkan jurnal internasional bereputasi dengan indeks Scopus Q1 atau Q2.",
+                                    "Hanya diperbolehkan memiliki 1 (satu) pengajuan PenAJari pada waktu yang sama."
+                                ]
+                            },
+                            {
+                                title: "Dokumen Persyaratan",
+                                icon: "fa-file-signature",
+                                items: [
+                                    "Formulir Pengusulan/Pengesahan PenAJari (Form F-64).",
+                                    "Draft artikel dan nama jurnal tujuan."
+                                ]
+                            }
+                        ],
+                        alur: [
+                            { title: "Penyiapan Dokumen", desc: "Dosen menyiapkan Formulir Pengusulan/Pengesahan PenAJari (F-64) dan draft artikel." },
+                            { title: "Persetujuan Pimpinan", desc: "Meminta persetujuan serta tanda tangan dari Ketua Jurusan dan Dekan." },
+                            { title: "Pengiriman Dokumen", desc: "Mengirim seluruh dokumen kelengkapan melalui Google Form PenAJari." },
+                            { title: "Verifikasi LPPM", desc: "LPPM melakukan verifikasi kelayakan terhadap dokumen pengajuan." },
+                            { title: "Persetujuan Akhir", desc: "Jika disetujui, LPPM akan memberikan notifikasi persetujuan melalui email." }
+                        ]
+                    },
+                    'pelaporan': {
+                        name: "Pelaporan PenAJari",
+                        description: "Tahap penyelesaian administrasi dan permohonan pencairan dana setelah artikel berhasil diterbitkan.",
+                        sections: [
+                            {
+                                title: "Dokumen Pelaporan",
+                                icon: "fa-folder-open",
+                                items: [
+                                    "Formulir Penyelesaian PenAJari (Form F-65).",
+                                    "Bukti biaya <i>editing / translation / proofreading</i> atau biaya publikasi jurnal.",
+                                    "Bukti artikel telah resmi terbit (published) di jurnal Scopus Q1 atau Q2."
+                                ]
+                            }
+                        ],
+                        alur: [
+                            { title: "Penyelesaian Publikasi", desc: "Dosen menyelesaikan seluruh proses tinjauan publikasi artikel hingga terbit." },
+                            { title: "Penyiapan Laporan", desc: "Menyiapkan Form F-65, bukti kwitansi biaya riil, dan salinan artikel terbit." },
+                            { title: "Penyerahan Dokumen", desc: "Mengirimkan seluruh dokumen fisik secara hardcopy ke kantor LPPM." },
+                            { title: "Verifikasi & Pencairan", desc: "LPPM memverifikasi dokumen. Jika dinyatakan valid, pendanaan akan segera dicairkan kepada dosen." }
+                        ]
+                    }
+                },
+                get current() {
+                    return this.menus[this.activeMenu];
+                }
+            }));
+        });
+    </script>
+</body>
+</html>

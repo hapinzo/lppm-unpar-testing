@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skema Eksternal - LPPM UNPAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-white text-gray-800 antialiased" x-data="appData()">
+
+    <div id="header-placeholder"></div>
+
+    <div class="bg-gray-50 border-b border-gray-200 py-8 px-6">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-900 mb-3">Skema Eksternal</h2>
+            <p class="text-gray-600 max-w-3xl leading-relaxed">
+                Skema pendanaan penelitian dan pengabdian yang bersumber dan dikelola di luar Universitas Katolik Parahyangan. Seluruh kegiatan wajib dicatat secara administratif melalui LPPM untuk keperluan pelaporan institusi dan pengakuan Beban Kerja Dosen (SKS).
+            </p>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <aside class="lg:col-span-3">
+                <div class="bg-white border border-gray-200 rounded-lg overflow-hidden sticky top-8 shadow-sm">
+                    <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                        <h3 class="text-sm font-semibold text-gray-700">Kategori Eksternal</h3>
+                    </div>
+                    
+                    <nav class="p-3">
+                        <template x-for="category in categories" :key="category.title">
+                            <div class="mb-2">
+                                <h4 class="text-xs font-bold text-gray-400 mb-2 px-2 uppercase tracking-wider" x-text="category.title"></h4>
+                                <div class="space-y-1">
+                                    <template x-for="menuId in category.menus" :key="menuId">
+                                        <button 
+                                            @click="activeMenu = menuId"
+                                            :class="activeMenu === menuId ? 'bg-[#015850] text-white shadow-sm' : 'hover:bg-gray-100 text-gray-700'"
+                                            class="w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors text-left"
+                                        >
+                                            <span x-text="menus[menuId].name"></span>
+                                            <i class="fa-solid fa-circle text-[8px] flex-shrink-0" :class="activeMenu === menuId ? 'text-white' : 'text-gray-300'"></i>
+                                        </button>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </nav>
+                </div>
+            </aside>
+
+            <main class="lg:col-span-6">
+                <div class="space-y-6">
+                    
+                    <div class="flex items-start justify-between border-b border-gray-100 pb-4">
+                        <h2 class="text-[#015850] text-2xl font-bold" x-text="current.name"></h2>
+                    </div>
+
+                    <p class="text-gray-700 leading-relaxed text-sm mb-6" x-text="current.description"></p>
+
+                    <div class="space-y-6">
+                        <template x-for="(section, index) in current.sections" :key="index">
+                            <section class="border border-gray-200 bg-white rounded-lg p-5 shadow-sm">
+                                <div class="flex items-center gap-2 mb-4 border-b border-gray-100 pb-2">
+                                    <i class="fa-solid text-[#015850]" :class="section.icon"></i>
+                                    <h3 class="text-[#015850] font-semibold" x-text="section.title"></h3>
+                                </div>
+                                
+                                <template x-if="section.isStep">
+                                    <div class="space-y-5 pl-2">
+                                        <template x-for="(step, stepIndex) in section.items" :key="stepIndex">
+                                            <div class="flex gap-4">
+                                                <div class="flex-shrink-0 w-7 h-7 rounded-full bg-green-50 text-[#015850] border border-green-200 flex items-center justify-center text-sm font-bold" x-text="stepIndex + 1"></div>
+                                                <div>
+                                                    <h4 class="text-sm font-bold text-gray-800 mb-1" x-text="step.title"></h4>
+                                                    <p class="text-sm text-gray-600 leading-relaxed" x-text="step.desc"></p>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </template>
+
+                                <template x-if="!section.isStep">
+                                    <ul class="space-y-2.5 ml-2">
+                                        <template x-for="item in section.items">
+                                            <li class="flex items-start gap-2 text-gray-600 text-sm">
+                                                <i class="fa-solid fa-check text-green-600 mt-1"></i>
+                                                <span x-text="item"></span>
+                                            </li>
+                                        </template>
+                                    </ul>
+                                </template>
+                            </section>
+                        </template>
+                    </div>
+
+                    <div class="pt-4 flex flex-col sm:flex-row gap-4">
+                        <template x-for="btn in current.buttons">
+                            <button :class="btn.primary ? 'bg-[#015850] hover:bg-[#014540] text-white' : 'bg-white border-2 border-[#015850] text-[#015850] hover:bg-gray-50'"
+                                    class="w-full font-semibold py-3.5 px-6 rounded-xl transition-colors flex items-center justify-center gap-2 shadow-sm">
+                                <i class="fa-solid" :class="btn.icon"></i>
+                                <span x-text="btn.text"></span>
+                            </button>
+                        </template>
+                    </div>
+
+                </div>
+            </main>
+
+            <aside class="lg:col-span-3">
+                <div class="space-y-4 sticky top-8">
+                    <h3 class="font-bold text-[#015850] text-lg mb-2">Informasi Pendukung</h3>
+
+                    <div x-data="{ open: true }" class="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden shadow-sm mb-6">
+                        <button @click="open = !open" class="w-full flex items-center justify-between p-4 hover:bg-gray-100 transition-colors">
+                            <h4 class="text-[#015850] font-semibold text-sm text-left flex items-center gap-2">
+                                <i class="fa-solid fa-circle-question"></i> FAQ & Informasi
+                            </h4>
+                            <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" :class="open ? 'rotate-180' : ''"></i>
+                        </button>
+                        
+                        <div x-show="open" x-cloak class="px-4 pb-4">
+                            <div class="space-y-4 mt-2">
+                                <div>
+                                    <h5 class="text-sm font-bold text-gray-800">Kenapa harus dicatat di LPPM?</h5>
+                                    <p class="text-xs text-gray-600 mt-1 leading-relaxed">
+                                        Pencatatan diperlukan untuk validasi Beban Kerja Dosen (BKD) dan pelaporan kinerja institusi kepada kementerian terkait.
+                                    </p>
+                                </div>
+                                <div>
+                                    <h5 class="text-sm font-bold text-gray-800">Kapan SKS dapat diajukan?</h5>
+                                    <p class="text-xs text-gray-600 mt-1 leading-relaxed">
+                                        SKS dapat diajukan setelah kegiatan berstatus "Tercatat" dan dosen telah mengunggah laporan kemajuan sesuai periode.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-[#015850] text-white rounded-xl p-5 shadow-sm mt-6">
+                        <h4 class="font-bold mb-2">Perlu Bantuan?</h4>
+                        <p class="text-green-50 text-xs mb-4 leading-relaxed">
+                            Jika mengalami kendala dalam proses pencatatan hibah eksternal ke dalam sistem PENAMAS, silakan hubungi LPPM.
+                        </p>
+                        <div class="space-y-3 mb-5 text-sm">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-envelope w-4"></i> lppm@unpar.ac.id</div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-phone w-4"></i> +62 XXX XXXX</div>
+                            <div class="flex items-center gap-2"><i class="fa-regular fa-clock w-4"></i> Senin–Jumat, 08.00–16.00</div>
+                        </div>
+                        <button class="w-full bg-white text-[#015850] font-semibold py-2.5 px-4 rounded-lg hover:bg-gray-100 transition-colors text-sm shadow-sm">
+                            Hubungi LPPM
+                        </button>
+                    </div>
+
+                </div>
+            </aside>
+        </div>
+    </div>
+<div id="footer-placeholder"></div>
+
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+    <script>
+        const serviceData = {
+            "ristek": {
+                name: "Hibah Nasional (RISTEK / Kemendiktisaintek)",
+                description: "Program pendanaan kompetitif yang diselenggarakan langsung oleh kementerian terkait. Proses pengajuan, seleksi, hingga monitoring dilakukan melalui platform kementerian, namun wajib dilaporkan ke LPPM UNPAR.",
+                sections: [
+                    {
+                        title: "Alur Pelaksanaan",
+                        icon: "fa-route",
+                        isStep: true,
+                        items: [
+                            { title: "Ajukan melalui platform nasional", desc: "Dosen menyusun dan mengirimkan proposal melalui portal BIMA atau platform resmi kementerian lainnya." },
+                            { title: "Jika lolos, lakukan kontrak", desc: "Penandatanganan kontrak antara kementerian, institusi, dan peneliti utama." },
+                            { title: "Monitoring & pelaporan", desc: "Pelaksanaan riset dan pelaporan kemajuan serta keuangan sesuai ketentuan kementerian." },
+                            { title: "Laporkan ke LPPM", desc: "Salin data persetujuan dan laporan akhir ke sistem PENAMAS untuk pengakuan kinerja dan SKS." }
+                        ]
+                    }
+                ],
+                buttons: [
+                    { text: "Kunjungi Platform Nasional", icon: "fa-arrow-up-right-from-square", primary: true },
+                    { text: "Laporkan ke PENAMAS", icon: "fa-file-signature", primary: false }
+                ]
+            },
+            "non-ristek": {
+                name: "Dana Eksternal Non-RISTEK",
+                description: "Pendanaan yang berasal dari institusi swasta, NGO, pemerintah daerah, atau lembaga internasional. Diperlukan pencatatan administratif secara mandiri di LPPM untuk legalitas dan konversi SKS.",
+                sections: [
+                    {
+                        title: "Dokumen Wajib Pencatatan",
+                        icon: "fa-folder-open",
+                        isStep: false,
+                        items: [
+                            "Proposal kegiatan yang telah disetujui pihak eksternal",
+                            "Bukti kontrak / Surat Perjanjian Kerja Sama (MoU/MoA) dengan mitra",
+                            "Surat persetujuan dari pimpinan fakultas (Dekan)"
+                        ]
+                    },
+                    {
+                        title: "Langkah Pencatatan & SKS",
+                        icon: "fa-list-ol",
+                        isStep: true,
+                        items: [
+                            { title: "Catat Kegiatan", desc: "Akses menu Skema Eksternal di PENAMAS, isi formulir, dan unggah dokumen kontrak. Tunggu verifikasi admin." },
+                            { title: "Pelaksanaan Riset", desc: "Jalankan kegiatan sesuai jadwal yang disepakati dengan pihak eksternal." },
+                            { title: "Pengajuan SKS", desc: "Pilih menu Pengajuan SKS, unggah laporan kemajuan/logbook, dan ajukan persetujuan ke Dekan." }
+                        ]
+                    }
+                ],
+                buttons: [
+                    { text: "Catat di PENAMAS", icon: "fa-cloud-arrow-up", primary: true },
+                    { text: "Ajukan SKS di PENAMAS", icon: "fa-stamp", primary: false }
+                ]
+            }
+        };
+
+        const menuCategories = [
+            { 
+                title: "SUMBER PENDANAAN", 
+                menus: [ "ristek", "non-ristek" ] 
+            }
+        ];
+
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('appData', () => ({
+                activeMenu: 'ristek', 
+                menus: serviceData,
+                categories: menuCategories,
+                
+                get current() {
+                    return this.menus[this.activeMenu];
+                }
+            }));
+        });
+    </script>
+</body>
+</html>
