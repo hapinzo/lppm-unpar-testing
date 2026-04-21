@@ -148,10 +148,13 @@
                     <div class="grid grid-cols-2 gap-4">
                         <section class="border border-gray-200 bg-white rounded-lg p-5 shadow-sm">
                             <div class="flex items-center gap-2 mb-3">
-                                <i class="fa-solid fa-money-bill-wave text-[#015850]"></i>
-                                <h3 class="text-[#015850] text-sm font-semibold">Dana Maksimal</h3>
+                                <i class="fa-solid fa-lock text-[#015850]"></i>
+                                <h3 class="text-[#015850] text-sm font-semibold">Informasi Pendanaan</h3>
                             </div>
-                            <p class="text-xl font-bold text-gray-800 mb-1" x-text="current.funding.amount"></p>
+                            <a href="https://drive.google.com/" target="_blank" class="inline-flex items-center gap-2 px-3 py-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 text-[#015850] font-bold rounded-lg transition-colors mb-2 w-full justify-between group">
+                                <span class="flex items-center gap-2 text-sm"><i class="fa-solid fa-file-shield text-gray-400"></i> Dokumen Akses Terbatas</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"></i>
+                            </a>
                             <p class="text-xs text-gray-500 leading-relaxed" x-text="current.funding.description"></p>
                         </section>
 
@@ -360,7 +363,7 @@
                 requirements: { title: "Persyaratan Ketua", items: [ "Dosen tetap UNPAR dengan masa kerja maksimal 5 tahun", "Belum pernah menjadi ketua skema penelitian lanjutan", "Memiliki latar belakang pendidikan minimal S2", "Tidak sedang menjadi ketua penelitian skema lain di tahun berjalan" ] },
                 team: { leader: { title: "Ketua Peneliti", description: "1 (satu) dosen tetap UNPAR yang memenuhi kriteria" }, members: { title: "Anggota Peneliti", description: "1-2 dosen anggota dari UNPAR atau institusi lain (opsional)" }, students: { title: "Mahasiswa", description: "Mahasiswa diperbolehkan sebagai anggota penelitian" } },
                 outputs: { title: "Luaran Wajib", items: [ { name: "Artikel Jurnal Ilmiah", description: "Minimal 1 artikel yang disubmit ke jurnal ilmiah terakreditasi Sinta atau bereputasi internasional" }, { name: "Laporan Akhir Penelitian", description: "Laporan lengkap sesuai format LPPM UNPAR" } ] },
-                funding: { amount: "Rp 15.000.000", description: "Dana maksimal per penelitian untuk periode 1 tahun" }, duration: { period: "1 Tahun", description: "Dari penandatanganan kontrak hingga penyerahan laporan akhir" }
+                funding: { amount: "Terbatas", description: "Detail nominal pendanaan memerlukan akun email UNPAR aktif." }, duration: { period: "1 Tahun", description: "Dari penandatanganan kontrak hingga penyerahan laporan akhir" }
             },
             "mini-riset": {
                 id: "mini-riset", name: "Mini Riset", status: "open", badge: "Dibuka",
@@ -368,7 +371,7 @@
                 requirements: { title: "Persyaratan Ketua", items: [ "Dosen tetap UNPAR", "Tidak sedang menjadi ketua penelitian skema lain", "Memiliki ide penelitian yang jelas dan terukur", "Proposal mengikuti format yang ditetapkan" ] },
                 team: { leader: { title: "Ketua Peneliti", description: "1 (satu) dosen tetap UNPAR" }, members: { title: "Anggota Peneliti", description: "Maksimal 2 anggota (opsional)" } },
                 outputs: { title: "Luaran Wajib", items: [ { name: "Laporan Penelitian", description: "Laporan hasil penelitian sesuai format LPPM" }, { name: "Presentasi Hasil", description: "Presentasi dalam forum internal LPPM" } ] },
-                funding: { amount: "Rp 5.000.000", description: "Dana maksimal per penelitian untuk periode 6 bulan" }, duration: { period: "6 Bulan", description: "Dari penandatanganan kontrak hingga penyerahan laporan" }
+                funding: { amount: "Terbatas", description: "Detail nominal pendanaan memerlukan akun email UNPAR aktif." }, duration: { period: "6 Bulan", description: "Dari penandatanganan kontrak hingga penyerahan laporan" }
             },
             "penelitian-bersaing": {
                 id: "penelitian-bersaing", name: "Penelitian Bersaing", status: "open", badge: "Dibuka",
@@ -376,7 +379,7 @@
                 requirements: { title: "Persyaratan Ketua", items: [ "Dosen tetap UNPAR dengan minimal 3 publikasi dalam 3 tahun terakhir", "Memiliki track record penelitian yang baik", "Tidak sedang menjalani studi lanjut", "Proposal harus kompetitif dan inovatif" ] },
                 team: { leader: { title: "Ketua Peneliti", description: "1 (satu) dosen tetap UNPAR yang berpengalaman" }, members: { title: "Anggota Peneliti", description: "1-3 dosen anggota dari berbagai institusi" }, students: { title: "Mahasiswa", description: "Dapat melibatkan mahasiswa S1/S2/S3" } },
                 outputs: { title: "Luaran Wajib", items: [ { name: "Artikel Jurnal Internasional", description: "Minimal 1 artikel di jurnal internasional bereputasi (Q1-Q2)" }, { name: "Laporan Akhir Penelitian", description: "Laporan lengkap dengan dokumentasi lengkap" }, { name: "HKI atau Paten", description: "Hak Kekayaan Intelektual (jika relevan)" } ] },
-                funding: { amount: "Rp 30.000.000", description: "Dana maksimal per penelitian untuk periode 1 tahun" }, duration: { period: "1 Tahun", description: "Dapat diperpanjang hingga maksimal 2 tahun" }
+                funding: { amount: "Terbatas", description: "Detail nominal pendanaan memerlukan akun email UNPAR aktif." }, duration: { period: "1 Tahun", description: "Dapat diperpanjang hingga maksimal 2 tahun" }
             },
             "penelitian-terapan": {
                 id: "penelitian-terapan", name: "Penelitian Terapan", status: "open", badge: "Dibuka",
@@ -384,7 +387,7 @@
                 requirements: { title: "Persyaratan Ketua", items: [ "Dosen tetap UNPAR", "Memiliki mitra industri atau masyarakat", "Proposal memiliki roadmap implementasi yang jelas", "Tidak sedang menjalani studi lanjut" ] },
                 team: { leader: { title: "Ketua Peneliti", description: "1 (satu) dosen tetap UNPAR" }, members: { title: "Anggota Peneliti", description: "1-3 dosen anggota, dapat melibatkan praktisi" }, students: { title: "Mahasiswa", description: "Dapat melibatkan mahasiswa dalam implementasi" } },
                 outputs: { title: "Luaran Wajib", items: [ { name: "Produk/Prototipe", description: "Produk terapan atau prototipe yang siap digunakan" }, { name: "Artikel Ilmiah", description: "Artikel di jurnal atau prosiding" }, { name: "Laporan Akhir", description: "Laporan lengkap dengan dokumentasi implementasi" } ] },
-                funding: { amount: "Rp 25.000.000", description: "Dana maksimal per penelitian untuk periode 1 tahun" }, duration: { period: "1 Tahun", description: "Dengan milestone implementasi yang jelas" }
+                funding: { amount: "Terbatas", description: "Detail nominal pendanaan memerlukan akun email UNPAR aktif." }, duration: { period: "1 Tahun", description: "Dengan milestone implementasi yang jelas" }
             },
             "kolaborasi": {
                 id: "kolaborasi", name: "Kolaborasi", status: "soon", badge: "Segera Dibuka",
@@ -392,7 +395,7 @@
                 requirements: { title: "Persyaratan Ketua", items: [ "Dosen tetap UNPAR", "Memiliki MoU atau kesepakatan kolaborasi dengan mitra", "Proposal kolaboratif dengan pembagian peran yang jelas", "Memenuhi ketentuan beban penelitian" ] },
                 team: { leader: { title: "Ketua Peneliti", description: "1 (satu) dosen tetap UNPAR sebagai koordinator" }, members: { title: "Anggota Peneliti", description: "Dosen dari UNPAR dan institusi mitra" }, students: { title: "Mahasiswa", description: "Dapat melibatkan mahasiswa dari berbagai institusi" } },
                 outputs: { title: "Luaran Wajib", items: [ { name: "Artikel Jurnal Bersama", description: "Artikel dengan afiliasi gabungan institusi" }, { name: "Laporan Kolaboratif", description: "Laporan yang disusun bersama mitra" } ] },
-                funding: { amount: "Rp 35.000.000", description: "Dana maksimal per penelitian kolaboratif" }, duration: { period: "1-2 Tahun", description: "Sesuai dengan ruang lingkup kolaborasi" }
+                funding: { amount: "Terbatas", description: "Detail nominal pendanaan memerlukan akun email UNPAR aktif." }, duration: { period: "1-2 Tahun", description: "Sesuai dengan ruang lingkup kolaborasi" }
             },
             "tugas-akhir-sarjana": {
                 id: "tugas-akhir-sarjana", name: "Tugas Akhir Sarjana", status: "open", badge: "Dibuka",
@@ -400,7 +403,7 @@
                 requirements: { title: "Persyaratan", items: [ "Mahasiswa aktif program S1 UNPAR", "Proposal tugas akhir telah disetujui pembimbing", "Memiliki potensi untuk dipublikasikan", "IPK minimal 3.00" ] },
                 team: { leader: { title: "Mahasiswa", description: "1 mahasiswa S1 sebagai peneliti utama" }, members: { title: "Pembimbing", description: "Dosen pembimbing tugas akhir" } },
                 outputs: { title: "Luaran Wajib", items: [ { name: "Laporan Tugas Akhir", description: "Laporan lengkap sesuai format fakultas" }, { name: "Artikel Konferensi", description: "Artikel untuk konferensi nasional/internasional" } ] },
-                funding: { amount: "Rp 7.500.000", description: "Dana maksimal per tugas akhir" }, duration: { period: "6-8 Bulan", description: "Sesuai dengan jadwal tugas akhir" }
+                funding: { amount: "Terbatas", description: "Detail nominal pendanaan memerlukan akun email UNPAR aktif." }, duration: { period: "6-8 Bulan", description: "Sesuai dengan jadwal tugas akhir" }
             },
             "tesis-magister": {
                 id: "tesis-magister", name: "Tesis Magister", status: "open", badge: "Dibuka",
@@ -408,7 +411,7 @@
                 requirements: { title: "Persyaratan", items: [ "Mahasiswa aktif program S2 UNPAR", "Proposal tesis telah disetujui", "Target publikasi di jurnal terakreditasi minimal Sinta 3", "IPK minimal 3.25" ] },
                 team: { leader: { title: "Mahasiswa", description: "1 mahasiswa S2 sebagai peneliti utama" }, members: { title: "Pembimbing", description: "Dosen pembimbing tesis" } },
                 outputs: { title: "Luaran Wajib", items: [ { name: "Tesis", description: "Tesis lengkap sesuai standar program S2" }, { name: "Artikel Jurnal", description: "Artikel di jurnal terakreditasi Sinta" } ] },
-                funding: { amount: "Rp 12.000.000", description: "Dana maksimal per tesis" }, duration: { period: "1 Tahun", description: "Sesuai dengan jadwal program S2" }
+                funding: { amount: "Terbatas", description: "Detail nominal pendanaan memerlukan akun email UNPAR aktif." }, duration: { period: "1 Tahun", description: "Sesuai dengan jadwal program S2" }
             },
             "disertasi-doktor": {
                 id: "disertasi-doktor", name: "Disertasi Doktor", status: "open", badge: "Dibuka",
@@ -416,7 +419,7 @@
                 requirements: { title: "Persyaratan", items: [ "Mahasiswa aktif program S3 UNPAR", "Proposal disertasi telah disetujui", "Target publikasi di jurnal internasional Q1-Q3", "Telah lulus ujian kualifikasi" ] },
                 team: { leader: { title: "Mahasiswa", description: "1 mahasiswa S3 sebagai peneliti utama" }, members: { title: "Promotor", description: "Tim promotor dan ko-promotor" } },
                 outputs: { title: "Luaran Wajib", items: [ { name: "Disertasi", description: "Disertasi lengkap sesuai standar program S3" }, { name: "Artikel Jurnal Internasional", description: "Minimal 2 artikel di jurnal internasional bereputasi" } ] },
-                funding: { amount: "Rp 25.000.000", description: "Dana maksimal per disertasi" }, duration: { period: "1-2 Tahun", description: "Sesuai dengan tahap penelitian disertasi" }
+                funding: { amount: "Terbatas", description: "Detail nominal pendanaan memerlukan akun email UNPAR aktif." }, duration: { period: "1-2 Tahun", description: "Sesuai dengan tahap penelitian disertasi" }
             },
             "artikel-mahasiswa": {
                 id: "artikel-mahasiswa", name: "Artikel Mahasiswa", status: "soon", badge: "Segera Dibuka",
@@ -424,7 +427,7 @@
                 requirements: { title: "Persyaratan", items: [ "Mahasiswa aktif UNPAR (S1/S2/S3)", "Artikel telah diterima untuk publikasi", "Mahasiswa sebagai penulis pertama atau korespondensi", "Afiliasi UNPAR tercantum dalam artikel" ] },
                 team: { leader: { title: "Mahasiswa", description: "Mahasiswa penulis artikel" }, members: { title: "Ko-Penulis", description: "Dosen pembimbing atau anggota tim penelitian" } },
                 outputs: { title: "Luaran Wajib", items: [ { name: "Artikel Terpublikasi", description: "Artikel yang telah terbit dengan afiliasi UNPAR" }, { name: "Laporan Singkat", description: "Laporan tentang proses publikasi" } ] },
-                funding: { amount: "Rp 5.000.000", description: "Dana maksimal untuk biaya publikasi" }, duration: { period: "3-6 Bulan", description: "Dari acceptance hingga publikasi" }
+                funding: { amount: "Terbatas", description: "Detail nominal pendanaan memerlukan akun email UNPAR aktif." }, duration: { period: "3-6 Bulan", description: "Dari acceptance hingga publikasi" }
             },
             "produk-mahasiswa": {
                 id: "produk-mahasiswa", name: "Produk Mahasiswa", status: "soon", badge: "Segera Dibuka",
@@ -432,7 +435,7 @@
                 requirements: { title: "Persyaratan", items: [ "Mahasiswa aktif UNPAR", "Memiliki ide produk yang inovatif dan feasible", "Proposal pengembangan produk yang jelas", "Didampingi oleh dosen pembimbing" ] },
                 team: { leader: { title: "Mahasiswa", description: "Tim mahasiswa (1-3 orang)" }, members: { title: "Pembimbing", description: "Dosen pembimbing pengembangan produk" } },
                 outputs: { title: "Luaran Wajib", items: [ { name: "Prototipe Produk", description: "Prototipe produk yang siap diuji" }, { name: "Dokumentasi Produk", description: "Dokumentasi lengkap pengembangan produk" }, { name: "HKI", description: "Pendaftaran Hak Kekayaan Intelektual (jika memungkinkan)" } ] },
-                funding: { amount: "Rp 10.000.000", description: "Dana maksimal untuk pengembangan produk" }, duration: { period: "6-8 Bulan", description: "Dari konsep hingga prototipe" }
+                funding: { amount: "Terbatas", description: "Detail nominal pendanaan memerlukan akun email UNPAR aktif." }, duration: { period: "6-8 Bulan", description: "Dari konsep hingga prototipe" }
             },
             "hibah-pendamping": {
                 id: "hibah-pendamping", name: "Hibah pendamping", status: "open", badge: "Dibuka",
@@ -440,7 +443,7 @@
                 requirements: { title: "Persyaratan", items: [ "Dosen tetap UNPAR", "Memiliki mitra masyarakat yang jelas", "Proposal pendamping berbasis hasil penelitian", "Program berkelanjutan dan terukur" ] },
                 team: { leader: { title: "Ketua Tim", description: "1 (satu) dosen tetap UNPAR" }, members: { title: "Anggota Tim", description: "Dosen dan mahasiswa yang terlibat" } },
                 outputs: { title: "Luaran Wajib", items: [ { name: "Laporan Kegiatan", description: "Laporan lengkap kegiatan pendamping" }, { name: "Dokumentasi", description: "Foto dan video dokumentasi kegiatan" }, { name: "Artikel Pengabdian", description: "Artikel di jurnal pengabdian masyarakat" } ] },
-                funding: { amount: "Rp 15.000.000", description: "Dana maksimal per program pendamping" }, duration: { period: "6-12 Bulan", description: "Sesuai dengan program pendamping" }
+                funding: { amount: "Terbatas", description: "Detail nominal pendanaan memerlukan akun email UNPAR aktif." }, duration: { period: "6-12 Bulan", description: "Sesuai dengan program pendamping" }
             }
         };
 

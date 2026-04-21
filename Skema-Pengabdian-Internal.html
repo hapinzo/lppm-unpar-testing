@@ -132,10 +132,13 @@
                     <div class="grid grid-cols-2 gap-4">
                         <section class="border border-gray-200 bg-white rounded-lg p-5 shadow-sm">
                             <div class="flex items-center gap-2 mb-3">
-                                <i class="fa-solid fa-wallet text-[#015850]"></i>
-                                <h3 class="text-[#015850] text-sm font-semibold">Dana Maksimal</h3>
+                                <i class="fa-solid fa-lock text-[#015850]"></i>
+                                <h3 class="text-[#015850] text-sm font-semibold">Informasi Pendanaan</h3>
                             </div>
-                            <p class="text-xl font-bold text-gray-800 mb-1" x-text="current.funding.amount"></p>
+                            <a href="https://drive.google.com/" target="_blank" class="inline-flex items-center gap-2 px-3 py-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 text-[#015850] font-bold rounded-lg transition-colors mb-2 w-full justify-between group">
+                                <span class="flex items-center gap-2 text-sm"><i class="fa-solid fa-file-shield text-gray-400"></i> Dokumen Akses Terbatas</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"></i>
+                            </a>
                             <p class="text-xs text-gray-500 leading-relaxed" x-text="current.funding.description"></p>
                         </section>
 
@@ -226,7 +229,7 @@
                 requirements: { title: "Persyaratan Ketua & Anggota", items: [ "Dosen UNPAR (dosen observasi, kontrak, atau tetap) yang tidak sedang studi lanjut", "Dalam 1 semester maksimal mengetuai 3 kegiatan (maks. 2 penelitian & 2 pengabdian)", "Memiliki minimum 1 mitra pengabdian" ] },
                 team: { leader: { title: "Ketua Pengabdi", description: "Dosen Universitas" }, members: { title: "Anggota Pengabdi", description: "1-3 orang Dosen" } },
                 outputs: { title: "Capaian Wajib", items: [ { name: "Hak Cipta", description: "Pendaftaran Hak Cipta dari hasil pengabdian" } ] },
-                funding: { amount: "Rp 600.000", description: "Ditujukan khusus untuk biaya pendaftaran Hak Cipta" }, 
+                funding: { amount: "Terbatas", description: "Detail nominal pendanaan memerlukan akun email UNPAR aktif." }, 
                 duration: { period: "1 Semester", description: "Jangka waktu capaian sesuai dengan waktu pengumpulan laporan akhir" }
             },
             "pembangunan-masyarakat": {
@@ -235,7 +238,7 @@
                 requirements: { title: "Persyaratan", items: [ "Ketua adalah Dosen dengan Jabatan fungsional minimum Asisten Ahli", "Tidak sedang studi lanjut", "Memiliki minimum 1 mitra" ] },
                 team: { leader: { title: "Ketua Pengabdi", description: "Dosen Universitas" }, members: { title: "Anggota Pengabdi", description: "2-4 orang Dosen" } },
                 outputs: { title: "Capaian Wajib", items: [ { name: "Video & Publikasi/HKI", description: "Hak Cipta Video Pengabdian; DAN Artikel accepted di jurnal nasional (min. SINTA), atau HKI tercatat/lolos pemeriksaan." } ] },
-                funding: { amount: "Rp 15.000.000", description: "Pendanaan maksimal untuk skema ini." }, 
+                funding: { amount: "Terbatas", description: "Detail nominal pendanaan memerlukan akun email UNPAR aktif." }, 
                 duration: { period: "1 Tahun", description: "Jangka waktu capaian adalah 2 tahun setelah pengajuan proposal" }
             },
             "penerapan-teknologi": {
@@ -244,7 +247,7 @@
                 requirements: { title: "Persyaratan", items: [ "Ketua adalah Dosen dengan Jabatan fungsional minimum Lektor", "Berdasar pada kegiatan penelitian yang telah dilakukan Ketua", "Memiliki minimum 1 mitra" ] },
                 team: { leader: { title: "Ketua Pengabdi", description: "Dosen Universitas" }, members: { title: "Anggota Pengabdi", description: "2-4 orang Dosen" } },
                 outputs: { title: "Capaian Wajib", items: [ { name: "Video & Publikasi/HKI", description: "Hak Cipta Video Pengabdian; DAN Artikel accepted di jurnal nasional (min. SINTA), atau HKI tercatat/lolos pemeriksaan." } ] },
-                funding: { amount: "Rp 20.000.000", description: "Pendanaan maksimal untuk penerapan teknologi." }, 
+                funding: { amount: "Terbatas", description: "Detail nominal pendanaan memerlukan akun email UNPAR aktif." }, 
                 duration: { period: "1 Tahun", description: "Jangka waktu capaian adalah 2 tahun setelah pengajuan proposal" }
             },
             "proyek-desa-mbkm": {
@@ -253,7 +256,7 @@
                 requirements: { title: "Persyaratan", items: [ "Ketua adalah Dosen Universitas", "Memiliki Mitra MBKM" ] },
                 team: { leader: { title: "Ketua Pengabdi", description: "Dosen Universitas" }, members: { title: "Anggota Dosen", description: "2-4 orang Dosen" }, students: { title: "Anggota Mahasiswa", description: "3-5 anggota Mahasiswa minimal semester 5" } },
                 outputs: { title: "Capaian Wajib", items: [ { name: "Video & Publikasi/HKI", description: "Hak Cipta Video Pengabdian; DAN Artikel accepted di jurnal nasional (min. SINTA), atau HKI tercatat/lolos pemeriksaan." } ] },
-                funding: { amount: "Rp 35.000.000", description: "Pendanaan maksimal per kegiatan proyek." }, 
+                funding: { amount: "Terbatas", description: "Detail nominal pendanaan memerlukan akun email UNPAR aktif." }, 
                 duration: { period: "1 Semester", description: "Jangka waktu capaian adalah 2 tahun setelah pengajuan proposal" }
             },
             "skema-lembaga": {
@@ -262,7 +265,7 @@
                 requirements: { title: "Persyaratan", items: [ "Ketua ditunjuk oleh lembaga yang memiliki program pengabdian", "Memiliki min. 1 mitra (sudah ada Nota Kesepahaman/Kesepakatan tercatat di SIKERMA)" ] },
                 team: { leader: { title: "Ketua Pengabdi", description: "Dosen yang ditunjuk" }, members: { title: "Anggota Pengabdi", description: "2-4 orang Dosen dari lembaga tersebut" } },
                 outputs: { title: "Capaian Wajib", items: [ { name: "Video & Publikasi/HKI", description: "Hak Cipta Video Pengabdian; DAN Artikel accepted di jurnal nasional (min. SINTA), atau HKI tercatat/lolos pemeriksaan." } ] },
-                funding: { amount: "Rp 40.000.000", description: "Pendanaan maksimal." }, 
+                funding: { amount: "Terbatas", description: "Detail nominal pendanaan memerlukan akun email UNPAR aktif." }, 
                 duration: { period: "1 Semester / 1 Tahun", description: "Jangka waktu capaian adalah 2 tahun setelah pengajuan proposal" }
             },
             "penugasan": {
@@ -271,7 +274,7 @@
                 requirements: { title: "Persyaratan", items: [ "Ditunjuk oleh Rektor/Wakil Rektor/Kepala LPPM/Dekan, ditandai dengan surat tugas", "Memiliki minimum 1 mitra" ] },
                 team: { leader: { title: "Ketua Pengabdi", description: "Dosen yang diberi surat tugas" }, members: { title: "Anggota Pengabdi", description: "2-4 orang Dosen" } },
                 outputs: { title: "Capaian Wajib", items: [ { name: "Luaran Disepakati", description: "Hak Cipta Video Pengabdian, ATAU Artikel accepted (min SINTA), ATAU luaran bentuk lain yang disepakati dengan pemberi tugas/LPPM." } ] },
-                funding: { amount: "Rp 40.000.000", description: "Pendanaan maksimal untuk skema penugasan." }, 
+                funding: { amount: "Terbatas", description: "Detail nominal pendanaan memerlukan akun email UNPAR aktif." }, 
                 duration: { period: "1 Semester / 1 Tahun", description: "Jangka waktu capaian adalah 2 tahun setelah pengajuan proposal" }
             },
             "dana-pendamping": {
@@ -280,7 +283,7 @@
                 requirements: { title: "Persyaratan", items: [ "Dosen merupakan Ketua dalam Pengabdian dengan pendanaan eksternal", "Sumber dana eksternal mensyaratkan adanya dana pendamping dari Universitas" ] },
                 team: { leader: { title: "Tim Pengabdi", description: "Sesuai dengan keanggotaan pada pengabdian utama" } },
                 outputs: { title: "Capaian Wajib", items: [ { name: "Capaian Utama Eksternal", description: "Hak Cipta Video, ATAU Artikel SINTA, ATAU HKI, ATAU sesuai dengan capaian wajib skema pendanaan eksternal." } ] },
-                funding: { amount: "Rp 40.000.000", description: "Dana maksimal pendamping dari institusi." }, 
+                funding: { amount: "Terbatas", description: "Detail nominal pendanaan memerlukan akun email UNPAR aktif." }, 
                 duration: { period: "Sesuai Sumber Utama", description: "Jangka waktu capaian adalah 2 tahun setelah pengajuan proposal" }
             },
             "pengembangan-mahasiswa": {
@@ -289,7 +292,7 @@
                 requirements: { title: "Persyaratan", items: [ "Ketua adalah Dosen dengan jabatan fungsional minimal Asisten Ahli", "Memiliki minimum 1 mitra" ] },
                 team: { leader: { title: "Ketua Pengabdi", description: "Dosen Pembimbing" }, students: { title: "Anggota Mahasiswa", description: "4-6 orang Mahasiswa program Sarjana semester 2 - 4" } },
                 outputs: { title: "Capaian Wajib", items: [ { name: "Submit PKM", description: "Proposal Kreativitas Mahasiswa (PKM) dengan status minimal submit." } ] },
-                funding: { amount: "Rp 5.000.000", description: "Pendanaan maksimal per kelompok pengabdian." }, 
+                funding: { amount: "Terbatas", description: "Detail nominal pendanaan memerlukan akun email UNPAR aktif." }, 
                 duration: { period: "1 Semester", description: "Jangka waktu capaian sesuai dengan waktu pengumpulan laporan akhir" }
             }
         };
